@@ -1,11 +1,51 @@
 ---
-import Layout from "../layouts/Layout.astro"
+import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout title="About">
+<Layout title="About Us">
 
-<h2>About us</h2>
+<section class="about">
 
-<p>This site is built with Astro.</p>
+<h1>About TechReview</h1>
+
+<p>
+TechReview is a content-based website dedicated to helping students and everyday users choose the best technology products.
+Our mission is to simplify the buying process by providing clear comparisons, practical reviews, and easy-to-understand recommendations.
+</p>
+
+<p>
+We analyze product specifications, user feedback, and real-world usability to identify the most reliable and cost-effective options.
+Our goal is to save you time and help you make confident purchasing decisions.
+</p>
+
+<p>
+Some links on this website are affiliate links. If you purchase through these links, we may earn a small commission at no additional cost to you.
+This helps support the site and allows us to continue creating helpful content.
+</p>
+
+</section>
+
+<style>
+
+.about{
+max-width:800px;
+margin:60px auto;
+padding:0 20px;
+line-height:1.7;
+}
+
+.about h1{
+font-size:36px;
+margin-bottom:20px;
+text-align:center;
+}
+
+.about p{
+margin-bottom:20px;
+font-size:18px;
+color:#444;
+}
+
+</style>
 
 </Layout>
