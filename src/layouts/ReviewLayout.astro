@@ -4,40 +4,96 @@ import Layout from './Layout.astro';
 const { title, description, product, rating } = Astro.props;
 ---
 
-<Layout title={title} description={description}>
+<Layout title={title}>
+
+<section class="review-hero">
 
 <h1>{title}</h1>
 
-<p>{description}</p>
+<p class="description">{description}</p>
 
 <div class="review-box">
-  <h2>{product}</h2>
-  <p>Rating: {rating}/10</p>
 
-  <a class="btn" href="#" target="_blank">
-    Visit Official Website
-  </a>
+<div class="review-header">
+<h2>{product}</h2>
+
+<div class="rating">
+<span class="success">★ {rating}/10</span>
+</div>
 </div>
 
+<a class="btn" href="#" target="_blank" rel="nofollow sponsored">
+Visit Official Website
+</a>
+
+</div>
+
+</section>
+
+<section class="review-content">
 <slot />
+</section>
 
 <style>
-.review-box{
-border:1px solid #ddd;
-padding:20px;
-margin:30px 0;
-border-radius:10px;
+
+/* HERO */
+
+.review-hero{
+margin-top:20px;
 }
 
-.btn{
-display:inline-block;
-background:#26C485;
-color:white;
-padding:12px 20px;
-text-decoration:none;
-border-radius:6px;
+/* DESCRIPTION */
+
+.description{
+font-size:18px;
+max-width:700px;
+margin-bottom:30px;
+}
+
+/* REVIEW BOX */
+
+.review-box{
+border:1px solid #e5e7eb;
+padding:25px;
+border-radius:12px;
+background:white;
+margin:30px 0;
+}
+
+/* HEADER */
+
+.review-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:15px;
+}
+
+/* PRODUCT */
+
+.review-header h2{
+margin:0;
+}
+
+/* RATING */
+
+.rating{
+font-size:20px;
 font-weight:bold;
 }
+
+/* CONTENT */
+
+.review-content{
+max-width:800px;
+}
+
+/* BUTTON */
+
+.btn{
+margin-top:15px;
+}
+
 </style>
 
 </Layout>
