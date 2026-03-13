@@ -4,35 +4,65 @@ const { title } = Astro.props
 
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{title}</title>
 
 <style>
 
+/* COLOR SYSTEM */
+
+:root{
+
+--primary:#1e3a8a;
+--cta:#ff8a00;
+--cta-hover:#e67600;
+--success:#22c55e;
+--bg:#f5f7fb;
+--text:#1f2937;
+
+}
+
+/* BODY */
+
 body{
-  margin:0;
-  font-family: Arial, sans-serif;
-  color:#222;
+margin:0;
+font-family:Arial, sans-serif;
+background:var(--bg);
+color:var(--text);
+line-height:1.6;
+}
+
+/* LINKS */
+
+a{
+color:var(--primary);
+text-decoration:none;
+}
+
+a:hover{
+text-decoration:underline;
 }
 
 /* HEADER */
 
 header{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  padding:20px 40px;
-  border-bottom:1px solid #eee;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:20px 40px;
+background:white;
+border-bottom:1px solid #eee;
 }
 
 .logo{
-  font-size:22px;
-  font-weight:bold;
+font-size:22px;
+font-weight:bold;
 }
 
 .logo span{
-  color:#ff9900;
+color:var(--cta);
 }
 
 .logo a{
@@ -40,41 +70,67 @@ text-decoration:none;
 }
 
 nav a{
-  margin-left:20px;
-  text-decoration:none;
-  color:#333;
-  font-weight:500;
+margin-left:20px;
+color:#333;
+font-weight:500;
 }
 
 nav a:hover{
-  color:#ff9900;
+color:var(--cta);
 }
 
-/* MAIN */
+/* MAIN CONTENT */
 
 main{
-  max-width:1100px;
-  margin:auto;
+max-width:1100px;
+margin:auto;
+padding:40px 20px;
 }
 
-.disclosure {
-  text-align: center;
-  font-size: 13px;
-  color: #777;
-  max-width: 700px;
-  margin: 20px auto;
-  line-height: 1.6;
+/* BUTTONS */
+
+.btn{
+background:var(--cta);
+color:white;
+padding:14px 26px;
+border-radius:8px;
+font-weight:600;
+display:inline-block;
+transition:0.2s;
+}
+
+.btn:hover{
+background:var(--cta-hover);
+}
+
+/* SUCCESS TEXT */
+
+.success{
+color:var(--success);
+font-weight:bold;
+}
+
+/* DISCLOSURE */
+
+.disclosure{
+text-align:center;
+font-size:13px;
+color:#777;
+max-width:700px;
+margin:20px auto;
+line-height:1.6;
 }
 
 /* FOOTER */
 
 footer{
-  margin-top:80px;
-  padding:30px;
-  text-align:center;
-  border-top:1px solid #eee;
-  color:#666;
-  font-size:14px;
+margin-top:80px;
+padding:30px;
+text-align:center;
+border-top:1px solid #eee;
+color:#666;
+font-size:14px;
+background:white;
 }
 
 </style>
@@ -86,7 +142,7 @@ footer{
 <header>
 
 <div class="logo">
-  <a href="/">Tech<span>Review</span></a>
+<a href="/">Tech<span>Review</span></a>
 </div>
 
 <nav>
@@ -107,6 +163,7 @@ Disclosure: This page contains affiliate links. If you purchase through these li
 </p>
 
 <p>© 2026 TechReview. All rights reserved.</p>
+
 </footer>
 
 </body>
