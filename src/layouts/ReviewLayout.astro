@@ -1,0 +1,43 @@
+---
+import Layout from './Layout.astro';
+
+const { title, description, product, rating } = Astro.props;
+---
+
+<Layout title={title} description={description}>
+
+<h1>{title}</h1>
+
+<p>{description}</p>
+
+<div class="review-box">
+  <h2>{product}</h2>
+  <p>Rating: {rating}/10</p>
+
+  <a class="btn" href="#" target="_blank">
+    Visit Official Website
+  </a>
+</div>
+
+<slot />
+
+<style>
+.review-box{
+border:1px solid #ddd;
+padding:20px;
+margin:30px 0;
+border-radius:10px;
+}
+
+.btn{
+display:inline-block;
+background:#26C485;
+color:white;
+padding:12px 20px;
+text-decoration:none;
+border-radius:6px;
+font-weight:bold;
+}
+</style>
+
+</Layout>
