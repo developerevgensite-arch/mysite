@@ -4,12 +4,11 @@ import reviews from "../../data/reviews.json";
 
 export async function getStaticPaths() {
 
-  const wpTools = reviews.filter(
-    (review) => review.category === "wordpress-tools"
-  );
-
-  return wpTools.map((review) => ({
-    params: { slug: review.slug },
+  return reviews.map((review) => ({
+    params: {
+      category: review.category,
+      slug: review.slug
+    },
     props: { review }
   }));
 
@@ -57,15 +56,15 @@ Visit {review.name}
 <h2>Pros</h2>
 
 <ul>
-<li>Helps build and customize WordPress sites faster</li>
-<li>Visual interface suitable for non‑developers</li>
-<li>Works with popular themes and plugins</li>
+<li>Easy to use for beginners</li>
+<li>Reliable performance</li>
+<li>Good value for money</li>
 </ul>
 
 <h2>Cons</h2>
 
 <ul>
-<li>Too many add‑ons can impact site performance</li>
+<li>Some advanced features require higher plans</li>
 </ul>
 
 </section>

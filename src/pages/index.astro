@@ -1,58 +1,65 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import reviews from '../data/reviews.json';
+
+const hosting = reviews.filter(r => r.category === "hosting");
+const vpn = reviews.filter(r => r.category === "vpn");
+const wordpress = reviews.filter(r => r.category === "wordpress-tools");
 ---
 
 <Layout title="Best Digital Tools Reviews">
 
 <section class="hero hero-grid">
 
-    <div class="hero-text">
-    
-    <h1>Best Digital Tools and Services in 2026</h1>
-    
-    <p class="hero-subtitle">
-        We review the best hosting, VPN and digital tools to help you create websites, stay secure online and grow your projects.
-    </p>
-    
-    <div class="hero-buttons">
-    <a href="/hosting" class="btn hero-btn">
-    See Best Hosting
-    </a>
-    
-    <a href="/vpn" class="btn hero-btn-outline">
-    Best VPN Tools
-    </a>
-    </div>
-    
-    </div>
-    
-    
-    <div class="hero-image">
-    <img src="/hero-tools.png" alt="Digital tools illustration">
-    </div>
-        
+<div class="hero-text">
+
+<h1>Best Digital Tools and Services in 2026</h1>
+
+<p class="hero-subtitle">
+We review the best hosting, VPN and digital tools to help you create websites, stay secure online and grow your projects.
+</p>
+
+<div class="hero-buttons">
+
+<a href="/hosting" class="btn hero-btn">
+See Best Hosting
+</a>
+
+<a href="/vpn" class="btn hero-btn-outline">
+Best VPN Tools
+</a>
+
+</div>
+
+</div>
+
+<div class="hero-image">
+<img src="/hero-tools.png" alt="Digital tools illustration">
+</div>
+
 </section>
+
 
 <section class="featured-hosting">
 
-    <div class="featured-card">
-    
-    <div class="featured-badge">
-    Editor's Choice
-    </div>
-    
-    <h2>Hostinger</h2>
-    
-    <p>
-    Best hosting for beginners with fast performance and affordable pricing.
-    </p>
-    
-    <a href="/hosting/hostinger" class="btn">
-    Visit Hostinger
-    </a>
-    
-    </div>
-    
+<div class="featured-card">
+
+<div class="featured-badge">
+Editor's Choice
+</div>
+
+<h2>Hostinger</h2>
+
+<p>
+Best hosting for beginners with fast performance and affordable pricing.
+</p>
+
+<a href="/hosting/hostinger" class="btn">
+Visit Hostinger
+</a>
+
+</div>
+
 </section>
 
 
@@ -60,30 +67,23 @@ import Layout from '../layouts/Layout.astro';
 
 <div class="tools-grid">
 
-<div class="tool-card">
-<h3>Hostinger</h3>
-
-<p>
-Affordable hosting with fast servers and beginner-friendly setup.
-</p>
-
-<a href="/hosting/hostinger" class="btn">
-Read Review
-</a>
-</div>
-
+{hosting.map((item) => (
 
 <div class="tool-card">
-<h3>InterServer</h3>
+
+<h3>{item.name}</h3>
 
 <p>
-Reliable VPS and shared hosting with strong performance.
+{item.description}
 </p>
 
-<a href="/hosting/interserver" class="btn">
+<a href={`/${item.category}/${item.slug}`} class="btn">
 Read Review
 </a>
+
 </div>
+
+))}
 
 </div>
 
@@ -93,30 +93,23 @@ Read Review
 
 <div class="tools-grid">
 
-<div class="tool-card">
-<h3>NordVPN</h3>
-
-<p>
-One of the most secure VPN services for privacy and streaming.
-</p>
-
-<a href="/vpn/nordvpn" class="btn">
-Read Review
-</a>
-</div>
-
+{vpn.map((item) => (
 
 <div class="tool-card">
-<h3>CyberGhost</h3>
+
+<h3>{item.name}</h3>
 
 <p>
-User-friendly VPN with strong encryption and fast servers.
+{item.description}
 </p>
 
-<a href="/vpn/cyberghost" class="btn">
+<a href={`/${item.category}/${item.slug}`} class="btn">
 Read Review
 </a>
+
 </div>
+
+))}
 
 </div>
 
@@ -126,17 +119,23 @@ Read Review
 
 <div class="tools-grid">
 
+{wordpress.map((item) => (
+
 <div class="tool-card">
-<h3>Elementor</h3>
+
+<h3>{item.name}</h3>
 
 <p>
-The most popular WordPress page builder used by millions of websites.
+{item.description}
 </p>
 
-<a href="/wordpress-tools/elementor" class="btn">
+<a href={`/${item.category}/${item.slug}`} class="btn">
 Read Review
 </a>
+
 </div>
+
+))}
 
 </div>
 
