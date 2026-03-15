@@ -2,13 +2,17 @@
 import Layout from "../../layouts/Layout.astro";
 import reviews from "../../data/reviews.json";
 
-const wpTools = reviews.filter((review) => review.category === "wordpress-tools");
-
 export async function getStaticPaths() {
+
+  const wpTools = reviews.filter(
+    (review) => review.category === "wordpress-tools"
+  );
+
   return wpTools.map((review) => ({
     params: { slug: review.slug },
     props: { review }
   }));
+
 }
 
 const { review } = Astro.props;

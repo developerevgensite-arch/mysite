@@ -2,15 +2,17 @@
 import Layout from "../../layouts/Layout.astro";
 import reviews from "../../data/reviews.json";
 
-const toolsReviews = reviews.filter(
-  (review) => review.category === "tools"
-);
-
 export async function getStaticPaths() {
+
+  const toolsReviews = reviews.filter(
+    (review) => review.category === "tools"
+  );
+
   return toolsReviews.map((review) => ({
     params: { slug: review.slug },
     props: { review }
   }));
+
 }
 
 const { review } = Astro.props;
