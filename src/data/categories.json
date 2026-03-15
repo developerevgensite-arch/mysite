@@ -1,0 +1,22 @@
+[
+  {
+    "slug": "hosting",
+    "name": "Hosting",
+    "description": "Web hosting services like Hostinger, Bluehost, SiteGround"
+  },
+  {
+    "slug": "wordpress-tools",
+    "name": "WordPress Tools",
+    "description": "WordPress plugins, builders, and themes"
+  },
+  {
+    "slug": "vpn",
+    "name": "VPN",
+    "description": "Virtual private network tools like NordVPN, Surfshark"
+  },
+  {
+    "slug": "security",
+    "name": "Security",
+    "description": "Security tools like password managers and antivirus"
+  }
+]

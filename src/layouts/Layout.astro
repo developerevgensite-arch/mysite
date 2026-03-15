@@ -1,156 +1,52 @@
 ---
+import "../styles/global.css";
+
 const { title } = Astro.props
 ---
 
 <html lang="en">
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{title}</title>
+    <meta charset="UTF-8">
+        
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+    <title>{title}</title>
+        
+    <meta name="description" content="Reviews of the best hosting, VPN and WordPress tools to build fast and secure websites.">
+    
+    <meta name="robots" content="index, follow">
 
-<style>
-
-/* COLOR SYSTEM */
-
-:root{
-
---primary:#1e3a8a;
---cta:#ff8a00;
---cta-hover:#e67600;
---success:#22c55e;
---bg:#f5f7fb;
---text:#1f2937;
-
-}
-
-/* BODY */
-
-body{
-margin:0;
-font-family:Arial, sans-serif;
-background:var(--bg);
-color:var(--text);
-line-height:1.6;
-}
-
-/* LINKS */
-
-a{
-color:var(--primary);
-text-decoration:none;
-}
-
-a:hover{
-text-decoration:underline;
-}
-
-/* HEADER */
-
-header{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:20px 40px;
-background:white;
-border-bottom:1px solid #eee;
-}
-
-.logo{
-font-size:22px;
-font-weight:bold;
-}
-
-.logo span{
-color:var(--cta);
-}
-
-.logo a{
-text-decoration:none;
-}
-
-nav a{
-margin-left:20px;
-color:#333;
-font-weight:500;
-}
-
-nav a:hover{
-color:var(--cta);
-}
-
-/* MAIN CONTENT */
-
-main{
-max-width:1100px;
-margin:auto;
-padding:40px 20px;
-}
-
-/* BUTTONS */
-
-.btn{
-background:var(--cta);
-color:white;
-padding:14px 26px;
-border-radius:8px;
-font-weight:600;
-display:inline-block;
-transition:0.2s;
-}
-
-.btn:hover{
-background:var(--cta-hover);
-}
-
-/* SUCCESS TEXT */
-
-.success{
-color:var(--success);
-font-weight:bold;
-}
-
-/* DISCLOSURE */
-
-.disclosure{
-text-align:center;
-font-size:13px;
-color:#777;
-max-width:700px;
-margin:20px auto;
-line-height:1.6;
-}
-
-/* FOOTER */
-
-footer{
-margin-top:80px;
-padding:30px;
-text-align:center;
-border-top:1px solid #eee;
-color:#666;
-font-size:14px;
-background:white;
-}
-
-</style>
+    <link rel="canonical" href={Astro.url.href} />
+        
+    <link rel="icon" type="image/svg+xml" href="/favicon2.svg" />
 
 </head>
 
 <body>
 
-<header>
+    <header class="header">
 
-<div class="logo">
-<a href="/">Tech<span>Review</span></a>
-</div>
-
-<nav>
-<a href="/">Home</a>
-<a href="/about">About</a>
-</nav>
-
-</header>
+        <div class="logo">
+        <a href="/">Tech<span>Review</span></a>
+        </div>
+        
+        <button class="menu-toggle" aria-label="Menu">
+        ☰
+        </button>
+        
+        <nav class="menu" aria-label="Main navigation">
+        
+        <a href="/">Home</a>
+        <a href="/hosting">Hosting</a>
+        <a href="/vpn">VPN</a>
+        <a href="/security">Security</a>
+        <a href="/wordpress-tools">WordPress Tools</a>
+        <a href="/about">About</a>
+        
+        </nav>
+        
+    </header>
 
 <main>
 <slot />
@@ -158,13 +54,30 @@ background:white;
 
 <footer>
 
-<p class="disclosure">
-Disclosure: This page contains affiliate links. If you purchase through these links, we may earn a commission at no additional cost to you.
-</p>
+    <nav class="footer-links">
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
+    <a href="/privacy-policy">Privacy Policy</a>
+    <a href="/affiliate-disclosure">Affiliate Disclosure</a>
+    </nav>
+    
+    <p class="disclosure">
+    Disclosure: This page contains affiliate links. If you purchase through these links, we may earn a commission at no additional cost to you.
+    </p>
+    
+    <p>© 2026 TechReview. All rights reserved.</p>
+    
+    </footer>
 
-<p>© 2026 TechReview. All rights reserved.</p>
+    <script>
 
-</footer>
-
+        const toggle = document.querySelector(".menu-toggle");
+        const menu = document.querySelector(".menu");
+        
+        toggle.addEventListener("click", () => {
+        menu.classList.toggle("show");
+        });
+        
+    </script>
 </body>
 </html>

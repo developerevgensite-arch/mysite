@@ -1,0 +1,77 @@
+[
+  {
+    "slug": "hostinger",
+    "name": "Hostinger",
+    "title": "Hostinger Review",
+    "description": "Affordable web hosting with fast performance.",
+    "category": "hosting",
+    "rating": 4.8,
+    "affiliate": "https://your-affiliate-link.com"
+  },
+
+  {
+    "slug": "interserver",
+    "name": "InterServer",
+    "title": "InterServer Review",
+    "description": "Reliable VPS and shared hosting with strong performance and affordable pricing.",
+    "category": "hosting",
+    "rating": 4.8,
+    "affiliate": "https://your-affiliate-link.com"
+  },
+
+  {
+    "slug": "bluehost",
+    "name": "Bluehost",
+    "title": "Bluehost Review",
+    "description": "Popular hosting provider recommended for beginners.",
+    "category": "hosting",
+    "rating": 4.6,
+    "affiliate": "https://your-affiliate-link.com"
+  },
+  {
+    "slug": "nordvpn",
+    "name": "NordVPN",
+    "title": "NordVPN Review",
+    "description": "Secure VPN for privacy and streaming.",
+    "category": "vpn",
+    "rating": 4.9,
+    "affiliate": "https://your-affiliate-link.com"
+  },
+  {
+    "slug": "surfshark",
+    "name": "Surfshark",
+    "title": "Surfshark VPN Review",
+    "description": "Affordable VPN with unlimited devices.",
+    "category": "vpn",
+    "rating": 4.7,
+    "affiliate": "https://your-affiliate-link.com"
+  },
+  {
+    "slug": "elementor",
+    "name": "Elementor",
+    "title": "Elementor Page Builder Review",
+    "description": "Complete Elementor review with features, pricing, pros and cons.",
+    "category": "wordpress-tools",
+    "rating": 4.7,
+    "affiliate": "https://your-affiliate-link.com"
+  },
+  {
+    "slug": "1password",
+    "name": "1Password",
+    "title": "1Password Review",
+    "description": "Secure password manager for individuals and teams.",
+    "category": "security",
+    "rating": 4.8,
+    "affiliate": "https://your-affiliate-link.com"
+  },
+  {
+    "slug": "cloudways",
+    "name": "Cloudways",
+    "title": "Cloudways Hosting Review",
+    "description": "Managed cloud hosting platform for fast WordPress websites.",
+    "category": "hosting",
+    "rating": 4.8,
+    "affiliate": "https://your-affiliate-link.com"
+  }
+
+]

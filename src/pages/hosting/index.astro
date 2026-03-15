@@ -1,0 +1,90 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import reviews from "../../data/reviews.json";
+
+const hostingReviews = reviews
+  .filter((review) => review.category === "hosting")
+  .sort((a, b) => b.rating - a.rating);
+---
+
+<Layout title="Best Web Hosting Services in 2026">
+
+<section class="category-hero">
+
+<h1>Best Web Hosting Services</h1>
+
+<p class="category-subtitle">
+Compare the top hosting providers for blogs, business websites and online projects.
+</p>
+
+</section>
+
+<section class="tools-grid">
+
+{hostingReviews.map((item) => (
+  <article class="tool-card">
+    <h2>{item.name}</h2>
+    <p>{item.description}</p>
+    <div class="tool-meta">
+      <span class="rating">⭐ {item.rating} / 5</span>
+    </div>
+    <a href={`/hosting/${item.slug}`} class="btn">
+      Read Review
+    </a>
+  </article>
+))}
+
+</section>
+
+<style>
+
+.category-hero{
+max-width:900px;
+margin:auto;
+padding:40px 20px 10px;
+text-align:left;
+}
+
+.category-subtitle{
+font-size:18px;
+color:#555;
+margin-top:10px;
+}
+
+.tools-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:20px;
+margin:20px auto 40px;
+max-width:1000px;
+padding:0 20px;
+}
+
+.tool-card{
+background:#fff;
+border-radius:12px;
+padding:20px;
+box-shadow:0 5px 20px rgba(0,0,0,0.04);
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.tool-meta{
+font-size:14px;
+color:#444;
+}
+
+.rating{
+font-weight:bold;
+color:#2e7d32;
+}
+
+.btn{
+margin-top:5px;
+align-self:flex-start;
+}
+
+</style>
+
+</Layout>
