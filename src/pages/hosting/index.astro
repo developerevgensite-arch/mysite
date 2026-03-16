@@ -5,6 +5,46 @@ import reviews from "../../data/reviews.json";
 const hostingReviews = reviews
   .filter((review) => review.category === "hosting")
   .sort((a, b) => b.rating - a.rating);
+// faq
+const faqItems = [
+  {
+    q: "What type of hosting should I choose in 2026?",
+    a: "For most new websites, shared hosting is the cheapest start. If you expect steady traffic growth, choose managed WordPress hosting. For performance and full control, VPS or cloud hosting is the best upgrade."
+  },
+  {
+    q: "How much does web hosting cost per month?",
+    a: "Entry plans are often $2–$6/month on long-term deals. Managed WordPress and cloud hosting are usually $10–$30+/month. Renewal prices can be higher than the first-term promo."
+  },
+  {
+    q: "Do I need a domain name to buy hosting?",
+    a: "Not обязательно. Many hosts let you start without a domain and connect it later. If you already own a domain, you can point DNS to your hosting provider in a few minutes."
+  },
+  {
+    q: "What matters most for speed and SEO: servers or WordPress plugins?",
+    a: "Both, but hosting sets the baseline. Fast PHP/CPU, SSD storage, good caching and a nearby datacenter help the most. Plugins can optimize images and caching, but they can’t fully fix slow servers."
+  },
+  {
+    q: "Is “free SSL” important?",
+    a: "Yes. SSL (HTTPS) is required for trust and basic security, and it’s a standard expectation for modern websites. Most good hosts include a free Let’s Encrypt SSL."
+  },
+  {
+    q: "Can I migrate my website to another host later?",
+    a: "Yes. You can usually migrate by copying files and databases or using a migration plugin. Many providers offer free migration for WordPress sites, which makes switching easier."
+  }
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqItems.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.a
+    }
+  }))
+};
 ---
 
 <Layout title="Best Web Hosting Services in 2026">
@@ -12,6 +52,11 @@ const hostingReviews = reviews
 <section class="category-hero">
 
 <h1>Best Web Hosting Services</h1>
+
+<p class="category-text">
+  Looking for the best web hosting service in 2026? 
+  We reviewed the most popular hosting providers including Hostinger, Bluehost and Cloudways to help you choose the right solution for your website.
+</p>
 
 <p class="category-subtitle">
 Compare the top hosting providers for blogs, business websites and online projects.
@@ -35,17 +80,44 @@ Compare the top hosting providers for blogs, business websites and online projec
 ))}
 
 </section>
+<!-- faq -->
+<section class="faq" aria-label="Hosting FAQ">
+  <div class="faq-inner">
+    <h2>Hosting FAQ</h2>
+    <p class="faq-subtitle">
+      Quick answers to common questions about choosing web hosting.
+    </p>
+
+    <div class="faq-list">
+      {faqItems.map((item) => (
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>{item.q}</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p>{item.a}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json">
+  {JSON.stringify(faqJsonLd)}
+</script>
 
 <style>
 
 .category-hero{
 max-width:900px;
 margin:auto;
-padding:40px 20px 10px;
+padding:20px 20px 10px;
 text-align:left;
 }
 
-.category-subtitle{
+.category-subtitle,.category-text {
 font-size:18px;
 color:#555;
 margin-top:10px;
@@ -83,6 +155,86 @@ color:#2e7d32;
 .btn{
 margin-top:5px;
 align-self:flex-start;
+}
+/* faq */
+.faq{
+max-width:1000px;
+margin:0 auto 40px;
+padding:0 20px;
+}
+
+.faq-inner{
+background:white;
+border-radius:12px;
+box-shadow:0 5px 20px rgba(0,0,0,0.04);
+padding:22px;
+}
+
+.faq-inner h2{
+margin-top:0;
+margin-bottom:10px;
+}
+
+.faq-subtitle{
+margin:0 0 18px;
+font-size:16px;
+color:#555;
+max-width:760px;
+}
+
+.faq-list{
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.faq-item{
+border:1px solid #eceff3;
+border-radius:10px;
+background:#fff;
+overflow:hidden;
+}
+
+.faq-question{
+list-style:none;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:16px;
+padding:14px 16px;
+cursor:pointer;
+font-weight:700;
+color:#111827;
+}
+
+.faq-question::-webkit-details-marker{
+display:none;
+}
+
+.faq-icon{
+width:28px;
+height:28px;
+border-radius:8px;
+display:grid;
+place-items:center;
+background:#fff2e5;
+color:#b45309;
+font-weight:800;
+flex:0 0 auto;
+transition:transform .15s ease;
+}
+
+.faq-item[open] .faq-icon{
+transform:rotate(45deg);
+}
+
+.faq-answer{
+padding:0 16px 16px;
+color:#4b5563;
+}
+
+.faq-answer p{
+margin:0;
 }
 
 </style>

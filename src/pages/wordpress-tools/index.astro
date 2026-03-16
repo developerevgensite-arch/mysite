@@ -5,6 +5,46 @@ import reviews from "../../data/reviews.json";
 const wpTools = reviews
   .filter((review) => review.category === "wordpress-tools")
   .sort((a, b) => b.rating - a.rating);
+// faq
+const faqItems = [
+  {
+    q: "What WordPress tools do I need to launch a site in 2026?",
+    a: "Most sites need a good theme, a page builder (optional), a caching/performance plugin, SEO basics, security hardening, and backups. Pick fewer, higher‑quality plugins to avoid bloat."
+  },
+  {
+    q: "Are page builders like Elementor bad for speed?",
+    a: "They can be fast if you keep layouts simple, use optimized hosting, caching, and avoid heavy add‑ons. The biggest speed wins usually come from hosting, caching, image optimization, and reducing unused plugins."
+  },
+  {
+    q: "How many plugins is too many?",
+    a: "There is no perfect number, but more plugins means more updates, potential conflicts, and overhead. Focus on reputable plugins that replace multiple smaller ones and remove anything you don’t use."
+  },
+  {
+    q: "Do I need a dedicated SEO plugin?",
+    a: "Often yes. An SEO plugin helps manage titles, meta descriptions, sitemaps, schema, and indexing controls. However, it won’t replace good content, internal links, and fast page speed."
+  },
+  {
+    q: "What’s the best way to back up a WordPress site?",
+    a: "Use automated off‑site backups (cloud storage), keep multiple restore points, and test restores. A good host backup is helpful, but independent backups give you more control."
+  },
+  {
+    q: "How do I avoid plugin conflicts?",
+    a: "Keep WordPress/core/theme/plugins updated, avoid abandoned plugins, and test changes on staging if possible. If something breaks, disable recently added plugins first to isolate the issue."
+  }
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqItems.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.a
+    }
+  }))
+};
 ---
 
 <Layout title="Best WordPress Tools in 2026">
@@ -35,6 +75,33 @@ Discover the best plugins and builders to design, optimize and grow WordPress si
 ))}
 
 </section>
+<!-- faq -->
+<section class="faq" aria-label="WordPress tools FAQ">
+  <div class="faq-inner">
+    <h2>WordPress Tools FAQ</h2>
+    <p class="faq-subtitle">
+      Quick answers to common questions about WordPress plugins, builders and performance.
+    </p>
+
+    <div class="faq-list">
+      {faqItems.map((item) => (
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>{item.q}</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p>{item.a}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json">
+  {JSON.stringify(faqJsonLd)}
+</script>
 
 <style>
 
@@ -83,6 +150,86 @@ color:#2e7d32;
 .btn{
 margin-top:5px;
 align-self:flex-start;
+}
+/* faq */
+.faq{
+max-width:1000px;
+margin:0 auto 40px;
+padding:0 20px;
+}
+
+.faq-inner{
+background:white;
+border-radius:12px;
+box-shadow:0 5px 20px rgba(0,0,0,0.04);
+padding:22px;
+}
+
+.faq-inner h2{
+margin-top:0;
+margin-bottom:10px;
+}
+
+.faq-subtitle{
+margin:0 0 18px;
+font-size:16px;
+color:#555;
+max-width:760px;
+}
+
+.faq-list{
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.faq-item{
+border:1px solid #eceff3;
+border-radius:10px;
+background:#fff;
+overflow:hidden;
+}
+
+.faq-question{
+list-style:none;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:16px;
+padding:14px 16px;
+cursor:pointer;
+font-weight:700;
+color:#111827;
+}
+
+.faq-question::-webkit-details-marker{
+display:none;
+}
+
+.faq-icon{
+width:28px;
+height:28px;
+border-radius:8px;
+display:grid;
+place-items:center;
+background:#fff2e5;
+color:#b45309;
+font-weight:800;
+flex:0 0 auto;
+transition:transform .15s ease;
+}
+
+.faq-item[open] .faq-icon{
+transform:rotate(45deg);
+}
+
+.faq-answer{
+padding:0 16px 16px;
+color:#4b5563;
+}
+
+.faq-answer p{
+margin:0;
 }
 
 </style>

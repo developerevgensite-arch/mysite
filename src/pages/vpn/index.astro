@@ -5,6 +5,46 @@ import reviews from "../../data/reviews.json";
 const vpnReviews = reviews
   .filter((review) => review.category === "vpn")
   .sort((a, b) => b.rating - a.rating);
+
+const faqItems = [
+  {
+    q: "Do I really need a VPN in 2026?",
+    a: "A VPN is useful on public Wi‑Fi, when traveling, and for extra privacy from your ISP. It also helps access geo‑restricted websites and streaming libraries, depending on the provider."
+  },
+  {
+    q: "Will a VPN slow down my internet?",
+    a: "Usually a little. Speed depends on the VPN protocol, server distance, and your base connection. Top providers can be very fast on nearby servers and modern protocols like WireGuard."
+  },
+  {
+    q: "Is a “no‑logs policy” important?",
+    a: "Yes. A no‑logs policy means the provider claims it doesn’t store identifiable activity logs. For higher trust, look for independent audits, transparency reports, and a clear privacy policy."
+  },
+  {
+    q: "What is the difference between VPN protocols (WireGuard, OpenVPN, IKEv2)?",
+    a: "WireGuard is typically the fastest and simplest modern choice. OpenVPN is widely supported and very configurable. IKEv2 is great for mobile devices and quick reconnects when switching networks."
+  },
+  {
+    q: "Can I use a VPN for streaming?",
+    a: "Many VPNs work with streaming, but results change over time. Choose providers with a large server network, strong speeds, and a track record of reliable access to streaming platforms."
+  },
+  {
+    q: "How many devices can I protect with one VPN subscription?",
+    a: "It depends. Some services allow 5–10 devices, while others offer unlimited connections. If you have many devices at home, unlimited or router support can be a big advantage."
+  }
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqItems.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.a
+    }
+  }))
+};
 ---
 
 <Layout title="Best VPN Services in 2026">
@@ -35,6 +75,33 @@ Stay private online, unblock content and protect your data with trusted VPN prov
 ))}
 
 </section>
+
+<section class="faq" aria-label="VPN FAQ">
+  <div class="faq-inner">
+    <h2>VPN FAQ</h2>
+    <p class="faq-subtitle">
+      Quick answers to common questions about VPN services.
+    </p>
+
+    <div class="faq-list">
+      {faqItems.map((item) => (
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>{item.q}</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p>{item.a}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script type="application/ld+json">
+  {JSON.stringify(faqJsonLd)}
+</script>
 
 <style>
 
@@ -83,6 +150,86 @@ color:#2e7d32;
 .btn{
 margin-top:5px;
 align-self:flex-start;
+}
+
+.faq{
+max-width:1000px;
+margin:0 auto 40px;
+padding:0 20px;
+}
+
+.faq-inner{
+background:white;
+border-radius:12px;
+box-shadow:0 5px 20px rgba(0,0,0,0.04);
+padding:22px;
+}
+
+.faq-inner h2{
+margin-top:0;
+margin-bottom:10px;
+}
+
+.faq-subtitle{
+margin:0 0 18px;
+font-size:16px;
+color:#555;
+max-width:760px;
+}
+
+.faq-list{
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.faq-item{
+border:1px solid #eceff3;
+border-radius:10px;
+background:#fff;
+overflow:hidden;
+}
+
+.faq-question{
+list-style:none;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:16px;
+padding:14px 16px;
+cursor:pointer;
+font-weight:700;
+color:#111827;
+}
+
+.faq-question::-webkit-details-marker{
+display:none;
+}
+
+.faq-icon{
+width:28px;
+height:28px;
+border-radius:8px;
+display:grid;
+place-items:center;
+background:#fff2e5;
+color:#b45309;
+font-weight:800;
+flex:0 0 auto;
+transition:transform .15s ease;
+}
+
+.faq-item[open] .faq-icon{
+transform:rotate(45deg);
+}
+
+.faq-answer{
+padding:0 16px 16px;
+color:#4b5563;
+}
+
+.faq-answer p{
+margin:0;
 }
 
 </style>
