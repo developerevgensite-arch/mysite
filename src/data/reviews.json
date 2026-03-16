@@ -6,7 +6,25 @@
     "description": "Affordable web hosting with fast performance.",
     "category": "hosting",
     "rating": 4.8,
-    "affiliate": "https://your-affiliate-link.com"
+    "affiliate": "https://your-affiliate-link.com",
+    "faq": [
+      {
+        "q": "Is Hostinger good for beginners?",
+        "a": "Yes. Hostinger is generally beginner-friendly thanks to a simple dashboard, one-click installs, and affordable starter plans."
+      },
+      {
+        "q": "Does Hostinger include a free SSL certificate?",
+        "a": "Most Hostinger plans include a free SSL, which helps keep your site on HTTPS and improves trust for visitors."
+      },
+      {
+        "q": "Can I host WordPress on Hostinger?",
+        "a": "Yes. Hostinger supports WordPress and offers plans optimized for WordPress websites, including easy installs and caching options."
+      },
+      {
+        "q": "Can I migrate my site to Hostinger?",
+        "a": "In many cases, yes. You can migrate manually or use a migration service/tool depending on your site type."
+      }
+    ]
   },
 
   {
@@ -16,7 +34,25 @@
     "description": "Reliable VPS and shared hosting with strong performance and affordable pricing.",
     "category": "hosting",
     "rating": 4.8,
-    "affiliate": "https://your-affiliate-link.com"
+    "affiliate": "https://your-affiliate-link.com",
+    "faq": [
+      {
+        "q": "What is InterServer best known for?",
+        "a": "InterServer is known for value-focused hosting plans and a range of options including shared hosting and VPS."
+      },
+      {
+        "q": "Is InterServer good for VPS hosting?",
+        "a": "It can be a solid option if you want more control than shared hosting, with resources you can scale based on your needs."
+      },
+      {
+        "q": "Does InterServer support WordPress?",
+        "a": "Yes. You can install WordPress and run WordPress websites on InterServer hosting."
+      },
+      {
+        "q": "Do they offer migration help?",
+        "a": "Many hosting providers offer migration options. If available, it can reduce downtime when switching hosts."
+      }
+    ]
   },
 
   {
@@ -26,7 +62,25 @@
     "description": "Popular hosting provider recommended for beginners.",
     "category": "hosting",
     "rating": 4.6,
-    "affiliate": "https://your-affiliate-link.com"
+    "affiliate": "https://your-affiliate-link.com",
+    "faq": [
+      {
+        "q": "Is Bluehost a good choice for a first website?",
+        "a": "Bluehost is commonly chosen by beginners because setup is straightforward and there are WordPress-focused plans."
+      },
+      {
+        "q": "Does Bluehost offer WordPress hosting?",
+        "a": "Yes. Bluehost offers WordPress hosting plans and supports one-click WordPress installs."
+      },
+      {
+        "q": "Do I get email hosting with Bluehost?",
+        "a": "Many plans include email accounts, but it depends on the package. Check the plan details before purchasing."
+      },
+      {
+        "q": "What should I watch for when buying hosting?",
+        "a": "Pay attention to renewal pricing, included backups, SSL, support quality, and performance features like caching."
+      }
+    ]
   },
   {
     "slug": "nordvpn",
@@ -35,7 +89,25 @@
     "description": "Secure VPN for privacy and streaming.",
     "category": "vpn",
     "rating": 4.9,
-    "affiliate": "https://your-affiliate-link.com"
+    "affiliate": "https://your-affiliate-link.com",
+    "faq": [
+      {
+        "q": "Is NordVPN good for privacy?",
+        "a": "NordVPN is a popular choice for privacy features like strong encryption and advanced protection tools, depending on the plan."
+      },
+      {
+        "q": "Can I use NordVPN for streaming?",
+        "a": "It often works well for streaming, but availability can vary by region and platform over time."
+      },
+      {
+        "q": "Will NordVPN slow down my connection?",
+        "a": "Any VPN can reduce speed slightly. Using nearby servers and modern protocols usually keeps performance high."
+      },
+      {
+        "q": "How many devices can I use?",
+        "a": "Device limits depend on your subscription terms. Many VPNs allow multiple devices per account."
+      }
+    ]
   },
   {
     "slug": "cyberghost",
@@ -44,7 +116,25 @@
     "description": "User-friendly VPN with strong encryption and fast servers.",
     "category": "vpn",
     "rating": 4.7,
-    "affiliate": "https://your-affiliate-link.com"
+    "affiliate": "https://your-affiliate-link.com",
+    "faq": [
+      {
+        "q": "Is CyberGhost easy to use?",
+        "a": "Yes. CyberGhost is known for a simple interface and dedicated server categories for common use cases."
+      },
+      {
+        "q": "Does CyberGhost support streaming and torrenting?",
+        "a": "It offers servers optimized for different activities, but results can vary depending on location and service policies."
+      },
+      {
+        "q": "What devices are supported?",
+        "a": "CyberGhost typically supports desktop and mobile apps and can be used on multiple devices depending on your plan."
+      },
+      {
+        "q": "Is a no-logs policy important?",
+        "a": "Yes. A no-logs policy helps reduce the amount of activity data stored by a provider; verify details in the privacy policy."
+      }
+    ]
   },
   {
     "slug": "elementor",
@@ -53,7 +143,25 @@
     "description": "Complete Elementor review with features, pricing, pros and cons.",
     "category": "wordpress-tools",
     "rating": 4.7,
-    "affiliate": "https://your-affiliate-link.com"
+    "affiliate": "https://your-affiliate-link.com",
+    "faq": [
+      {
+        "q": "Is Elementor good for beginners?",
+        "a": "Yes. Elementor makes it easier to build pages with a visual editor, even if you don’t code."
+      },
+      {
+        "q": "Can Elementor affect site speed?",
+        "a": "It can if pages are heavy. Keep designs simple, use good hosting, caching, and avoid unnecessary add-ons."
+      },
+      {
+        "q": "Does Elementor work with most themes?",
+        "a": "In most cases, yes. Elementor is compatible with many WordPress themes, especially lightweight, well-coded themes."
+      },
+      {
+        "q": "Do I need Elementor Pro?",
+        "a": "Not always. The free version is enough for basic sites; Pro adds advanced widgets, Theme Builder, and marketing features."
+      }
+    ]
   },
   {
     "slug": "1password",
@@ -62,7 +170,25 @@
     "description": "Secure password manager for individuals and teams.",
     "category": "security",
     "rating": 4.8,
-    "affiliate": "https://your-affiliate-link.com"
+    "affiliate": "https://your-affiliate-link.com",
+    "faq": [
+      {
+        "q": "Is 1Password worth it compared to free managers?",
+        "a": "Paid plans often add stronger sharing features, better cross-device sync, and advanced security options that can be worth it for many users."
+      },
+      {
+        "q": "Can 1Password store more than passwords?",
+        "a": "Yes. It can store secure notes, credit cards, IDs, and other sensitive information in an encrypted vault."
+      },
+      {
+        "q": "Does 1Password support 2FA codes?",
+        "a": "Many password managers can store one-time codes. Check your plan and settings to use built-in 2FA where available."
+      },
+      {
+        "q": "Is it safe to keep everything in one vault?",
+        "a": "A reputable password manager encrypts your data with a master password. Use a strong master password and enable 2FA for your account."
+      }
+    ]
   },
   {
     "slug": "cloudways",
@@ -71,7 +197,25 @@
     "description": "Managed cloud hosting platform for fast WordPress websites.",
     "category": "hosting",
     "rating": 4.8,
-    "affiliate": "https://your-affiliate-link.com"
+    "affiliate": "https://your-affiliate-link.com",
+    "faq": [
+      {
+        "q": "What is Cloudways best for?",
+        "a": "Cloudways is best for managed cloud hosting, especially for WordPress sites that need good performance without full server admin work."
+      },
+      {
+        "q": "Is Cloudways shared hosting?",
+        "a": "No. It’s managed cloud hosting where your server resources are allocated per plan/provider rather than shared like basic shared hosting."
+      },
+      {
+        "q": "Is Cloudways good for WordPress speed?",
+        "a": "It can be. Managed stacks, caching, and scalable resources can improve performance when configured correctly."
+      },
+      {
+        "q": "Do I need technical skills for Cloudways?",
+        "a": "Less than traditional VPS, but you still benefit from basic knowledge about domains, DNS, and WordPress maintenance."
+      }
+    ]
   }
 
 ]

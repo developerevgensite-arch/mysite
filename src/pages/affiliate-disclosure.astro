@@ -1,0 +1,160 @@
+---
+import Layout from "../layouts/Layout.astro";
+---
+
+<Layout
+  title="Affiliate Disclosure - TechReview"
+  description="Read how TechReview uses affiliate links, how commissions work, and how we keep our reviews honest and independent."
+>
+
+<section class="disclosure-page">
+
+  <h1>Affiliate Disclosure</h1>
+
+  <p class="lead">
+    Some links on TechReview are affiliate links. This means we may earn a commission
+    if you make a purchase through these links, at no additional cost to you.
+  </p>
+
+  <div class="disclosure-card">
+
+    <h2>What Are Affiliate Links?</h2>
+    <p>
+      Affiliate links are special URLs that let a company know a visitor came from our website.
+      If you decide to sign up for a service or purchase a product after clicking one of these links,
+      we may receive a small commission or referral fee.
+    </p>
+    <p>
+      This arrangement helps support TechReview and allows us to keep publishing free content,
+      guides and reviews.
+    </p>
+
+    <h2>How Affiliate Links Affect You</h2>
+    <p>
+      Using an affiliate link does <strong>not</strong> change the price you pay.
+      In many cases, we try to negotiate special discounts or bonuses so that our readers
+      get equal or better pricing than going directly to the provider.
+    </p>
+
+    <h2>How We Choose Products and Services</h2>
+    <p>
+      We only recommend tools and services that we believe can genuinely help our readers:
+    </p>
+    <ul>
+      <li>We consider performance, reliability, support and real user experience.</li>
+      <li>We compare pricing, features and limitations across multiple providers.</li>
+      <li>Our opinions are based on research and testing, not on which partner pays the highest commission.</li>
+    </ul>
+    <p>
+      Our goal is to give you clear, honest information so you can choose the best option for your situation.
+    </p>
+
+    <h2>Independence and Transparency</h2>
+    <p>
+      We do our best to keep reviews up to date and balanced. However, you should always do your own research
+      before making a final decision, especially for long‑term or business‑critical services.
+    </p>
+    <p>
+      If we receive free products, trial accounts or other forms of compensation,
+      we aim to disclose this clearly in the relevant content where appropriate.
+    </p>
+
+    <h2>Compliance With Affiliate Program Policies</h2>
+    <p>
+      This disclosure is provided to comply with common affiliate program requirements and
+      advertising guidelines. We want to be transparent about how TechReview earns revenue and
+      how that may relate to the recommendations you see on this website.
+    </p>
+
+    <h2>Your Support</h2>
+    <p>
+      By using our affiliate links, you help support TechReview without paying anything extra.
+      Thank you for trusting our content and for supporting the work that goes into testing,
+      researching and writing our guides and reviews.
+    </p>
+
+    <h2>Questions</h2>
+    <p>
+      If you have any questions about this affiliate disclosure or how we work with partners,
+      you can reach us via the <a href="/contact" class="cta-link">contact page</a>.
+    </p>
+
+  </div>
+
+</section>
+
+<style>
+
+.disclosure-page{
+  max-width:800px;
+  margin:60px auto;
+  padding:0 20px 40px;
+  line-height:1.7;
+}
+
+.disclosure-page h1{
+  font-size:32px;
+  margin-bottom:20px;
+  text-align:center;
+}
+
+.disclosure-page .lead{
+  font-size:18px;
+  color:#444;
+  margin-bottom:30px;
+  text-align:center;
+}
+
+.disclosure-card{
+  background:white;
+  border-radius:12px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.06);
+  padding:25px 20px 30px;
+}
+
+.disclosure-card h2{
+  margin-top:26px;
+  margin-bottom:10px;
+  font-size:22px;
+}
+
+.disclosure-card p{
+  margin-bottom:16px;
+  font-size:16px;
+  color:#444;
+}
+
+.disclosure-card ul{
+  padding-left:20px;
+  margin:0 0 18px;
+  color:#444;
+}
+
+.disclosure-card li{
+  margin-bottom:8px;
+}
+
+.cta-link{
+  color:var(--cta);
+  font-weight:600;
+}
+
+.cta-link:hover{
+  color:var(--cta-hover);
+  text-decoration:underline;
+}
+
+@media (max-width:768px){
+  .disclosure-page{
+    margin:40px auto;
+    padding:0 16px 30px;
+  }
+
+  .disclosure-page h1{
+    font-size:26px;
+  }
+}
+
+</style>
+
+</Layout>

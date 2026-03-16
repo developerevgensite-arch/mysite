@@ -15,9 +15,31 @@ export async function getStaticPaths() {
 }
 
 const { review } = Astro.props;
+// for internal linking
+const relatedReviews = reviews
+  .filter((item) => item.category === review.category && item.slug !== review.slug)
+  .slice(0, 3);
+
+// faq
+const hasFaq = Array.isArray(review?.faq) && review.faq.length > 0;
+
+const faqJsonLd = hasFaq
+  ? {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      mainEntity: review.faq.map((item) => ({
+        "@type": "Question",
+        name: item.q,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.a
+        }
+      }))
+    }
+  : null;
 ---
 
-<Layout title={review.title}>
+<Layout title={review.title} description={review.description} >
 
 <section class="review-hero">
 
@@ -66,8 +88,56 @@ Visit {review.name}
 <ul>
 <li>Some advanced features require higher plans</li>
 </ul>
-
 </section>
+
+
+
+<!-- faq -->
+{hasFaq && (
+  <>
+    <section class="faq" aria-label="FAQ">
+      <div class="faq-inner">
+        <h2>FAQ</h2>
+        <p class="faq-subtitle">
+          Quick answers to common questions about {review.name}.
+        </p>
+
+        <div class="faq-list">
+          {review.faq.map((item) => (
+            <details class="faq-item">
+              <summary class="faq-question">
+                <span>{item.q}</span>
+                <span class="faq-icon" aria-hidden="true">+</span>
+              </summary>
+              <div class="faq-answer">
+                <p>{item.a}</p>
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <script type="application/ld+json">{JSON.stringify(faqJsonLd)}</script>
+  </>
+)}
+
+<!-- for internal linking -->
+{relatedReviews.length > 0 && (
+  <section class="related-tools">
+  
+    <h2>Other {review.category.replace("-", " ")} Tools</h2>
+  
+    <ul>
+      {relatedReviews.map((item) => (
+        <li>
+          <a href={`/${item.category}/${item.slug}`}>{item.name} review</a>
+        </li>
+      ))}
+    </ul>
+  
+  </section>
+  )}
 
 <style>
 
@@ -136,6 +206,126 @@ margin-top:40px;
 .pros-cons ul{
 margin-top:10px;
 padding-left:20px;
+}
+
+/* faq */
+.faq{
+max-width:1000px;
+margin:30px auto 40px;
+padding:0 20px;
+}
+
+.faq-inner{
+background:white;
+border-radius:12px;
+box-shadow:0 5px 20px rgba(0,0,0,0.04);
+padding:22px;
+}
+
+.faq-inner h2{
+margin-top:0;
+margin-bottom:10px;
+}
+
+.faq-subtitle{
+margin:0 0 18px;
+font-size:16px;
+color:#555;
+max-width:760px;
+}
+
+.faq-list{
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.faq-item{
+border:1px solid #eceff3;
+border-radius:10px;
+background:#fff;
+overflow:hidden;
+}
+
+.faq-question{
+list-style:none;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:16px;
+padding:14px 16px;
+cursor:pointer;
+font-weight:700;
+color:#111827;
+}
+
+.faq-question::-webkit-details-marker{
+display:none;
+}
+
+.faq-icon{
+width:28px;
+height:28px;
+border-radius:8px;
+display:grid;
+place-items:center;
+background:#fff2e5;
+color:#b45309;
+font-weight:800;
+flex:0 0 auto;
+transition:transform .15s ease;
+}
+
+.faq-item[open] .faq-icon{
+transform:rotate(45deg);
+}
+
+.faq-answer{
+padding:0 16px 16px;
+color:#4b5563;
+}
+
+.faq-answer p{
+margin:0;
+}
+
+/* related tools */
+
+.related-tools{
+max-width:1000px;
+margin:20px auto 60px;
+padding:0 20px;
+}
+
+.related-tools h2{
+margin-bottom:12px;
+}
+
+.related-tools ul{
+list-style:none;
+padding-left:0;
+padding-left:20px;
+margin-top:10px;
+}
+
+.related-tools li{
+margin-bottom:8px;
+}
+.related-tools li::before{
+content:"•";
+color:#ff8a00;
+margin-right:8px;
+}
+
+.related-tools a{
+color:#ff8a00;
+text-decoration:none;
+font-weight:600;
+}
+
+.related-tools a:hover{
+text-decoration:underline;
+color:#e67600;
 }
 
 </style>

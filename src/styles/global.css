@@ -11,6 +11,10 @@
     
     }
     
+    html{
+        scroll-behavior:smooth;
+        }
+
     /* BODY */
     
     body{
@@ -84,6 +88,7 @@
     
     .menu.show{
     display:flex;
+    z-index: 999;
     }
     
     .menu-toggle{
@@ -136,6 +141,22 @@
 .hero-image{
     display:flex;
     justify-content:center;
+    }
+
+.intro-text{
+    max-width:900px;
+    margin:40px auto;
+    padding:0 20px 70px;
+    text-align:center;
+    }
+    
+    .intro-text h2{
+    margin-bottom:10px;
+    }
+    
+    .intro-text p{
+    color:#555;
+    line-height:1.7;
     }
 
 .featured-hosting{
