@@ -1,0 +1,24 @@
+---
+const { slug } = Astro.params;
+
+const links = {
+  hostinger: "https://www.hostinger.com/?REFERRALCODE=DOVWORLDSYFT",
+  bluehost: "...",
+  interserver: "...",
+  nordvpn: "...",
+  cyberghost: "...",
+  wordpress: "...",
+  elementor: "ССЫЛКА",
+  "1password": "ССЫЛКА",
+  cloudways: "ССЫЛКА"
+};
+
+const url = links[slug];
+
+if (url) {
+  console.log("Affiliate click:", slug);
+  return Astro.redirect(url, 302);
+}
+
+return new Response("Not found", { status: 404 });
+---

@@ -6,7 +6,7 @@
     "description": "Affordable web hosting with fast performance.",
     "category": "hosting",
     "rating": 4.8,
-    "affiliate": "https://www.hostinger.com/?REFERRALCODE=DOVWORLDSYFT",
+    "affiliate": "/go/hostinger",
     "faq": [
       {
         "q": "Is Hostinger good for beginners?",
@@ -34,7 +34,7 @@
     "description": "Reliable VPS and shared hosting with strong performance and affordable pricing.",
     "category": "hosting",
     "rating": 4.8,
-    "affiliate": "https://your-affiliate-link.com",
+    "affiliate": "/go/interserver",
     "faq": [
       {
         "q": "What is InterServer best known for?",
@@ -62,7 +62,7 @@
     "description": "Popular hosting provider recommended for beginners.",
     "category": "hosting",
     "rating": 4.6,
-    "affiliate": "https://your-affiliate-link.com",
+    "affiliate": "/go/bluehost",
     "faq": [
       {
         "q": "Is Bluehost a good choice for a first website?",
@@ -89,7 +89,7 @@
     "description": "Secure VPN for privacy and streaming.",
     "category": "vpn",
     "rating": 4.9,
-    "affiliate": "https://your-affiliate-link.com",
+    "affiliate": "/go/nordvpn",
     "faq": [
       {
         "q": "Is NordVPN good for privacy?",
@@ -116,7 +116,7 @@
     "description": "User-friendly VPN with strong encryption and fast servers.",
     "category": "vpn",
     "rating": 4.7,
-    "affiliate": "https://your-affiliate-link.com",
+    "affiliate": "/go/cyberghost",
     "faq": [
       {
         "q": "Is CyberGhost easy to use?",
@@ -143,7 +143,7 @@
     "description": "Complete Elementor review with features, pricing, pros and cons.",
     "category": "wordpress-tools",
     "rating": 4.7,
-    "affiliate": "https://your-affiliate-link.com",
+    "affiliate": "/go/elementor",
     "faq": [
       {
         "q": "Is Elementor good for beginners?",
@@ -170,7 +170,7 @@
     "description": "Secure password manager for individuals and teams.",
     "category": "security",
     "rating": 4.8,
-    "affiliate": "https://your-affiliate-link.com",
+    "affiliate": "/go/1password",
     "faq": [
       {
         "q": "Is 1Password worth it compared to free managers?",
@@ -197,7 +197,7 @@
     "description": "Managed cloud hosting platform for fast WordPress websites.",
     "category": "hosting",
     "rating": 4.8,
-    "affiliate": "https://your-affiliate-link.com",
+    "affiliate": "/go/cloudways",
     "faq": [
       {
         "q": "What is Cloudways best for?",
