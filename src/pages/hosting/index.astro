@@ -8,7 +8,7 @@ const hostingReviews = reviews
 // faq
 const faqItems = [
   {
-    q: "What type of hosting should I choose in 2026?",
+    q: "What type of hosting should I choose?",
     a: "For most new websites, shared hosting is the cheapest start. If you expect steady traffic growth, choose managed WordPress hosting. For performance and full control, VPS or cloud hosting is the best upgrade."
   },
   {
@@ -47,15 +47,16 @@ const faqJsonLd = {
 };
 ---
 
-<Layout title="Best Web Hosting Services in 2026">
+<Layout title="Best Web Hosting Services">
 
 <section class="category-hero">
 
 <h1>Best Web Hosting Services</h1>
 
 <p class="category-text">
-  Looking for the best web hosting service in 2026? 
-  We reviewed the most popular hosting providers including Hostinger, Bluehost and Cloudways to help you choose the right solution for your website.
+Looking for the best web hosting service? We reviewed the most popular hosting providers including Hostinger, Bluehost and Cloudways to help you choose the right solution for your website.
+
+Compare the top hosting providers for blogs, business websites and online projects.
 </p>
 
 <p class="category-subtitle">
@@ -74,7 +75,7 @@ Compare the top hosting providers for blogs, business websites and online projec
       <span class="rating">⭐ {item.rating} / 5</span>
     </div>
     <a href={`/hosting/${item.slug}`} class="btn">
-      Read Review
+      Read Review →
     </a>
   </article>
 ))}

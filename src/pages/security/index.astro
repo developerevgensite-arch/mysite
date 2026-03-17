@@ -20,7 +20,7 @@ const faqItems = [
     a: "2FA adds a second step after your password. Authenticator apps and hardware keys are generally safer than SMS. For the best security, use passkeys or a hardware key where possible."
   },
   {
-    q: "Do I still need antivirus on Windows in 2026?",
+    q: "Do I still need antivirus on Windows?",
     a: "Built‑in protection is much better today, but antivirus can still add value with phishing protection, ransomware shields, and identity monitoring. Choose lightweight tools that don’t slow down your device."
   },
   {
@@ -47,7 +47,7 @@ const faqJsonLd = {
 };
 ---
 
-<Layout title="Best Security Tools in 2026">
+<Layout title="Best Security Tools">
 
 <section class="category-hero">
 
@@ -69,7 +69,7 @@ Protect your passwords, accounts and devices with modern security software.
       <span class="rating">⭐ {item.rating} / 5</span>
     </div>
     <a href={`/security/${item.slug}`} class="btn">
-      Read Review
+      Read Review →
     </a>
   </article>
 ))}
