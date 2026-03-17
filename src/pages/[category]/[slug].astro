@@ -2,19 +2,18 @@
 import ReviewLayout from "../../layouts/ReviewLayout.astro";
 import reviews from "../../data/reviews.json";
 
-export async function getStaticPaths() {
+export const prerender = false;
 
-  return reviews.map((review) => ({
-    params: {
-      category: review.category,
-      slug: review.slug
-    },
-    props: { review }
-  }));
+const { category, slug } = Astro.params;
 
+const review = reviews.find(
+  (item) => item.category === category && item.slug === slug
+);
+
+if (!review) {
+  return new Response("Not found", { status: 404 });
 }
 
-const { review } = Astro.props;
 // for internal linking
 const relatedReviews = reviews
   .filter((item) => item.category === review.category && item.slug !== review.slug)
@@ -41,9 +40,7 @@ const faqJsonLd = hasFaq
 
 <ReviewLayout review={review}>
 
-
 <section class="pros-cons">
-
 <h2>Pros</h2>
 
 <ul>
@@ -59,9 +56,6 @@ const faqJsonLd = hasFaq
 </ul>
 </section>
 
-
-
-<!-- faq -->
 {hasFaq && (
   <>
     <section class="faq" aria-label="FAQ">
@@ -91,12 +85,10 @@ const faqJsonLd = hasFaq
   </>
 )}
 
-<!-- for internal linking -->
 {relatedReviews.length > 0 && (
   <section class="related-tools">
-  
     <h2>Other {review.category.replace("-", " ")} Tools</h2>
-  
+
     <ul>
       {relatedReviews.map((item) => (
         <li>
@@ -104,12 +96,10 @@ const faqJsonLd = hasFaq
         </li>
       ))}
     </ul>
-  
   </section>
-  )}
+)}
 
 <style>
-
 .pros-cons{
 max-width:1000px;
 margin:auto;
@@ -207,7 +197,6 @@ margin:0;
 }
 
 /* related tools */
-
 .related-tools{
 max-width:1000px;
 margin:20px auto 60px;
@@ -228,6 +217,7 @@ margin-top:10px;
 .related-tools li{
 margin-bottom:8px;
 }
+
 .related-tools li::before{
 content:"•";
 color:#ff8a00;
@@ -244,7 +234,6 @@ font-weight:600;
 text-decoration:underline;
 color:#e67600;
 }
-
 </style>
 
 </ReviewLayout>
