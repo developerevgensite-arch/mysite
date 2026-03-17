@@ -5,6 +5,7 @@ import reviews from '../data/reviews.json';
 const hosting = reviews.filter(r => r.category === "hosting");
 const vpn = reviews.filter(r => r.category === "vpn");
 const wordpress = reviews.filter(r => r.category === "wordpress-tools");
+const security = reviews.filter(r => r.category === "security");
 ---
 
 <Layout title="Best Hosting, VPN and WordPress Tools Reviews in 2026">
@@ -159,7 +160,32 @@ Read Review
 
 </div>
 
+<!-- security -->
+<h2>Security Tools</h2>
 
+<div class="tools-grid">
+
+{security.map((item) => (
+
+<div class="tool-card">
+
+<h3>{item.name}</h3>
+
+<p>
+{item.description}
+</p>
+
+<a href={`/${item.category}/${item.slug}`} class="btn">
+Read Review
+</a>
+
+</div>
+
+))}
+
+</div>
+
+<!-- tools -->
 <h2>WordPress Tools</h2>
 
 <div class="tools-grid">
