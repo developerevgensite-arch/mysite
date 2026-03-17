@@ -8,42 +8,140 @@ import Layout from "../layouts/Layout.astro";
 
 <h1>About TechReview</h1>
 
-<p>
-TechReview is a content-based website dedicated to helping students and everyday users choose the best technology products.
-Our mission is to simplify the buying process by providing clear comparisons, practical reviews, and easy-to-understand recommendations.
-</p>
-
-<p>
-We analyze product specifications, user feedback, and real-world usability to identify the most reliable and cost-effective options.
-Our goal is to save you time and help you make confident purchasing decisions.
-</p>
-
-<p>
-Some links on this website are affiliate links. If you purchase through these links, we may earn a small commission at no additional cost to you.
-This helps support the site and allows us to continue creating helpful content.
+<p class="subtitle">
+We help people choose the best digital tools with clear, honest and easy-to-understand reviews.
 </p>
 
 </section>
 
+
+<section class="about-grid">
+
+<div class="about-card">
+<h3>Our Mission</h3>
+<p>
+Our mission is to simplify the decision-making process by providing clear comparisons,
+practical reviews, and unbiased recommendations.
+</p>
+</div>
+
+<div class="about-card">
+<h3>How We Work</h3>
+<p>
+We analyze product features, pricing, user feedback, and real-world usability
+to identify reliable and cost-effective tools.
+</p>
+</div>
+
+<div class="about-card">
+<h3>Why Trust Us</h3>
+<p>
+We focus on real value for users. Our content is based on research, not hype,
+and we aim to provide honest and transparent insights.
+</p>
+</div>
+
+</section>
+
+
+<section class="about-highlight">
+
+<div class="highlight-box">
+
+<h2>Transparency Matters</h2>
+
+<p>
+Some links on this website are affiliate links. This means we may earn a commission
+if you purchase through them, at no additional cost to you.
+</p>
+
+<p>
+This helps support the website and allows us to continue creating free, helpful content.
+</p>
+
+</div>
+
+</section>
+
+
 <style>
 
 .about{
-max-width:800px;
-margin:60px auto;
+text-align:center;
+max-width:900px;
+margin:60px auto 20px;
 padding:0 20px;
-line-height:1.7;
 }
 
 .about h1{
-font-size:36px;
-margin-bottom:20px;
-text-align:center;
+font-size:38px;
+margin-bottom:15px;
 }
 
-.about p{
-margin-bottom:20px;
+.subtitle{
 font-size:18px;
-color:#444;
+color:#555;
+max-width:600px;
+margin:auto;
+}
+
+/* GRID */
+
+.about-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+max-width:1000px;
+margin:40px auto;
+padding:0 20px;
+}
+
+.about-card{
+background:white;
+padding:25px;
+border-radius:12px;
+box-shadow:0 8px 20px rgba(0,0,0,0.06);
+transition:0.2s;
+}
+
+.about-card:hover{
+transform:translateY(-4px);
+box-shadow:0 12px 30px rgba(0,0,0,0.1);
+}
+
+.about-card h3{
+margin-top:0;
+margin-bottom:10px;
+}
+
+.about-card p{
+color:#555;
+font-size:15px;
+line-height:1.6;
+}
+
+/* HIGHLIGHT */
+
+.about-highlight{
+max-width:900px;
+margin:40px auto 80px;
+padding:0 20px;
+}
+
+.highlight-box{
+background:#fff7ed;
+border-left:4px solid var(--cta);
+padding:25px;
+border-radius:10px;
+}
+
+.highlight-box h2{
+margin-top:0;
+}
+
+.highlight-box p{
+color:#555;
+line-height:1.7;
 }
 
 </style>

@@ -23,7 +23,7 @@ const { title, description } = Astro.props
     <meta name="theme-color" content="#ffffff">
 
     <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:description" content={description || "Reviews of the best hosting, VPN and WordPress tools."} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={Astro.url.href} />
 
@@ -68,11 +68,12 @@ const { title, description } = Astro.props
     <a href="/about">About</a>
     <a href="/contact">Contact</a>
     <a href="/privacy-policy">Privacy Policy</a>
+    <a href="/terms-and-conditions">Terms & Conditions</a>
     <a href="/affiliate-disclosure">Affiliate Disclosure</a>
     </nav>
     
     <p class="disclosure">
-    Disclosure: This page contains affiliate links. If you purchase through these links, we may earn a commission at no additional cost to you.
+        Disclosure: This page may contain affiliate links. We may earn a commission at no extra cost to you. 
     </p>
     
     <p>© 2026 TechReview. All rights reserved.</p>
@@ -91,5 +92,46 @@ const { title, description } = Astro.props
         }
         
     </script>
+    <div id="cookie-banner" class="cookie-banner hidden">
+        <p>
+            We use cookies to improve your experience and analyze traffic. By clicking "Accept", you agree to our use of cookies.
+          <a href="/privacy-policy">Learn more</a>
+        </p>
+      
+        <div class="cookie-buttons">
+          <button id="accept-cookies" class="btn">Accept</button>
+          <button id="reject-cookies" class="btn-outline">Reject</button>
+        </div>
+      </div>
+      
+<script>
+const banner = document.getElementById("cookie-banner");
+
+if (banner) {
+    const consent = localStorage.getItem("cookie-consent");
+
+    if (!consent) {
+    banner.classList.remove("hidden");
+    }
+
+    const acceptBtn = document.getElementById("accept-cookies");
+    const rejectBtn = document.getElementById("reject-cookies");
+
+    if (acceptBtn) {
+    acceptBtn.onclick = () => {
+        localStorage.setItem("cookie-consent", "accepted");
+        banner.classList.add("hidden");
+    };
+    }
+
+    if (rejectBtn) {
+    rejectBtn.onclick = () => {
+        localStorage.setItem("cookie-consent", "rejected");
+        banner.classList.add("hidden");
+    };
+    }
+}
+</script>
+
 </body>
 </html>
