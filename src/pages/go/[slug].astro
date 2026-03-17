@@ -1,4 +1,6 @@
 ---
+export const prerender = false;
+
 const { slug } = Astro.params;
 
 const links = {
@@ -8,9 +10,9 @@ const links = {
   nordvpn: "...",
   cyberghost: "...",
   wordpress: "...",
-  elementor: "ССЫЛКА",
-  "1password": "ССЫЛКА",
-  cloudways: "ССЫЛКА"
+  elementor: "...",
+  "1password": "...",
+  cloudways: "..."
 };
 
 const url = links[slug];
