@@ -17,10 +17,10 @@ const links = {
 
 const url = links[slug];
 
-if (url) {
+if (url && url !== "...") {
   console.log("Affiliate click:", slug);
   return Astro.redirect(url, 302);
 }
 
-return new Response("Not found", { status: 404 });
+return new Response("Link not available", { status: 404 });
 ---
