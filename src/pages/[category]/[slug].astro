@@ -14,7 +14,7 @@ if (!review) {
   return new Response("Not found", { status: 404 });
 }
 
-// for internal linking
+// related
 const relatedReviews = reviews
   .filter((item) => item.category === review.category && item.slug !== review.slug)
   .slice(0, 3);
@@ -40,22 +40,66 @@ const faqJsonLd = hasFaq
 
 <ReviewLayout review={review}>
 
-<section class="pros-cons">
-<h2>Pros</h2>
+<!-- QUICK SUMMARY -->
+<section class="quick-summary">
+  <h2>Quick Summary</h2>
 
-<ul>
-<li>Easy to use for beginners</li>
-<li>Reliable performance</li>
-<li>Good value for money</li>
-</ul>
+  <div class="summary-box">
+    <div><strong>Rating:</strong> ⭐ {review.rating}/5</div>
 
-<h2>Cons</h2>
+    {review.tag && (
+      <div><strong>Best for:</strong> {review.tag}</div>
+    )}
 
-<ul>
-<li>Some advanced features require higher plans</li>
-</ul>
+    {review.badge && (
+      <div class="badge">{review.badge}</div>
+    )}
+
+    <p>{review.description}</p>
+  </div>
 </section>
 
+<!-- PROS / CONS -->
+<section class="pros-cons">
+
+  <div class="pros">
+    <h2>Pros</h2>
+    <ul>
+      <li>Easy to use for beginners</li>
+      <li>Reliable performance</li>
+      <li>Good value for money</li>
+    </ul>
+  </div>
+
+  <div class="cons">
+    <h2>Cons</h2>
+    <ul>
+      <li>Some advanced features require higher plans</li>
+    </ul>
+  </div>
+
+</section>
+
+<!-- CTA AFTER PROS -->
+<div class="cta-center">
+  {review.affiliate ? (
+    <a href={review.affiliate} class="btn" target="_blank" rel="nofollow sponsored noopener">
+      Check Price →
+    </a>
+  ) : (
+    <span class="btn disabled">Link coming soon</span>
+  )}
+</div>
+
+<!-- WHY CHOOSE -->
+<section class="why-choose">
+  <h2>Why choose {review.name}</h2>
+  <p>
+    {review.summary || `${review.name} is a popular choice thanks to its balance of performance, ease of use, and pricing.`}
+  </p>
+</section>
+
+<!-- FAQ -->
 {hasFaq && (
   <>
     <section class="faq" aria-label="FAQ">
@@ -85,6 +129,18 @@ const faqJsonLd = hasFaq
   </>
 )}
 
+<!-- CTA BOTTOM -->
+<div class="cta-center bottom-cta">
+  {review.affiliate ? (
+    <a href={review.affiliate} class="btn" target="_blank" rel="nofollow sponsored noopener">
+      Visit {review.name} →
+    </a>
+  ) : (
+    <span class="btn disabled">Link coming soon</span>
+  )}
+</div>
+
+<!-- RELATED -->
 {relatedReviews.length > 0 && (
   <section class="related-tools">
     <h2>Other {review.category.replace("-", " ")} Tools</h2>
@@ -100,22 +156,78 @@ const faqJsonLd = hasFaq
 )}
 
 <style>
+
+/* QUICK SUMMARY */
+.quick-summary{
+max-width:1000px;
+margin:20px auto;
+padding:0 20px;
+}
+
+.summary-box{
+background:#fff;
+padding:20px;
+border-radius:12px;
+box-shadow:0 5px 20px rgba(0,0,0,0.05);
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.badge{
+background:#22c55e;
+color:white;
+padding:4px 10px;
+border-radius:6px;
+display:inline-block;
+font-size:14px;
+font-weight:600;
+width:max-content;
+}
+
+/* PROS CONS GRID */
 .pros-cons{
 max-width:1000px;
-margin:auto;
-padding:10px 20px;
+margin:20px auto;
+padding:0 20px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:20px;
 }
 
-.pros-cons h2{
-margin-top:40px;
+.pros, .cons{
+background:#fff;
+padding:20px;
+border-radius:12px;
+box-shadow:0 5px 20px rgba(0,0,0,0.04);
 }
 
-.pros-cons ul{
-margin-top:10px;
-padding-left:20px;
+.pros h2{
+color:#16a34a;
 }
 
-/* faq */
+.cons h2{
+color:#dc2626;
+}
+
+/* CTA */
+.cta-center{
+text-align:center;
+margin:30px 0;
+}
+
+.bottom-cta{
+margin-bottom:50px;
+}
+
+/* WHY */
+.why-choose{
+max-width:1000px;
+margin:20px auto;
+padding:0 20px;
+}
+
+/* FAQ (оставляем как есть) */
 .faq{
 max-width:1000px;
 margin:30px auto 40px;
@@ -129,18 +241,6 @@ box-shadow:0 5px 20px rgba(0,0,0,0.04);
 padding:22px;
 }
 
-.faq-inner h2{
-margin-top:0;
-margin-bottom:10px;
-}
-
-.faq-subtitle{
-margin:0 0 18px;
-font-size:16px;
-color:#555;
-max-width:760px;
-}
-
 .faq-list{
 display:flex;
 flex-direction:column;
@@ -150,90 +250,28 @@ gap:10px;
 .faq-item{
 border:1px solid #eceff3;
 border-radius:10px;
-background:#fff;
-overflow:hidden;
 }
 
 .faq-question{
-list-style:none;
 display:flex;
-align-items:center;
 justify-content:space-between;
-gap:16px;
-padding:14px 16px;
+padding:14px;
 cursor:pointer;
 font-weight:700;
-color:#111827;
 }
 
-.faq-question::-webkit-details-marker{
-display:none;
-}
-
-.faq-icon{
-width:28px;
-height:28px;
-border-radius:8px;
-display:grid;
-place-items:center;
-background:#fff2e5;
-color:#b45309;
-font-weight:800;
-flex:0 0 auto;
-transition:transform .15s ease;
-}
-
-.faq-item[open] .faq-icon{
-transform:rotate(45deg);
-}
-
-.faq-answer{
-padding:0 16px 16px;
-color:#4b5563;
-}
-
-.faq-answer p{
-margin:0;
-}
-
-/* related tools */
+/* RELATED */
 .related-tools{
 max-width:1000px;
 margin:20px auto 60px;
 padding:0 20px;
 }
 
-.related-tools h2{
-margin-bottom:12px;
-}
-
-.related-tools ul{
-list-style:none;
-padding-left:0;
-padding-left:20px;
-margin-top:10px;
-}
-
-.related-tools li{
-margin-bottom:8px;
-}
-
-.related-tools li::before{
-content:"•";
-color:#ff8a00;
-margin-right:8px;
-}
-
 .related-tools a{
 color:#ff8a00;
-text-decoration:none;
 font-weight:600;
 }
 
-.related-tools a:hover{
-text-decoration:underline;
-color:#e67600;
-}
 </style>
 
 </ReviewLayout>
