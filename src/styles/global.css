@@ -214,6 +214,16 @@
     flex-wrap:wrap;
     }
     
+    @media (max-width:768px){
+
+        .hero-buttons{
+          justify-content:center;
+          align-items:center;
+        }
+      
+      }
+
+
     /* HERO BUTTON */
     
     .hero-btn{
