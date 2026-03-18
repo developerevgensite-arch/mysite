@@ -32,7 +32,7 @@ const isDev = Astro.url.hostname.includes("workers.dev");
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description || "Reviews of the best hosting, VPN and WordPress tools."} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content={Astro.url.href} />
+    <meta property="og:url" content={`https://techtoolreviews.com${Astro.url.pathname}`} />
 
     <link rel="canonical" href={`https://techtoolreviews.com${Astro.url.pathname}`} />
         
