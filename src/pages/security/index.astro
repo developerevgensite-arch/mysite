@@ -63,13 +63,16 @@ Protect your passwords, accounts and devices with modern security software.
 
 {securityReviews.map((item) => (
   <article class="tool-card">
-    <h2>{item.name}</h2>
-    <p>{item.description}</p>
+  {item.badge && <div class="card-badge">{item.badge}</div>}
+  <h2>{item.name}</h2>
+  {item.tag && <p class="card-tag">{item.tag}</p>}
+  <p>{item.description}</p>
+
     <div class="tool-meta">
-      <span class="rating">⭐ {item.rating} / 5</span>
+      <span class="rating">⭐ {item.rating} / 5 (Our score)</span>
     </div>
     <a href={`/security/${item.slug}`} class="btn">
-      Read Review →
+      See Details →
     </a>
   </article>
 ))}
@@ -108,7 +111,7 @@ Protect your passwords, accounts and devices with modern security software.
 .category-hero{
 max-width:900px;
 margin:auto;
-padding:40px 20px 10px;
+padding:20px 20px 10px;
 text-align:left;
 }
 
@@ -118,16 +121,39 @@ color:#555;
 margin-top:10px;
 }
 
+.card-tag{
+  font-size:14px;
+  color:#ff8a00;
+  font-weight:600;
+  margin:6px 0 8px;
+}
+
+.card-badge{
+  position:absolute;
+  top:16px;
+  right:16px;
+
+  background:#ff8a00;
+  color:#fff;
+
+  font-size:12px;
+  font-weight:600;
+
+  padding:6px 10px;
+  border-radius:6px;
+}
+
 .tools-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-gap:20px;
-margin:20px auto 40px;
-max-width:1000px;
-padding:0 20px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));/* ← чуть шире */
+  gap:20px;
+  margin:20px auto 40px;
+  max-width:1000px; /* ← ВАЖНО */
+  padding:0 20px;
 }
 
 .tool-card{
+position:relative;
 background:#fff;
 border-radius:12px;
 padding:20px;
@@ -148,7 +174,7 @@ color:#2e7d32;
 }
 
 .btn{
-margin-top:5px;
+margin-top:auto;
 align-self:flex-start;
 }
 /* faq */

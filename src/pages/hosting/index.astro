@@ -17,7 +17,7 @@ const faqItems = [
   },
   {
     q: "Do I need a domain name to buy hosting?",
-    a: "Not обязательно. Many hosts let you start without a domain and connect it later. If you already own a domain, you can point DNS to your hosting provider in a few minutes."
+    a: "Not necessarily. Many hosts let you start without a domain and connect it later. If you already own a domain, you can point DNS to your hosting provider in a few minutes."
   },
   {
     q: "What matters most for speed and SEO: servers or WordPress plugins?",
@@ -54,28 +54,29 @@ const faqJsonLd = {
 <h1>Best Web Hosting Services</h1>
 
 <p class="category-text">
-Looking for the best web hosting service? We reviewed the most popular hosting providers including Hostinger, Bluehost and Cloudways to help you choose the right solution for your website.
-
-Compare the top hosting providers for blogs, business websites and online projects.
+  Looking for the best web hosting? We tested popular providers like Hostinger, Bluehost and Cloudways to help you choose the right one for your website.
 </p>
 
-<p class="category-subtitle">
-Compare the top hosting providers for blogs, business websites and online projects.
-</p>
 
 </section>
 
 <section class="tools-grid">
 
-{hostingReviews.map((item) => (
-  <article class="tool-card">
-    <h2>{item.name}</h2>
-    <p>{item.description}</p>
+  {hostingReviews.map((item) => (
+    <article class="tool-card">
+  
+      {item.badge && <div class="card-badge">{item.badge}</div>}
+  
+      <h2>{item.name}</h2>
+  
+      {item.tag && <p class="card-tag">{item.tag}</p>}
+  
+      <p>{item.description}</p>
     <div class="tool-meta">
-      <span class="rating">⭐ {item.rating} / 5</span>
+      <span class="rating">⭐ {item.rating} / 5 (Our score)</span>
     </div>
     <a href={`/hosting/${item.slug}`} class="btn">
-      Read Review →
+      See Details →
     </a>
   </article>
 ))}
@@ -124,6 +125,24 @@ color:#555;
 margin-top:10px;
 }
 
+.card-tag{
+  font-size:14px;
+  color:#ff8a00;
+  font-weight:600;
+  margin-bottom:6px;
+}
+
+.card-badge{
+  position:absolute;
+  top:12px;
+  right:12px;
+  background:#ff8a00;
+  color:#fff;
+  padding:5px 9px;
+  font-size:12px;
+  border-radius:6px;
+}
+
 .tools-grid{
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
@@ -134,6 +153,7 @@ padding:0 20px;
 }
 
 .tool-card{
+  position:relative;
 background:#fff;
 border-radius:12px;
 padding:20px;
@@ -154,8 +174,8 @@ color:#2e7d32;
 }
 
 .btn{
-margin-top:5px;
-align-self:flex-start;
+  margin-top:auto;
+  align-self:flex-start;
 }
 /* faq */
 .faq{

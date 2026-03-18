@@ -43,7 +43,7 @@ import Layout from "../layouts/Layout.astro";
           <div class="label">For partnerships</div>
           <div class="value">
             Please include your website/app name, a short description, and the offer details.
-            <div class="hint">We never sell “pay‑for‑review” placements.</div>
+            <div class="hint">We do not sell “pay-for-review” placements.</div>
           </div>
         </div>
       </div>
@@ -80,9 +80,13 @@ import Layout from "../layouts/Layout.astro";
         </label>
 
         <button class="btn" type="submit" disabled aria-disabled="true" title="Placeholder form">
-          Send Message (placeholder)
+          Send Message
         </button>
       </form>
+      <p class="form-note">
+        By submitting this form, you agree to our 
+        <a href="/privacy-policy">Privacy Policy</a>.
+      </p>
     </section>
 
   </div>
@@ -220,6 +224,23 @@ import Layout from "../layouts/Layout.astro";
   color:var(--cta-hover);
   text-decoration:underline;
 }
+
+.form-note{
+  font-size:12px;
+  color:#6b7280;
+  margin-top:10px;
+  line-height:1.4;
+}
+
+.form-note a{
+  color:#ff8a00;
+  text-decoration:none;
+}
+
+.form-note a:hover{
+  text-decoration:underline;
+}
+
 
 @media (max-width:900px){
   .contact-grid{
