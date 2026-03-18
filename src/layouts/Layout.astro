@@ -2,6 +2,8 @@
 import "../styles/global.css";
 
 const { title, description } = Astro.props
+
+const isDev = Astro.url.hostname.includes("workers.dev");
 ---
 
 <html lang="en">
@@ -19,7 +21,11 @@ const { title, description } = Astro.props
     content={description || "Reviews of the best hosting, VPN and WordPress tools to build fast and secure websites."}
     />
     
-    <meta name="robots" content="index, follow">
+    {isDev ? (
+        <meta name="robots" content="noindex, nofollow" />
+      ) : (
+        <meta name="robots" content="index, follow" />
+      )}
 
     <meta name="theme-color" content="#ffffff">
 
