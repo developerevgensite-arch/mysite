@@ -5,15 +5,15 @@ import reviews from "../../data/reviews.json";
 const wpTools = reviews
   .filter((review) => review.category === "wordpress-tools")
   .sort((a, b) => b.rating - a.rating);
-// faq
+
 const faqItems = [
   {
     q: "What WordPress tools do I need to launch a site?",
-    a: "Most sites need a good theme, a page builder (optional), a caching/performance plugin, SEO basics, security hardening, and backups. Pick fewer, higher‑quality plugins to avoid bloat."
+    a: "Most sites need a good theme, a page builder (optional), a caching/performance plugin, SEO basics, security hardening, and backups. Pick fewer, higher-quality plugins to avoid bloat."
   },
   {
     q: "Are page builders like Elementor bad for speed?",
-    a: "They can be fast if you keep layouts simple, use optimized hosting, caching, and avoid heavy add‑ons. The biggest speed wins usually come from hosting, caching, image optimization, and reducing unused plugins."
+    a: "They can be fast if you keep layouts simple, use optimized hosting, caching, and avoid heavy add-ons. The biggest speed wins usually come from hosting, caching, image optimization, and reducing unused plugins."
   },
   {
     q: "How many plugins is too many?",
@@ -25,7 +25,7 @@ const faqItems = [
   },
   {
     q: "What’s the best way to back up a WordPress site?",
-    a: "Use automated off‑site backups (cloud storage), keep multiple restore points, and test restores. A good host backup is helpful, but independent backups give you more control."
+    a: "Use automated off-site backups (cloud storage), keep multiple restore points, and test restores. A good host backup is helpful, but independent backups give you more control."
   },
   {
     q: "How do I avoid plugin conflicts?",
@@ -59,25 +59,59 @@ Discover the best plugins and builders to design, optimize and grow WordPress si
 
 </section>
 
+<section class="container-text">
+
+<h2>How to Choose the Best WordPress Tools</h2>
+
+<p>
+The best WordPress setup depends on what you want to build. Some tools help you design pages faster, while others improve SEO, speed, backups or security.
+</p>
+
+<p>
+A good rule is to use fewer tools, but choose the ones that solve real problems. Too many plugins can make your site slower and harder to maintain.
+</p>
+
+</section>
+
+<section class="container-text">
+
+<h2>Best WordPress Tools by Use Case</h2>
+
+<ul class="use-cases">
+  <li><strong>Best for page building:</strong> Elementor — flexible visual builder for beginners and professionals</li>
+  <li><strong>Best for site growth:</strong> tools that improve SEO, speed and lead generation</li>
+  <li><strong>Best for beginners:</strong> simple plugins with clear setup and reliable support</li>
+</ul>
+
+</section>
+
 <section class="tools-grid">
 
 {wpTools.map((item) => (
   <article class="tool-card">
-{item.badge && <div class="card-badge">{item.badge}</div>}
-<h2>{item.name}</h2>
-{item.tag && <p class="card-tag">{item.tag}</p>}
-<p>{item.description}</p>
+    {item.badge && <div class="card-badge">{item.badge}</div>}
+    <h2>{item.name}</h2>
+    {item.tag && <p class="card-tag">{item.tag}</p>}
+    <p>{item.description}</p>
+
     <div class="tool-meta">
       <span class="rating">⭐ {item.rating} / 5 (Our score)</span>
     </div>
-    <a href={`/wordpress-tools/${item.slug}`} class="btn">
-      See Details →
-    </a>
+
+    <div class="buttons">
+      <a href={`/wordpress-tools/${item.slug}`} class="btn">
+        Read Review →
+      </a>
+
+      <a href={item.affiliate} class="btn secondary" target="_blank" rel="nofollow sponsored">
+        Check Tool →
+      </a>
+    </div>
   </article>
 ))}
 
 </section>
-<!-- faq -->
+
 <section class="faq" aria-label="WordPress tools FAQ">
   <div class="faq-inner">
     <h2>WordPress Tools FAQ</h2>
@@ -118,6 +152,18 @@ text-align:left;
 font-size:18px;
 color:#555;
 margin-top:10px;
+}
+
+.container-text{
+  max-width:900px;
+  margin:0 auto 30px;
+  padding:0 20px;
+}
+
+.use-cases{
+  margin-top:10px;
+  line-height:1.8;
+  color:#444;
 }
 
 .card-tag{
@@ -168,10 +214,23 @@ font-weight:bold;
 color:#2e7d32;
 }
 
+.buttons{
+  margin-top:auto;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
 .btn{
 margin-top:auto;
 align-self:flex-start;
 }
+
+.btn.secondary{
+  background:#0f172a;
+  color:#fff;
+}
+
 /* faq */
 .faq{
 max-width:1000px;

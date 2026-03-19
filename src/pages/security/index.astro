@@ -59,6 +59,32 @@ Protect your passwords, accounts and devices with modern security software.
 
 </section>
 
+<section class="container-text">
+
+  <h2>How to Stay Safe Online</h2>
+  
+  <p>
+  Online security is not just for experts. Today, anyone can protect their accounts and personal data with a few simple tools.
+  </p>
+  
+  <p>
+  The most important things are strong passwords, two-factor authentication, and using trusted apps. Good security tools make this easy without slowing you down.
+  </p>
+  
+</section>
+
+<section class="container-text">
+
+  <h2>Best Security Tools by Use Case</h2>
+  
+  <ul class="use-cases">
+    <li><strong>Best for password security:</strong> password managers like 1Password</li>
+    <li><strong>Best for full protection:</strong> all-in-one security tools</li>
+    <li><strong>Best for beginners:</strong> simple tools with easy setup</li>
+  </ul>
+  
+</section>
+
 <section class="tools-grid">
 
 {securityReviews.map((item) => (
@@ -71,9 +97,19 @@ Protect your passwords, accounts and devices with modern security software.
     <div class="tool-meta">
       <span class="rating">⭐ {item.rating} / 5 (Our score)</span>
     </div>
-    <a href={`/security/${item.slug}`} class="btn">
-      See Details →
-    </a>
+    
+    <div class="buttons">
+
+      <a href={`/security/${item.slug}`} class="btn">
+        Read Review →
+      </a>
+
+      <a href={item.affiliate} class="btn secondary" target="_blank" rel="nofollow sponsored">
+        Check Tool →
+      </a>
+
+    </div>
+
   </article>
 ))}
 
@@ -177,6 +213,33 @@ color:#2e7d32;
 margin-top:auto;
 align-self:flex-start;
 }
+
+
+.container-text{
+  max-width:900px;
+  margin:0 auto 30px;
+  padding:0 20px;
+}
+
+.use-cases{
+  margin-top:10px;
+  line-height:1.8;
+  color:#444;
+}
+
+.buttons{
+  margin-top:auto;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.btn.secondary{
+  background:#0f172a;
+  color:#fff;
+}
+
+
 /* faq */
 .faq{
 max-width:1000px;
