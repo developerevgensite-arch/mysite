@@ -59,6 +59,33 @@ Discover the best plugins and builders to design, optimize and grow WordPress si
 
 </section>
 
+<section class="tools-grid">
+
+  {wpTools.map((item) => (
+    <article class="tool-card">
+      {item.badge && <div class="card-badge">{item.badge}</div>}
+      <h2>{item.name}</h2>
+      {item.tag && <p class="card-tag">{item.tag}</p>}
+      <p>{item.description}</p>
+  
+      <div class="tool-meta">
+        <span class="rating">⭐ {item.rating} / 5 (Our score)</span>
+      </div>
+  
+      <div class="buttons">
+        <a href={`/wordpress-tools/${item.slug}`} class="btn">
+          Read Review →
+        </a>
+  
+        <a href={item.affiliate} class="btn secondary" target="_blank" rel="nofollow sponsored">
+          Check Tool →
+        </a>
+      </div>
+    </article>
+  ))}
+  
+  </section>
+
 <section class="container-text">
 
 <h2>How to Choose the Best WordPress Tools</h2>
@@ -85,32 +112,6 @@ A good rule is to use fewer tools, but choose the ones that solve real problems.
 
 </section>
 
-<section class="tools-grid">
-
-{wpTools.map((item) => (
-  <article class="tool-card">
-    {item.badge && <div class="card-badge">{item.badge}</div>}
-    <h2>{item.name}</h2>
-    {item.tag && <p class="card-tag">{item.tag}</p>}
-    <p>{item.description}</p>
-
-    <div class="tool-meta">
-      <span class="rating">⭐ {item.rating} / 5 (Our score)</span>
-    </div>
-
-    <div class="buttons">
-      <a href={`/wordpress-tools/${item.slug}`} class="btn">
-        Read Review →
-      </a>
-
-      <a href={item.affiliate} class="btn secondary" target="_blank" rel="nofollow sponsored">
-        Check Tool →
-      </a>
-    </div>
-  </article>
-))}
-
-</section>
 
 <section class="faq" aria-label="WordPress tools FAQ">
   <div class="faq-inner">
