@@ -60,6 +60,35 @@ const faqJsonLd = {
 
 </section>
 
+<section class="container-text">
+
+  <h2>How to Choose the Best Hosting</h2>
+  
+  <p>
+  Choosing the right hosting depends on your goals. If you're starting a new website,
+  you need something simple and affordable. If you already have traffic, performance
+  and reliability become more important.
+  </p>
+  
+  <p>
+  We tested the most popular hosting providers and selected the best options for
+  different use cases: beginners, performance, and budget.
+  </p>
+  
+  </section>
+
+  <section class="container-text">
+
+    <h2>Best Hosting by Use Case</h2>
+    
+    <ul class="use-cases">
+      <li><strong>Best for beginners:</strong> Hostinger — easy to use and affordable</li>
+      <li><strong>Best performance:</strong> Cloudways — powerful cloud hosting</li>
+      <li><strong>Best budget option:</strong> InterServer — low cost with solid features</li>
+    </ul>
+    
+    </section>  
+
 <section class="tools-grid">
 
   {hostingReviews.map((item) => (
@@ -75,9 +104,18 @@ const faqJsonLd = {
     <div class="tool-meta">
       <span class="rating">⭐ {item.rating} / 5 (Our score)</span>
     </div>
-    <a href={`/hosting/${item.slug}`} class="btn">
-      See Details →
-    </a>
+<div class="buttons">
+
+<a href={`/hosting/${item.slug}`} class="btn">
+  Read Review →
+</a>
+
+<a href={item.affiliate} class="btn secondary" target="_blank" rel="nofollow sponsored">
+  Check Price →
+</a>
+
+</div>
+
   </article>
 ))}
 
@@ -136,10 +174,11 @@ margin-top:10px;
   position:absolute;
   top:12px;
   right:12px;
-  background:#ff8a00;
+  background:#22c55e;
   color:#fff;
   padding:5px 9px;
   font-size:12px;
+  font-weight: 600;
   border-radius:6px;
 }
 
@@ -177,6 +216,33 @@ color:#2e7d32;
   margin-top:auto;
   align-self:flex-start;
 }
+
+
+.container-text{
+  max-width:900px;
+  margin:0 auto 30px;
+  padding:0 20px;
+}
+
+.use-cases{
+  margin-top:10px;
+  line-height:1.8;
+  color:#444;
+}
+
+.buttons{
+  margin-top:auto;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+.btn.secondary{
+  background:#0f172a;
+  color:#fff;
+}
+
+
 /* faq */
 .faq{
 max-width:1000px;
