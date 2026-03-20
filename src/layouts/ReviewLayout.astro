@@ -37,7 +37,7 @@ const { review } = Astro.props;
    <!-- для всех кнопок на странице продукта который ссылается на партнерскую ссылку -->
   {review.affiliate && review.affiliate.length > 0 ? (
     <a
-      class="btn"
+      class="btn btn-primary"
       href={review.affiliate}
       target="_blank"
       rel="nofollow sponsored noopener"
@@ -51,7 +51,7 @@ const { review } = Astro.props;
   <!-- CTA SECONDARY -->
   {review.affiliate && review.affiliate.length > 0 && (
     <a
-      class="btn secondary"
+      class="btn btn-primary"
       href={review.affiliate}
       target="_blank"
       rel="nofollow sponsored noopener"
@@ -144,7 +144,7 @@ color:#2e7d32;
 /* BUTTON */
 .btn{
 display:inline-block;
-background:#ff8a00;
+
 color:white;
 padding:12px 20px;
 border-radius:8px;
@@ -158,16 +158,16 @@ box-shadow:0 4px 10px rgba(0,0,0,0.08);
 }
 
 .btn:hover{
-background:#e67600;
+/* background:#e67600; */
 }
 
 /* SECOND BUTTON */
 .btn.secondary{
-background:#111827;
+/* background:#111827; */
 }
 
 .btn.secondary:hover{
-background:#000;
+/* background:#000; */
 }
 
 .btn.disabled{

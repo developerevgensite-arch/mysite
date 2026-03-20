@@ -80,11 +80,11 @@ const faqJsonLd = {
     </div>
 <div class="buttons">
 
-<a href={`/hosting/${item.slug}`} class="btn">
+<a href={`/hosting/${item.slug}`} class="btn btn-secondary">
   Read Review →
 </a>
 
-<a href={item.affiliate} class="btn secondary" target="_blank" rel="nofollow sponsored">
+<a href={item.affiliate} class="btn btn-primary" target="_blank" rel="nofollow sponsored">
   Check Price →
 </a>
 
@@ -124,6 +124,11 @@ const faqJsonLd = {
     
   </section>  
 
+  <div class="guide-link-wrap">
+    <a href="/hosting/best-hosting" class="guide-link-btn">
+      View Full Hosting Guide →
+    </a>
+  </div>  
 
 <!-- faq -->
 <section class="faq" aria-label="Hosting FAQ">
@@ -240,9 +245,33 @@ color:#2e7d32;
   gap:10px;
 }
 
-.btn.secondary{
-  background:#0f172a;
-  color:#fff;
+
+
+/* для кнопки ссылки на другие посты */
+.guide-link-wrap {
+  margin: 24px 0 32px;
+  text-align: center;
+}
+
+.guide-link-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+  background: transparent;
+  border: 2px solid #1e3a8a;
+  color: #1e3a8a;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 700;
+  transition: 0.25s ease;
+}
+
+.guide-link-btn:hover {
+  background: #1e3a8a;
+  color: #ffffff;
+  border-color: #1e3a8a;
+  transform: translateY(-1px);
 }
 
 
