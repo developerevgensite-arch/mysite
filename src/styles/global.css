@@ -3,6 +3,7 @@
 :root{
 
     --primary:#1e3a8a;
+    --primary-hover:#17306f;
     --cta:#ff8a00;
     --cta-hover:#e67600;
     --success:#22c55e;
@@ -233,28 +234,11 @@
 
     /* HERO BUTTON */
     
-    .hero-btn{
-    font-size:16px;
-    background: var(--primary);
-    color: #fff;
-    }
+  
     
     /* SECOND BUTTON */
     
-    .hero-btn-outline{
-    padding:14px 26px;
-    background: transparent;
-    border-radius:8px;
-    border:2px solid var(--primary);
-    color:var(--cta);
-    font-weight:600;
-    transition:0.2s;
-    }
     
-    .hero-btn-outline:hover{
-    background:var(--primary);
-    color:white;
-    }
 
     @media (max-width:900px){
 
@@ -305,7 +289,7 @@
     .btn{
     background: var(--primary);
     color:white;
-    padding:10px 26px;
+    padding:12px 26px;
     border-radius:8px;
     font-weight:600;
     display:inline-block;
@@ -342,7 +326,7 @@
   }
   
   .btn-secondary:hover{
-    background: #17306f;
+    background: var(--primary-hover);
     transform: translateY(-2px);
     box-shadow:0 8px 18px rgba(0,0,0,0.12);
   }
