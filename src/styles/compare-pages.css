@@ -129,12 +129,13 @@ COMPARE PAGES STYLES
   .compare-badge {
     display: inline-block;
     margin-bottom: 12px;
-    background: #ff8a00;
+    background: #22c55e;
     color: #fff;
     font-size: 12px;
     font-weight: 700;
     padding: 6px 10px;
     border-radius: 999px;
+    max-width: 30%;
   }
   
   .compare-card h3 {
