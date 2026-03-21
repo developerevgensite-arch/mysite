@@ -1,0 +1,286 @@
+/* 
+========================================
+COMPARE PAGES STYLES
+========================================
+
+Этот файл используется для страниц сравнений и гайдов:
+
+- /hosting/best-hosting
+- /vpn/best-vpn
+- /security/*
+- /wordpress-tools/*
+
+Содержит:
+- layout страницы (hero, grid, sidebar)
+- карточки (cards)
+- кнопки внутри карточек
+- FAQ блок
+
+Важно:
+НЕ использовать для обычных страниц (home, contact и т.д.)
+
+========================================
+*/
+.page-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  /* HERO */
+  .compare-hero {
+    padding: 70px 0 30px;
+    background: linear-gradient(180deg, #f5f7fb 0%, #ffffff 100%);
+  }
+  
+  .compare-eyebrow {
+    color: #ff8a00;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+  }
+  
+  .compare-hero h1 {
+    font-size: 42px;
+    line-height: 1.15;
+    margin: 0 0 18px;
+    color: #1f2937;
+  }
+  
+  .compare-intro {
+    max-width: 760px;
+    font-size: 18px;
+    line-height: 1.75;
+    color: #4b5563;
+    margin: 0 0 26px;
+  }
+  
+  .compare-cta-row {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+  
+  /* PAGE LAYOUT */
+  .compare-content {
+    padding: 20px 0 60px;
+    background: #ffffff;
+  }
+  
+  .compare-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+    gap: 28px;
+    align-items: start;
+  }
+  
+  /* MAIN + SIDEBAR BOXES */
+  .compare-section,
+  .compare-sidebar-box {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    padding: 26px;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+    margin-bottom: 24px;
+  }
+  
+  .compare-section h2,
+  .compare-sidebar-box h3 {
+    margin-top: 0;
+    color: #1f2937;
+  }
+  
+  .compare-section p,
+  .compare-section li,
+  .compare-sidebar-box p,
+  .compare-sidebar-box li {
+    color: #4b5563;
+    line-height: 1.75;
+  }
+  
+  .compare-note {
+    margin-top: -8px;
+    margin-bottom: 20px;
+    color: #6b7280;
+  }
+  
+  /* TOP PICKS GRID */
+  .compare-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    align-items: stretch;
+  }
+  
+  .compare-card {
+    position: relative;
+    border: 1px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 20px;
+    background: #f9fafb;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+  
+  .compare-badge {
+    display: inline-block;
+    margin-bottom: 12px;
+    background: #ff8a00;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 10px;
+    border-radius: 999px;
+  }
+  
+  .compare-card h3 {
+    margin: 0 0 8px;
+    color: #1f2937;
+  }
+  
+  .compare-card-tag {
+    color: #ff8a00;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  
+  .compare-card-text {
+    font-size: 15px;
+    min-height: 96px;
+  }
+  
+  .compare-rating {
+    font-weight: 700;
+    color: #1f2937;
+    margin: 14px 0 18px;
+  }
+  
+  .compare-card-actions {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    align-items: stretch;
+  }
+  
+  .compare-card .btn {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    text-align: center;
+    align-self: stretch;
+    padding: 12px 16px;
+    font-size: 15px;
+  }
+  
+  /* LISTS */
+  .compare-list {
+    padding-left: 20px;
+  }
+  
+  .compare-bottom-cta {
+    margin-top: 22px;
+  }
+  
+  /* FAQ */
+  .compare-faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .compare-faq-item {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 14px 16px;
+    background: #f9fafb;
+  }
+  
+  .compare-faq-item summary {
+    cursor: pointer;
+    font-weight: 700;
+    color: #1f2937;
+  }
+  
+  .compare-faq-item p {
+    margin: 12px 0 0;
+  }
+  
+  /* SIDEBAR */
+  .compare-sidebar ul {
+    margin: 0;
+    padding-left: 18px;
+  }
+  
+  .compare-sidebar-links {
+    padding-left: 18px;
+  }
+  
+  .compare-sidebar-links a {
+    color: #1e3a8a;
+    text-decoration: none;
+  }
+  
+  .compare-sidebar-links a:hover {
+    text-decoration: underline;
+  }
+  
+  .compare-sidebar-btn {
+    width: 100%;
+    margin-top: 10px;
+  }
+  
+  /* RESPONSIVE */
+  @media (max-width: 980px) {
+    .compare-layout {
+      grid-template-columns: 1fr;
+    }
+  
+    .compare-cards-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .compare-hero h1 {
+      font-size: 34px;
+    }
+  
+    .compare-intro {
+      font-size: 17px;
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .compare-hero {
+      padding: 56px 0 20px;
+    }
+  
+    .compare-hero h1 {
+      font-size: 28px;
+    }
+  
+    .compare-intro {
+      font-size: 16px;
+    }
+  
+    .compare-section,
+    .compare-sidebar-box {
+      padding: 20px;
+    }
+  
+    .compare-cta-row {
+      flex-direction: column;
+    }
+  
+    .compare-hero .btn,
+    .compare-sidebar .btn {
+      width: 100%;
+      text-align: center;
+    }
+  }
