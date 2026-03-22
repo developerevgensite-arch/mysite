@@ -1,0 +1,196 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import "../../styles/compare-pages.css"; 
+import reviews from "../../data/reviews.json";
+
+const hostinger = reviews.find((item) => item.slug === "hostinger");
+const bluehost = reviews.find((item) => item.slug === "bluehost");
+
+const faqItems = [
+  {
+    q: "Which is better: Hostinger or Bluehost?",
+    a: "Hostinger is often better for pricing and performance, while Bluehost is popular for beginners and WordPress integration. The best choice depends on your needs."
+  },
+  {
+    q: "Is Hostinger cheaper than Bluehost?",
+    a: "Yes, Hostinger usually offers lower introductory prices compared to Bluehost, making it a better option for budget users."
+  },
+  {
+    q: "Which hosting is better for WordPress?",
+    a: "Both support WordPress. Bluehost is officially recommended by WordPress, while Hostinger offers better performance and pricing in many cases."
+  },
+  {
+    q: "Can I switch hosting providers later?",
+    a: "Yes, you can migrate your website to another hosting provider. Many hosts offer free migration services."
+  }
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map((item) => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.a
+    }
+  }))
+};
+---
+
+<Layout
+  title="Hostinger vs Bluehost (2026 Comparison)"
+  description="Compare Hostinger vs Bluehost: pricing, performance, ease of use, and features. Find out which hosting provider is better for your website."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)}></script>
+
+  <section class="compare-hero">
+    <div class="page-container">
+      <p class="compare-eyebrow">Hosting Comparison</p>
+      <h1>Hostinger vs Bluehost</h1>
+      <p class="compare-intro">
+        Choosing between Hostinger and Bluehost? Both are popular hosting providers,
+        but they offer different advantages. This comparison will help you decide
+        which one is better for your website in 2026.
+      </p>
+
+      <div class="compare-cta-row">
+        <a href="#comparison" class="btn btn-primary">See Comparison</a>
+        <a href="/hosting/hostinger" class="btn btn-secondary">Read Hostinger Review</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="compare-content">
+    <div class="page-container compare-layout">
+      <article class="compare-main">
+
+        <section class="compare-section" id="comparison">
+          <h2>Hostinger vs Bluehost: Quick Comparison</h2>
+
+          <div class="compare-cards-grid">
+            {[hostinger, bluehost].map((item) => (
+              <div class="compare-card">
+                <h3>{item.name}</h3>
+                <p class="compare-card-tag">{item.tag || "Hosting provider"}</p>
+                <p class="compare-card-text">
+                  {item.summary || item.description}
+                </p>
+                <div class="compare-rating">★ {item.rating}/5</div>
+
+                <div class="compare-card-actions">
+                  <a href={`/${item.category}/${item.slug}`} class="btn btn-secondary">
+                    Read Review →
+                  </a>
+                  <a
+                    href={item.affiliate}
+                    class="btn btn-primary"
+                    target="_blank"
+                    rel="nofollow sponsored noopener"
+                  >
+                    Check Price →
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section class="compare-section">
+          <h2>Pricing</h2>
+          <p>
+            Hostinger is usually the cheaper option, especially for long-term plans.
+            Bluehost tends to have higher renewal prices, which is important to consider
+            when choosing a hosting provider.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>Performance</h2>
+          <p>
+            Hostinger generally offers better performance thanks to modern infrastructure
+            and optimized servers. Bluehost is stable but may not be as fast in some cases.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>Ease of Use</h2>
+          <p>
+            Bluehost is very beginner-friendly, especially for WordPress users.
+            Hostinger also offers an easy-to-use control panel and quick setup.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>Final Verdict</h2>
+          <p>
+            If you want better value and performance, Hostinger is often the better choice.
+            If you prefer a well-known brand with WordPress integration, Bluehost is still
+            a solid option.
+          </p>
+
+          <div class="compare-bottom-cta">
+            <a
+              href="/go/hostinger"
+              class="btn btn-primary"
+              target="_blank"
+              rel="nofollow sponsored noopener"
+            >
+              Choose Hostinger →
+            </a>
+          </div>
+        </section>
+
+        <section class="compare-section compare-faq-section">
+          <h2>Hosting Comparison FAQ</h2>
+          <div class="compare-faq-list">
+            {faqItems.map((item) => (
+              <details class="compare-faq-item">
+                <summary>{item.q}</summary>
+                <p>{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+
+      </article>
+
+      <aside class="compare-sidebar">
+        <div class="compare-sidebar-box">
+          <h3>Quick Summary</h3>
+          <ul>
+            <li>Hostinger is cheaper</li>
+            <li>Bluehost is beginner-friendly</li>
+            <li>Both support WordPress</li>
+          </ul>
+        </div>
+
+        <div class="compare-sidebar-box">
+          <h3>Read Next</h3>
+          <ul class="compare-sidebar-links">
+            <li><a href="/hosting/hostinger">Hostinger Review</a></li>
+            <li><a href="/hosting/bluehost">Bluehost Review</a></li>
+            <li><a href="/hosting/best-hosting">Best Hosting</a></li>
+            <li><a href="/hosting/best-cheap-hosting">Best Cheap Hosting</a></li>
+          </ul>
+        </div>
+
+        <div class="compare-sidebar-box">
+          <h3>Best Choice</h3>
+          <p>
+            For most users, Hostinger offers the best balance of price and performance.
+          </p>
+          <a
+            href="/go/hostinger"
+            class="btn btn-primary compare-sidebar-btn"
+            target="_blank"
+            rel="nofollow sponsored noopener"
+          >
+            Get Hostinger →
+          </a>
+        </div>
+      </aside>
+    </div>
+  </section>
+</Layout>

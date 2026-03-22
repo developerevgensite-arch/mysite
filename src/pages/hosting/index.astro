@@ -33,6 +33,14 @@ const faqItems = [
   }
 ];
 
+// ссылки внизу страницы
+const guides = [
+  { slug: "best-hosting", title: "Best Hosting" },
+  { slug: "best-cheap-hosting", title: "Best Cheap Hosting" },
+  { slug: "best-vps-hosting", title: "Best VPS Hosting" },
+  { slug: "hostinger-vs-bluehost", title: "Hostinger vs Bluehost" }
+];
+
 const faqJsonLd = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
@@ -57,10 +65,6 @@ const faqJsonLd = {
   Looking for the best web hosting? We tested popular providers like Hostinger, Bluehost and Cloudways to help you choose the right one for your website.
 </p>
 
-<!-- <a href="/hosting/best-hosting" class="btn">
-  View Full Hosting Guide →
-</a> -->
-
 </section>
 
 <section class="tools-grid">
@@ -84,7 +88,7 @@ const faqJsonLd = {
   Read Review →
 </a>
 
-<a href={item.affiliate} class="btn btn-primary" target="_blank" rel="nofollow sponsored">
+<a href={item.affiliate} class="btn btn-primary" target="_blank" rel="nofollow sponsored noopener">
   Check Price →
 </a>
 
@@ -150,11 +154,29 @@ const faqJsonLd = {
   </div>
 </section>
 
-<div class="guide-link-wrap">
+<!-- <div class="guide-link-wrap">
   <a href="/hosting/best-hosting" class="guide-link-btn">
     View Full Hosting Guide →
   </a>
-</div>  
+</div>   -->
+
+<section class="guides-section-box">
+
+  <div class="faq-inner">
+
+    <h2>Hosting Guides</h2>
+
+    <div class="guides-grid">
+      {guides.map((item) => (
+        <a href={`/hosting/${item.slug}`} class="guide-card">
+          <h3>{item.title}</h3>
+          <span>Read Guide →</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
 
 <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)}></script>
 
@@ -250,12 +272,12 @@ color:#2e7d32;
 
 
 /* для кнопки ссылки на другие посты */
-.guide-link-wrap {
+/* .guide-link-wrap {
   margin: 24px 0 32px;
   text-align: center;
-}
+} */
 
-.guide-link-btn {
+/* .guide-link-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -267,14 +289,14 @@ color:#2e7d32;
   border-radius: 8px;
   font-weight: 700;
   transition: 0.25s ease;
-}
+} */
 
-.guide-link-btn:hover {
+/* .guide-link-btn:hover {
   background: #1e3a8a;
   color: #ffffff;
   border-color: #1e3a8a;
   transform: translateY(-1px);
-}
+} */
 
 
 /* faq */
@@ -357,6 +379,62 @@ color:#4b5563;
 .faq-answer p{
 margin:0;
 }
+
+
+/* ссылки внизу страниц категори /hosting и аналогичных */
+.guides-section-box{
+  max-width:1000px;
+  margin:80px auto 0px;
+  padding:20px 20px;
+  /* background:#fff; */
+  border-radius:12px;
+  /* box-shadow:0 5px 10px rgba(0,0,0,0.04); */
+}
+
+.guides-section-box h2{
+  margin-top:0;
+}
+
+.guides-section{
+  max-width:1000px;
+  margin:40px auto;
+  padding:0 20px;
+}
+
+.guides-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:16px;
+  margin-top:20px;
+}
+
+.guide-card{
+  background:#f9fafb;
+  padding:18px;
+  border-radius:10px;
+  text-decoration:none;
+  color:#111;
+  border:1px solid #eef1f5;
+  transition:0.2s;
+}
+
+.guide-card:hover{
+  background:#fff;
+  transform:translateY(-3px);
+  box-shadow:0 8px 20px rgba(0,0,0,0.06);
+}
+
+.guide-card h3{
+  margin:0 0 8px;
+  font-size:16px;
+}
+
+.guide-card span{
+  color:#ff8a00;
+  font-weight:600;
+  font-size:14px;
+}
+
 
 </style>
 
