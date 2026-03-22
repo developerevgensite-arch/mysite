@@ -39,7 +39,8 @@
     "tag": "Best budget option",
     "category": "hosting",
     "rating": 4.6,
-    "affiliate": "/go/interserver",
+    "affiliate_old": "/go/interserver",
+    "affiliate": "https://www.interserver.net",
     "faq": [
       {
         "q": "What is InterServer best known for?",
@@ -69,7 +70,8 @@
     "tag": "Simple and affordable hosting",
     "category": "hosting",
     "rating": 4.6,
-    "affiliate": "/go/bluehost",
+    "affiliate_old": "/go/bluehost",
+    "affiliate": "https://www.bluehost.com",
     "faq": [
       {
         "q": "Is Bluehost a good choice for a first website?",
@@ -128,7 +130,8 @@
     "tag": "Best for beginners",
     "category": "vpn",
     "rating": 4.7,
-    "affiliate": "/go/cyberghost",
+    "affiliate_old": "/go/cyberghost",
+    "affiliate": "https://www.cyberghostvpn.com",
     "faq": [
       {
         "q": "Is CyberGhost easy to use?",
@@ -158,7 +161,8 @@
     "tag": "Drag & drop builder",
     "category": "wordpress-tools",
     "rating": 4.7,
-    "affiliate": "/go/elementor",
+    "affiliate_old": "/go/elementor",
+    "affiliate": "https://elementor.com",
     "faq": [
       {
         "q": "Is Elementor good for beginners?",
@@ -188,7 +192,8 @@
   "tag": "Best overall",
     "category": "security",
     "rating": 4.8,
-    "affiliate": "/go/1password",
+    "affiliate_old": "/go/1password",
+    "affiliate": "https://1password.com",
     "faq": [
       {
         "q": "Is 1Password worth it compared to free managers?",
@@ -217,7 +222,8 @@
     "tag": "Best for performance",
     "category": "hosting",
     "rating": 4.8,
-    "affiliate": "/go/cloudways",
+    "affiliate_old": "/go/cloudways",
+    "affiliate": "https://www.cloudways.com",
     "faq": [
       {
         "q": "What is Cloudways best for?",
