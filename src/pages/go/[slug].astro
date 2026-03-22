@@ -22,5 +22,55 @@ if (url && url !== "...") {
   return Astro.redirect(url, 302);
 }
 
-return new Response("Link not available", { status: 404 });
+// чтоб не было пустой страницы код ниже
+return new Response(`
+  <html>
+    <head>
+      <title>Link coming soon</title>
+      <style>
+        body {
+          font-family: Arial, sans-serif;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          background: #f5f7fb;
+          margin: 0;
+        }
+        .box {
+          background: white;
+          padding: 30px 40px;
+          border-radius: 12px;
+          box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+          text-align: center;
+        }
+        h1 {
+          margin: 0 0 10px;
+        }
+        p {
+          color: #555;
+        }
+        a {
+          display: inline-block;
+          margin-top: 15px;
+          color: #ff8a00;
+          text-decoration: none;
+          font-weight: 600;
+        }
+      </style>
+    </head>
+    <body>
+      <div class="box">
+        <h1>Link coming soon</h1>
+        <p>This offer will be available shortly.</p>
+        <a href="/" style="display:inline-block; margin-top:15px; background:#ff8a00; color:#fff; padding:10px 18px; border-radius:8px; text-decoration:none;">
+        Back to homepage
+        </a>
+      </div>
+    </body>
+  </html>
+`, {
+  status: 200,
+  headers: { "Content-Type": "text/html" }
+});
 ---
