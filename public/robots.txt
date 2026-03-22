@@ -1,4 +1,7 @@
 User-agent: *
 Allow: /
 
+Disallow: /search/
+Disallow: /*.php$
+
 Sitemap: https://techtoolreviews.com/sitemap-index.xml
