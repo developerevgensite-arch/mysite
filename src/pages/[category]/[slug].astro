@@ -1,4 +1,24 @@
 ---
+/*
+  Dynamic Review Page Template
+
+  This file generates all individual review pages like:
+  /hosting/hostinger
+  /hosting/bluehost
+  /vpn/nordvpn
+
+  Data source: reviews.json
+  Layout: ReviewLayout.astro
+
+  Logic:
+  - Gets category + slug from URL
+  - Finds matching item in reviews.json
+  - Renders review page with layout
+
+  Used for affiliate review pages (conversion pages)
+*/
+
+
 import ReviewLayout from "../../layouts/ReviewLayout.astro";
 import reviews from "../../data/reviews.json";
 
