@@ -95,7 +95,7 @@
     "slug": "nordvpn",
     "name": "NordVPN",
     "title": "NordVPN Review",
-    "description": "Secure VPN for privacy and streaming.",
+    "description": "Secure VPN for privacy and streaming. Fast speeds • Strong security",
     "summary": "NordVPN is a secure and fast VPN service designed for privacy, streaming, and safe browsing, making it a strong all-around choice for both beginners and advanced users.",
     "tag": "Best overall",
     "badge": "#1 Recommended",
@@ -121,6 +121,38 @@
       }
     ]
   },
+
+  {
+    "slug": "surfshark",
+    "name": "Surfshark",
+    "title": "Surfshark Review",
+    "description": "Affordable VPN with unlimited devices — perfect for families and everyday use.",
+    "summary": "Surfshark is an affordable and easy-to-use VPN that offers strong privacy, fast speeds, and unlimited device connections. It’s a great choice for families, beginners, and anyone who wants good value without paying high prices.",
+    "tag": "Best value",
+    "badge": "Best value",
+    "category": "vpn",
+    "rating": 4.8,
+    "affiliate": "/go/surfshark",
+    "faq": [
+      {
+        "q": "Is Surfshark good for beginners?",
+        "a": "Yes, Surfshark is very beginner-friendly with a simple interface and quick setup. Most users can start using it in just a few minutes."
+      },
+      {
+        "q": "Can I use Surfshark for streaming?",
+        "a": "Surfshark works well for streaming on many platforms, but availability may vary depending on your location and the service you use."
+      },
+      {
+        "q": "Does Surfshark slow down internet speed?",
+        "a": "Like any VPN, there may be a small speed drop, but Surfshark generally provides fast and stable connections, especially on nearby servers."
+      },
+      {
+        "q": "How many devices can I use with Surfshark?",
+        "a": "Surfshark allows unlimited devices on one account, which makes it a great option for families or users with multiple devices."
+      }
+    ]
+  },  
+
   {
     "slug": "cyberghost",
     "name": "CyberGhost",
