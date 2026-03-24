@@ -193,8 +193,8 @@
     "tag": "Drag & drop builder",
     "category": "wordpress-tools",
     "rating": 4.7,
-    "affiliate_old": "/go/elementor",
-    "affiliate": "https://elementor.com",
+    "affiliate": "/go/elementor",
+    
     "faq": [
       {
         "q": "Is Elementor good for beginners?",
