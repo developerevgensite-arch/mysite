@@ -169,6 +169,10 @@ COMPARE PAGES STYLES
     width: 100%;
     align-items: stretch;
   }
+
+  .compare-card-actions .btn-secondary {
+  white-space: nowrap;
+}
   
   .compare-card .btn {
     display: block;
@@ -177,9 +181,11 @@ COMPARE PAGES STYLES
     box-sizing: border-box;
     text-align: center;
     align-self: stretch;
-    padding: 12px 16px;
-    font-size: 15px;
+    padding: 12px 14px;
+    font-size: 14px;
   }
+
+
   
   /* LISTS */
   .compare-list {

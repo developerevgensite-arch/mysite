@@ -6,35 +6,40 @@ import { guides } from "../../data/guides.js";
 
 const pathname = Astro.url.pathname.split("/").filter(Boolean);
 
-const currentCategory = pathname[0] || ""; // wordpress-tools
+const currentCategory = pathname[0] || "";
 const currentSlug = pathname[1] || "";
 
 const currentGuides = (guides[currentCategory] ?? [])
   .filter((item) => item.slug !== currentSlug)
   .slice(0, 4);
 
+// 🔥 ФИЛЬТР
 const categoryReviews = reviews
-  .filter((item) => item.category === currentCategory)
+  .filter((item) =>
+    item.category === currentCategory &&
+    item.subCategory === "security"
+  )
   .sort((a, b) => (b.rating || 0) - (a.rating || 0));
 
-const topItems = categoryReviews.slice(0, 4);
+const topItems = categoryReviews.slice(0, 3);
 
+// FAQ
 const faqItems = [
   {
-    q: "What are the best WordPress plugins?",
-    a: "The best plugins depend on your needs, including SEO, speed, security, and design tools."
+    q: "Do I need a security plugin for WordPress?",
+    a: "Yes. Security plugins help protect your website from malware, brute force attacks, and vulnerabilities."
   },
   {
-    q: "Do I need many plugins?",
-    a: "No. Using fewer high-quality plugins keeps your site faster and more stable."
+    q: "What is the best WordPress security plugin?",
+    a: "Popular options include Wordfence, Sucuri, and iThemes Security."
   },
   {
-    q: "Are free plugins good enough?",
-    a: "Free plugins are fine for beginners, but premium ones offer more features."
+    q: "Are free security plugins enough?",
+    a: "Free versions offer basic protection, but premium versions provide advanced firewall and malware scanning features."
   },
   {
-    q: "Which plugin is best for beginners?",
-    a: "Elementor is a great starting point because it is easy to use."
+    q: "Can security plugins slow down my site?",
+    a: "Some plugins may slightly affect performance, but most are optimized and safe to use."
   }
 ];
 
@@ -53,20 +58,19 @@ const faqJsonLd = {
 ---
 
 <Layout
-  title="Best WordPress Plugins in 2026"
-  description="Compare the best WordPress plugins for SEO, speed, and design."
+  title="Best Security Plugins for WordPress in 2026"
+  description="Compare the best WordPress security plugins to protect your site from malware, attacks, and hackers."
 >
-
 <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)}></script>
 
 <section class="compare-hero">
   <div class="page-container">
-    <p class="compare-eyebrow">WordPress Guide</p>
-    <h1>Best WordPress Plugins in 2026</h1>
+    <p class="compare-eyebrow">Security Guide</p>
+    <h1>Best Security Plugins for WordPress in 2026</h1>
 
     <p class="compare-intro">
-      Looking for the best WordPress plugins? We reviewed top tools for SEO,
-      performance, and website building.
+      Protect your website from hackers, malware, and attacks with these
+      top WordPress security plugins.
     </p>
 
     <div class="compare-cta-row">
@@ -86,23 +90,26 @@ const faqJsonLd = {
     <article class="compare-main">
 
       <section class="compare-section">
-        <h2>How to Choose the Best WordPress Plugins</h2>
+        <h2>How to Choose a Security Plugin</h2>
 
         <p>
-          Plugins add functionality, but too many can slow your site.
+          Security plugins protect your website from common threats such as malware,
+          brute force attacks, and vulnerabilities.
         </p>
 
         <p>
-          Focus on performance, compatibility, and long-term support.
+          Choose a plugin that includes firewall protection, malware scanning,
+          and login security features.
         </p>
 
         <p>
-          Start with essential plugins like SEO, caching, and a page builder.
+          Regular updates and active development are also important for maintaining
+          long-term security.
         </p>
       </section>
 
       <section class="compare-section" id="top-picks">
-        <h2>Top {currentCategory.replace("-", " ")} Picks</h2>
+        <h2>Top Security Plugin Picks</h2>
 
         <div class="compare-cards-grid">
           {topItems.map((item, index) => (
@@ -110,7 +117,7 @@ const faqJsonLd = {
               {index === 0 && <span class="compare-badge">Top Pick</span>}
 
               <h3>{item.name}</h3>
-              <p class="compare-card-tag">{item.tag || "Plugin"}</p>
+              <p class="compare-card-tag">{item.tag || "Security plugin"}</p>
 
               <p class="compare-card-text">
                 {item.summary || item.description}
@@ -122,14 +129,13 @@ const faqJsonLd = {
                 <a href={`/${item.category}/${item.slug}`} class="btn btn-secondary">
                   Read {item.name} Review →
                 </a>
-
                 <a
                   href={item.affiliate}
                   class="btn btn-primary"
                   target="_blank"
                   rel="nofollow sponsored noopener"
                 >
-                  Get Plugin →
+                  Try Plugin →
                 </a>
               </div>
             </div>
@@ -138,12 +144,12 @@ const faqJsonLd = {
       </section>
 
       <section class="compare-section">
-        <h2>Best Plugins by Use Case</h2>
+        <h2>Best Security Plugins by Use Case</h2>
 
         <ul class="compare-list">
-          <li><strong>Best for SEO:</strong> Rank Math</li>
-          <li><strong>Best for design:</strong> Elementor</li>
-          <li><strong>Best for speed:</strong> caching plugins</li>
+          <li><strong>Best overall:</strong> Wordfence</li>
+          <li><strong>Best cloud protection:</strong> Sucuri</li>
+          <li><strong>Best beginner option:</strong> iThemes Security</li>
         </ul>
       </section>
 
@@ -151,23 +157,24 @@ const faqJsonLd = {
         <h2>Final Verdict</h2>
 
         <p>
-          Use only essential plugins and avoid overloading your site.
+          Security plugins are essential for protecting your WordPress website.
+          Even basic protection can prevent common attacks and data loss.
         </p>
 
         <div class="compare-bottom-cta">
           <a
-            href="/go/elementor"
+            href="/go/wordfence"
             class="btn btn-primary"
             target="_blank"
             rel="nofollow sponsored noopener"
           >
-            Try Elementor →
+            Secure Your Site →
           </a>
         </div>
       </section>
 
       <section class="compare-section compare-faq-section">
-        <h2>WordPress Plugins FAQ</h2>
+        <h2>Security Plugins FAQ</h2>
 
         <div class="compare-faq-list">
           {faqItems.map((item) => (
@@ -186,9 +193,9 @@ const faqJsonLd = {
       <div class="compare-sidebar-box">
         <h3>Quick Summary</h3>
         <ul>
-          <li>Top WordPress plugins</li>
-          <li>SEO, speed, and design tools</li>
-          <li>Beginner-friendly</li>
+          <li>Protect your website</li>
+          <li>Prevent attacks and malware</li>
+          <li>Improve website safety</li>
         </ul>
       </div>
 
@@ -209,14 +216,14 @@ const faqJsonLd = {
 
       <div class="compare-sidebar-box">
         <h3>Best Starting Point</h3>
-        <p>Start with a simple plugin setup.</p>
+        <p>Start with a basic security plugin and upgrade later.</p>
         <a
-          href="/go/elementor"
+          href="/go/wordfence"
           class="btn btn-primary compare-sidebar-btn"
           target="_blank"
           rel="nofollow sponsored noopener"
         >
-          Start →
+          Start Protection →
         </a>
       </div>
 

@@ -255,8 +255,8 @@
     "badge": "Best overall value",
     "tag": "Drag & drop builder",
     "category": "wordpress-tools",
-    "subCategory": "elementor-addons",
-    "rating": 4.7,
+    "subCategory": "builder",
+    "rating": 4.8,
     "affiliate": "/go/elementor",
     
     "faq": [
@@ -278,6 +278,233 @@
       }
     ]
   },
+
+  {
+  "slug": "essential-addons",
+  "name": "Essential Addons",
+  "title": "Essential Addons for Elementor Review",
+  "description": "Popular Elementor addon with many widgets and templates.",
+  "summary": "Essential Addons is one of the most popular Elementor addons, offering a large collection of widgets, templates, and extensions that help you build advanced layouts without coding.",
+  "badge": "Best overall",
+  "tag": "Most popular addon",
+  "category": "wordpress-tools",
+  "subCategory": "elementor-addons",
+  "rating": 4.8,
+  "affiliate": "/go/essential-addons",
+  "faq": [
+    {
+      "q": "Is Essential Addons free?",
+      "a": "Yes, it offers a free version with many widgets, plus a premium version with advanced features."
+    },
+    {
+      "q": "Does Essential Addons slow down Elementor?",
+      "a": "It can if too many widgets are enabled. Disable unused modules for better performance."
+    },
+    {
+      "q": "Is Essential Addons good for beginners?",
+      "a": "Yes, it’s easy to use and integrates seamlessly with Elementor."
+    },
+    {
+      "q": "What makes Essential Addons popular?",
+      "a": "Its large widget library, ease of use, and active updates make it one of the top choices."
+    }
+  ]
+},
+
+{
+  "slug": "crocoblock",
+  "name": "Crocoblock",
+  "title": "Crocoblock (JetPlugins) Review",
+  "description": "Advanced Elementor toolkit for dynamic websites.",
+  "summary": "Crocoblock is a powerful suite of JetPlugins designed for building dynamic WordPress websites with Elementor, including custom post types, filters, listings, and advanced functionality.",
+  "badge": "Best for advanced users",
+  "tag": "Dynamic websites toolkit",
+  "category": "wordpress-tools",
+  "subCategory": "elementor-addons",
+  "rating": 4.7,
+  "affiliate": "/go/crocoblock",
+  "faq": [
+    {
+      "q": "Is Crocoblock good for beginners?",
+      "a": "It’s better suited for intermediate and advanced users due to its complexity."
+    },
+    {
+      "q": "What is Crocoblock used for?",
+      "a": "It’s used to build dynamic websites like directories, marketplaces, and real estate platforms."
+    },
+    {
+      "q": "Does Crocoblock work with Elementor?",
+      "a": "Yes, it’s specifically built to extend Elementor functionality."
+    },
+    {
+      "q": "Is Crocoblock worth it?",
+      "a": "Yes, if you need advanced features like filters, dynamic content, and custom structures."
+    }
+  ]
+},
+
+{
+  "slug": "ultimate-addons",
+  "name": "Ultimate Addons",
+  "title": "Ultimate Addons for Elementor Review",
+  "description": "Lightweight Elementor addon focused on performance.",
+  "summary": "Ultimate Addons for Elementor is a lightweight plugin that adds useful widgets and features without significantly affecting performance, making it a great choice for fast-loading websites.",
+  "badge": "Best lightweight option",
+  "tag": "Fast & lightweight",
+  "category": "wordpress-tools",
+  "subCategory": "elementor-addons",
+  "rating": 4.6,
+  "affiliate": "/go/ultimate-addons",
+  "faq": [
+    {
+      "q": "Is Ultimate Addons free?",
+      "a": "It offers a premium version, but some features may be available in a limited free version."
+    },
+    {
+      "q": "Does it slow down the website?",
+      "a": "No, it’s designed to be lightweight and performance-friendly."
+    },
+    {
+      "q": "Is it better than Essential Addons?",
+      "a": "It depends. Essential Addons has more widgets, while Ultimate Addons focuses on performance."
+    },
+    {
+      "q": "Who should use Ultimate Addons?",
+      "a": "Users who want extra features without slowing down their site."
+    }
+  ]
+},
+
+
+{
+  "slug": "wordfence",
+  "name": "Wordfence",
+  "title": "Wordfence Security Plugin Review",
+  "description": "Complete Wordfence review with features, security tools, pros and cons.",
+  "summary": "Wordfence is one of the most popular WordPress security plugins, offering a powerful firewall, malware scanning, and real-time threat protection to keep your website safe.",
+  "badge": "Best overall",
+  "tag": "Security & firewall",
+  "category": "wordpress-tools",
+  "subCategory": "security",
+  "rating": 4.8,
+  "affiliate": "/go/wordfence",
+
+  "faq": [
+    {
+      "q": "Is Wordfence good for beginners?",
+      "a": "Yes. Wordfence is beginner-friendly and includes an easy setup with default security settings."
+    },
+    {
+      "q": "Does Wordfence include a firewall?",
+      "a": "Yes. Wordfence includes a web application firewall that blocks malicious traffic."
+    },
+    {
+      "q": "Can Wordfence scan for malware?",
+      "a": "Yes. It scans your website for malware, vulnerabilities, and suspicious files."
+    },
+    {
+      "q": "Is Wordfence free?",
+      "a": "Yes. Wordfence has a free version, while the premium version offers real-time updates and advanced protection."
+    }
+  ]
+},
+
+{
+  "slug": "wp-rocket",
+  "name": "WP Rocket",
+  "title": "WP Rocket Cache Plugin Review",
+  "description": "Complete WP Rocket review with features, speed optimization tools, and performance improvements.",
+  "summary": "WP Rocket is a premium WordPress caching plugin that improves website speed with minimal setup, offering page caching, lazy loading, and performance optimization features.",
+  "badge": "Best premium cache plugin",
+  "tag": "Fast & easy caching",
+  "category": "wordpress-tools",
+  "subCategory": "cache",
+  "rating": 4.9,
+  "affiliate": "/go/wp-rocket",
+
+  "faq": [
+    {
+      "q": "Is WP Rocket easy to use?",
+      "a": "Yes. WP Rocket works out of the box with minimal configuration."
+    },
+    {
+      "q": "Does WP Rocket improve speed?",
+      "a": "Yes. It significantly improves loading time by caching pages and optimizing files."
+    },
+    {
+      "q": "Is WP Rocket free?",
+      "a": "No. WP Rocket is a premium plugin, but it offers strong performance benefits."
+    },
+    {
+      "q": "Is WP Rocket worth it?",
+      "a": "Yes. It is one of the easiest and most effective ways to speed up a WordPress site."
+    }
+  ]
+},
+
+{
+  "slug": "litespeed-cache",
+  "name": "LiteSpeed Cache",
+  "title": "LiteSpeed Cache Plugin Review",
+  "description": "Complete LiteSpeed Cache review with features, performance tools, and optimization options.",
+  "summary": "LiteSpeed Cache is a powerful free caching plugin designed for LiteSpeed servers, offering advanced caching, image optimization, and performance features.",
+  "tag": "Best free cache plugin",
+  "category": "wordpress-tools",
+  "subCategory": "cache",
+  "rating": 4.8,
+  "affiliate": "/go/litespeed",
+
+  "faq": [
+    {
+      "q": "Is LiteSpeed Cache free?",
+      "a": "Yes. It is completely free with advanced optimization features."
+    },
+    {
+      "q": "Does LiteSpeed Cache work on all hosting?",
+      "a": "It works best on LiteSpeed servers, but some features are available on others."
+    },
+    {
+      "q": "Is LiteSpeed Cache powerful?",
+      "a": "Yes. It includes caching, CDN integration, and image optimization."
+    },
+    {
+      "q": "Is LiteSpeed Cache good for beginners?",
+      "a": "Yes, but it has many settings, so beginners should start with defaults."
+    }
+  ]
+},
+
+{
+  "slug": "w3-total-cache",
+  "name": "W3 Total Cache",
+  "title": "W3 Total Cache Plugin Review",
+  "description": "Complete W3 Total Cache review with advanced caching features and performance tools.",
+  "summary": "W3 Total Cache is an advanced caching plugin for WordPress that offers detailed performance settings, making it suitable for experienced users.",
+  "tag": "Advanced cache plugin",
+  "category": "wordpress-tools",
+  "subCategory": "cache",
+  "rating": 4.6,
+  "affiliate": "/go/w3cache",
+
+  "faq": [
+    {
+      "q": "Is W3 Total Cache free?",
+      "a": "Yes. It offers a free version with many advanced features."
+    },
+    {
+      "q": "Is W3 Total Cache beginner-friendly?",
+      "a": "Not really. It is better suited for advanced users."
+    },
+    {
+      "q": "Does W3 Total Cache improve speed?",
+      "a": "Yes. It provides powerful caching and optimization options."
+    },
+    {
+      "q": "Should I use W3 Total Cache?",
+      "a": "Use it if you need full control over performance settings."
+    }
+  ]
+},
 
   {
   "slug": "rank-math",

@@ -6,35 +6,40 @@ import { guides } from "../../data/guides.js";
 
 const pathname = Astro.url.pathname.split("/").filter(Boolean);
 
-const currentCategory = pathname[0] || ""; // wordpress-tools
+const currentCategory = pathname[0] || "";
 const currentSlug = pathname[1] || "";
 
 const currentGuides = (guides[currentCategory] ?? [])
   .filter((item) => item.slug !== currentSlug)
   .slice(0, 4);
 
+// 🔥 ФИЛЬТР
 const categoryReviews = reviews
-  .filter((item) => item.category === currentCategory)
+  .filter((item) =>
+    item.category === currentCategory &&
+    item.subCategory === "cache"
+  )
   .sort((a, b) => (b.rating || 0) - (a.rating || 0));
 
-const topItems = categoryReviews.slice(0, 4);
+const topItems = categoryReviews.slice(0, 3);
 
+// FAQ
 const faqItems = [
   {
-    q: "What are the best WordPress plugins?",
-    a: "The best plugins depend on your needs, including SEO, speed, security, and design tools."
+    q: "What is a cache plugin?",
+    a: "Cache plugins improve website speed by storing static versions of pages and reducing server load."
   },
   {
-    q: "Do I need many plugins?",
-    a: "No. Using fewer high-quality plugins keeps your site faster and more stable."
+    q: "Do I need a cache plugin?",
+    a: "Yes, cache plugins help improve loading speed and performance, especially for WordPress sites."
   },
   {
-    q: "Are free plugins good enough?",
-    a: "Free plugins are fine for beginners, but premium ones offer more features."
+    q: "What is the best cache plugin?",
+    a: "Popular options include WP Rocket, LiteSpeed Cache, and W3 Total Cache."
   },
   {
-    q: "Which plugin is best for beginners?",
-    a: "Elementor is a great starting point because it is easy to use."
+    q: "Can cache plugins break a website?",
+    a: "Sometimes. Incorrect settings can cause issues, but most plugins work well with default settings."
   }
 ];
 
@@ -53,20 +58,19 @@ const faqJsonLd = {
 ---
 
 <Layout
-  title="Best WordPress Plugins in 2026"
-  description="Compare the best WordPress plugins for SEO, speed, and design."
+  title="Best Cache Plugins for WordPress in 2026"
+  description="Compare the best cache plugins to speed up your WordPress site and improve performance."
 >
-
 <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)}></script>
 
 <section class="compare-hero">
   <div class="page-container">
-    <p class="compare-eyebrow">WordPress Guide</p>
-    <h1>Best WordPress Plugins in 2026</h1>
+    <p class="compare-eyebrow">Performance Guide</p>
+    <h1>Best Cache Plugins for WordPress in 2026</h1>
 
     <p class="compare-intro">
-      Looking for the best WordPress plugins? We reviewed top tools for SEO,
-      performance, and website building.
+      Want a faster website? These cache plugins improve loading speed,
+      performance, and user experience.
     </p>
 
     <div class="compare-cta-row">
@@ -86,23 +90,26 @@ const faqJsonLd = {
     <article class="compare-main">
 
       <section class="compare-section">
-        <h2>How to Choose the Best WordPress Plugins</h2>
+        <h2>How to Choose a Cache Plugin</h2>
 
         <p>
-          Plugins add functionality, but too many can slow your site.
+          Cache plugins are essential for improving WordPress speed and performance.
+          They reduce server load and deliver pages faster to visitors.
         </p>
 
         <p>
-          Focus on performance, compatibility, and long-term support.
+          Choose a plugin that is easy to configure and works well with your hosting.
+          Some plugins are optimized for specific servers like LiteSpeed.
         </p>
 
         <p>
-          Start with essential plugins like SEO, caching, and a page builder.
+          Avoid using multiple cache plugins at the same time, as they can conflict
+          and cause issues.
         </p>
       </section>
 
       <section class="compare-section" id="top-picks">
-        <h2>Top {currentCategory.replace("-", " ")} Picks</h2>
+        <h2>Top Cache Plugin Picks</h2>
 
         <div class="compare-cards-grid">
           {topItems.map((item, index) => (
@@ -110,7 +117,7 @@ const faqJsonLd = {
               {index === 0 && <span class="compare-badge">Top Pick</span>}
 
               <h3>{item.name}</h3>
-              <p class="compare-card-tag">{item.tag || "Plugin"}</p>
+              <p class="compare-card-tag">{item.tag || "Cache plugin"}</p>
 
               <p class="compare-card-text">
                 {item.summary || item.description}
@@ -122,14 +129,13 @@ const faqJsonLd = {
                 <a href={`/${item.category}/${item.slug}`} class="btn btn-secondary">
                   Read {item.name} Review →
                 </a>
-
                 <a
                   href={item.affiliate}
                   class="btn btn-primary"
                   target="_blank"
                   rel="nofollow sponsored noopener"
                 >
-                  Get Plugin →
+                  Try Plugin →
                 </a>
               </div>
             </div>
@@ -138,12 +144,12 @@ const faqJsonLd = {
       </section>
 
       <section class="compare-section">
-        <h2>Best Plugins by Use Case</h2>
+        <h2>Best Cache Plugins by Use Case</h2>
 
         <ul class="compare-list">
-          <li><strong>Best for SEO:</strong> Rank Math</li>
-          <li><strong>Best for design:</strong> Elementor</li>
-          <li><strong>Best for speed:</strong> caching plugins</li>
+          <li><strong>Best premium:</strong> WP Rocket</li>
+          <li><strong>Best free:</strong> LiteSpeed Cache</li>
+          <li><strong>Best advanced:</strong> W3 Total Cache</li>
         </ul>
       </section>
 
@@ -151,23 +157,24 @@ const faqJsonLd = {
         <h2>Final Verdict</h2>
 
         <p>
-          Use only essential plugins and avoid overloading your site.
+          Cache plugins are one of the easiest ways to speed up your WordPress site.
+          Even basic caching can significantly improve load times.
         </p>
 
         <div class="compare-bottom-cta">
           <a
-            href="/go/elementor"
+            href="/go/wp-rocket"
             class="btn btn-primary"
             target="_blank"
             rel="nofollow sponsored noopener"
           >
-            Try Elementor →
+            Speed Up Your Site →
           </a>
         </div>
       </section>
 
       <section class="compare-section compare-faq-section">
-        <h2>WordPress Plugins FAQ</h2>
+        <h2>Cache Plugins FAQ</h2>
 
         <div class="compare-faq-list">
           {faqItems.map((item) => (
@@ -186,9 +193,9 @@ const faqJsonLd = {
       <div class="compare-sidebar-box">
         <h3>Quick Summary</h3>
         <ul>
-          <li>Top WordPress plugins</li>
-          <li>SEO, speed, and design tools</li>
-          <li>Beginner-friendly</li>
+          <li>Improve website speed</li>
+          <li>Reduce server load</li>
+          <li>Boost SEO performance</li>
         </ul>
       </div>
 
@@ -209,14 +216,14 @@ const faqJsonLd = {
 
       <div class="compare-sidebar-box">
         <h3>Best Starting Point</h3>
-        <p>Start with a simple plugin setup.</p>
+        <p>Start with a simple cache plugin and optimize later.</p>
         <a
-          href="/go/elementor"
+          href="/go/wp-rocket"
           class="btn btn-primary compare-sidebar-btn"
           target="_blank"
           rel="nofollow sponsored noopener"
         >
-          Start →
+          Start Optimization →
         </a>
       </div>
 
