@@ -255,6 +255,7 @@
     "badge": "Best overall value",
     "tag": "Drag & drop builder",
     "category": "wordpress-tools",
+    "subCategory": "elementor-addons",
     "rating": 4.7,
     "affiliate": "/go/elementor",
     
@@ -277,6 +278,70 @@
       }
     ]
   },
+
+  {
+  "slug": "rank-math",
+  "name": "Rank Math",
+  "title": "Rank Math Review",
+  "description": "Powerful SEO plugin for WordPress.",
+  "summary": "Rank Math is a powerful SEO plugin with advanced features, helping optimize content, improve rankings, and manage technical SEO easily.",
+  "tag": "Best SEO plugin",
+  "category": "wordpress-tools",
+  "subCategory": "seo",
+  "rating": 4.9,
+  "affiliate": "/go/rank-math",
+  "faq": [
+  {
+    "q": "Is Rank Math good for beginners?",
+    "a": "Yes, Rank Math is beginner-friendly and offers a setup wizard that helps configure SEO settings quickly."
+  },
+  {
+    "q": "Is Rank Math better than Yoast?",
+    "a": "Rank Math offers more features in the free version, while Yoast is more established. Both are strong SEO plugins."
+  },
+  {
+    "q": "Does Rank Math improve SEO?",
+    "a": "Rank Math helps optimize your content, meta tags, and technical SEO, which can improve search rankings over time."
+  },
+  {
+    "q": "Is Rank Math free?",
+    "a": "Yes, Rank Math has a free version with many features, and a paid version for advanced functionality."
+  }
+]
+},
+
+{
+  "slug": "yoast-seo",
+  "name": "Yoast SEO",
+  "title": "Yoast SEO Review",
+  "description": "Popular SEO plugin for WordPress.",
+  "summary": "Yoast SEO is one of the most popular plugins for optimizing content and improving search visibility.",
+  "tag": "Beginner-friendly SEO",
+  "category": "wordpress-tools",
+  "subCategory": "seo",
+  "rating": 4.7,
+  "affiliate": "/go/yoast",
+  "faq": [
+  {
+    "q": "Is Yoast SEO good for beginners?",
+    "a": "Yes, Yoast SEO is very beginner-friendly and provides clear guidance for optimizing content."
+  },
+  {
+    "q": "Is Yoast SEO free?",
+    "a": "Yes, Yoast offers a free version with essential SEO features, and a premium version with advanced tools."
+  },
+  {
+    "q": "Does Yoast help with rankings?",
+    "a": "Yoast helps optimize your site for search engines, but rankings also depend on content quality and backlinks."
+  },
+  {
+    "q": "Can I use Yoast with Elementor?",
+    "a": "Yes, Yoast SEO works well with Elementor and most WordPress page builders."
+  }
+]
+},
+
+
   {
     "slug": "1password",
     "name": "1Password",

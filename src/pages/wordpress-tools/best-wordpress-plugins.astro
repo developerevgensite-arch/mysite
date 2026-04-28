@@ -1,0 +1,228 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import "../../styles/compare-pages.css";
+import reviews from "../../data/reviews.json";
+import { guides } from "../../data/guides.js";
+
+const pathname = Astro.url.pathname.split("/").filter(Boolean);
+
+const currentCategory = pathname[0] || ""; // wordpress-tools
+const currentSlug = pathname[1] || "";
+
+const currentGuides = (guides[currentCategory] ?? [])
+  .filter((item) => item.slug !== currentSlug)
+  .slice(0, 4);
+
+const categoryReviews = reviews
+  .filter((item) => item.category === currentCategory)
+  .sort((a, b) => (b.rating || 0) - (a.rating || 0));
+
+const topItems = categoryReviews.slice(0, 3);
+
+const faqItems = [
+  {
+    q: "What are the best WordPress plugins?",
+    a: "The best plugins depend on your needs, including SEO, speed, security, and design tools."
+  },
+  {
+    q: "Do I need many plugins?",
+    a: "No. Using fewer high-quality plugins keeps your site faster and more stable."
+  },
+  {
+    q: "Are free plugins good enough?",
+    a: "Free plugins are fine for beginners, but premium ones offer more features."
+  },
+  {
+    q: "Which plugin is best for beginners?",
+    a: "Elementor is a great starting point because it is easy to use."
+  }
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map((item) => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.a
+    }
+  }))
+};
+---
+
+<Layout
+  title="Best WordPress Plugins in 2026"
+  description="Compare the best WordPress plugins for SEO, speed, and design."
+>
+
+<script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)}></script>
+
+<section class="compare-hero">
+  <div class="page-container">
+    <p class="compare-eyebrow">WordPress Guide</p>
+    <h1>Best WordPress Plugins in 2026</h1>
+
+    <p class="compare-intro">
+      Looking for the best WordPress plugins? We reviewed top tools for SEO,
+      performance, and website building.
+    </p>
+
+    <div class="compare-cta-row">
+      <a href="#top-picks" class="btn btn-primary">See Top Plugins</a>
+      {topItems[0] && (
+        <a href={`/${topItems[0].category}/${topItems[0].slug}`} class="btn btn-secondary">
+          Read {topItems[0].name} Review →
+        </a>
+      )}
+    </div>
+  </div>
+</section>
+
+<section class="compare-content">
+  <div class="page-container compare-layout">
+
+    <article class="compare-main">
+
+      <section class="compare-section">
+        <h2>How to Choose the Best WordPress Plugins</h2>
+
+        <p>
+          Plugins add functionality, but too many can slow your site.
+        </p>
+
+        <p>
+          Focus on performance, compatibility, and long-term support.
+        </p>
+
+        <p>
+          Start with essential plugins like SEO, caching, and a page builder.
+        </p>
+      </section>
+
+      <section class="compare-section" id="top-picks">
+        <h2>Top {currentCategory.replace("-", " ")} Picks</h2>
+
+        <div class="compare-cards-grid">
+          {topItems.map((item, index) => (
+            <div class="compare-card">
+              {index === 0 && <span class="compare-badge">Top Pick</span>}
+
+              <h3>{item.name}</h3>
+              <p class="compare-card-tag">{item.tag || "Plugin"}</p>
+
+              <p class="compare-card-text">
+                {item.summary || item.description}
+              </p>
+
+              <div class="compare-rating">★ {item.rating}/5</div>
+
+              <div class="compare-card-actions">
+                <a href={`/${item.category}/${item.slug}`} class="btn btn-secondary">
+                  Read {item.name} Review →
+                </a>
+
+                <a
+                  href={item.affiliate}
+                  class="btn btn-primary"
+                  target="_blank"
+                  rel="nofollow sponsored noopener"
+                >
+                  Get Plugin →
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="compare-section">
+        <h2>Best Plugins by Use Case</h2>
+
+        <ul class="compare-list">
+          <li><strong>Best for SEO:</strong> Rank Math</li>
+          <li><strong>Best for design:</strong> Elementor</li>
+          <li><strong>Best for speed:</strong> caching plugins</li>
+        </ul>
+      </section>
+
+      <section class="compare-section">
+        <h2>Final Verdict</h2>
+
+        <p>
+          Use only essential plugins and avoid overloading your site.
+        </p>
+
+        <div class="compare-bottom-cta">
+          <a
+            href="/go/elementor"
+            class="btn btn-primary"
+            target="_blank"
+            rel="nofollow sponsored noopener"
+          >
+            Try Elementor →
+          </a>
+        </div>
+      </section>
+
+      <section class="compare-section compare-faq-section">
+        <h2>WordPress Plugins FAQ</h2>
+
+        <div class="compare-faq-list">
+          {faqItems.map((item) => (
+            <details class="compare-faq-item">
+              <summary>{item.q}</summary>
+              <p>{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+    </article>
+
+    <aside class="compare-sidebar">
+
+      <div class="compare-sidebar-box">
+        <h3>Quick Summary</h3>
+        <ul>
+          <li>Top WordPress plugins</li>
+          <li>SEO, speed, and design tools</li>
+          <li>Beginner-friendly</li>
+        </ul>
+      </div>
+
+      <div class="compare-sidebar-box">
+        <h3>Read Next</h3>
+        {currentGuides.length > 0 && (
+          <ul class="compare-sidebar-links">
+            {currentGuides.map((item) => (
+              <li>
+                <a href={`/${currentCategory}/${item.slug}`}>
+                  {item.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+      <div class="compare-sidebar-box">
+        <h3>Best Starting Point</h3>
+        <p>Start with a simple plugin setup.</p>
+        <a
+          href="/go/elementor"
+          class="btn btn-primary compare-sidebar-btn"
+          target="_blank"
+          rel="nofollow sponsored noopener"
+        >
+          Start →
+        </a>
+      </div>
+
+    </aside>
+
+  </div>
+</section>
+
+</Layout>

@@ -2,29 +2,39 @@
 import Layout from "../../layouts/Layout.astro";
 import "../../styles/compare-pages.css";
 import reviews from "../../data/reviews.json";
+import { guides } from "../../data/guides.js";
+
+const pathname = Astro.url.pathname.split("/").filter(Boolean);
+
+const currentCategory = pathname[0] || ""; // vpn
+const currentSlug = pathname[1] || "";     // best-vpn-for-privacy
+
+const currentGuides = (guides[currentCategory] ?? [])
+  .filter((item) => item.slug !== currentSlug)
+  .slice(0, 4);
 
 const vpnReviews = reviews
-  .filter((item) => item.category === "vpn")
+  .filter((item) => item.category === currentCategory)
   .sort((a, b) => (b.rating || 0) - (a.rating || 0));
 
-const topVpn = vpnReviews.slice(0, 2);
+const topItems = vpnReviews.slice(0, 2);
 
 const faqItems = [
   {
     q: "What is the best VPN for privacy?",
-    a: "The best VPN for privacy is one with a strict no-logs policy, strong encryption, and secure servers. Providers like NordVPN are known for advanced privacy features."
+    a: "The best VPN for privacy is one with a strict no-logs policy, strong encryption, and secure servers."
   },
   {
     q: "Does a VPN really protect my privacy?",
-    a: "A VPN hides your IP address and encrypts your internet traffic, making it harder for third parties to track your activity. However, you should also choose a trusted provider."
+    a: "A VPN hides your IP address and encrypts your internet traffic, making tracking much harder."
   },
   {
     q: "What features matter most for privacy?",
-    a: "Important features include no-logs policy, strong encryption, kill switch, DNS leak protection, and jurisdiction outside surveillance alliances."
+    a: "No-logs policy, encryption, kill switch, and DNS leak protection are essential."
   },
   {
     q: "Is a free VPN safe for privacy?",
-    a: "Most free VPNs are not recommended for privacy because they may log your data or show ads. Paid VPNs are usually safer and more reliable."
+    a: "Most free VPNs are not recommended because they may log data or show ads."
   }
 ];
 
@@ -44,24 +54,26 @@ const faqJsonLd = {
 
 <Layout
   title="Best VPN for Privacy in 2026"
-  description="Find the best VPN for privacy and security. Compare top VPN providers with strong encryption, no-logs policies, and advanced protection features."
+  description="Compare the best VPNs for privacy and security. Find providers with strong encryption and no-logs policies."
 >
   <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)}></script>
 
   <section class="compare-hero">
     <div class="page-container">
-      <p class="compare-eyebrow">VPN Privacy Guide</p>
+      <p class="compare-eyebrow">VPN Guide</p>
       <h1>Best VPN for Privacy in 2026</h1>
       <p class="compare-intro">
-        Looking for the best VPN for privacy? We reviewed the most trusted VPN
-        providers to help you protect your personal data, hide your IP address,
-        and stay anonymous online. This guide is ideal for users who care about
-        security and data protection.
+        Looking for the best VPN for privacy? We reviewed trusted providers to help you
+        protect your data, hide your IP address, and stay anonymous online.
       </p>
 
       <div class="compare-cta-row">
         <a href="#top-picks" class="btn btn-primary">See Top Picks</a>
-        <a href="/vpn/nordvpn" class="btn btn-secondary">Read NordVPN Review</a>
+        {topItems[0] && (
+          <a href={`/${topItems[0].category}/${topItems[0].slug}`} class="btn btn-secondary">
+            Read {topItems[0].name} Review →
+          </a>
+        )}
       </div>
     </div>
   </section>
@@ -73,33 +85,28 @@ const faqJsonLd = {
         <section class="compare-section">
           <h2>How to Choose a VPN for Privacy</h2>
           <p>
-            Choosing a VPN for privacy requires focusing on security features.
-            The most important factor is a strict no-logs policy, meaning the VPN
-            provider does not store your browsing data.
+            Privacy-focused VPNs should have a strict no-logs policy and strong encryption.
           </p>
           <p>
-            You should also look for strong encryption (AES-256), a kill switch,
-            DNS leak protection, and servers in privacy-friendly jurisdictions.
-            These features ensure your data stays protected at all times.
+            Look for features like kill switch, DNS leak protection, and secure jurisdictions.
           </p>
           <p>
-            A reliable VPN provider should also have a strong reputation and
-            independent audits confirming their privacy claims.
+            A trustworthy provider should also have a proven reputation and independent audits.
           </p>
         </section>
 
         <section class="compare-section" id="top-picks">
-          <h2>Top VPNs for Privacy</h2>
+          <h2>Our Top {currentCategory.replace("-", " ")} Picks</h2>
           <p class="compare-note">
-            These VPN providers offer strong privacy and security features.
+            These VPNs offer strong privacy and security features.
           </p>
 
           <div class="compare-cards-grid">
-            {topVpn.map((item, index) => (
+            {topItems.map((item, index) => (
               <div class="compare-card">
                 {index === 0 && <span class="compare-badge">Top Pick</span>}
                 <h3>{item.name}</h3>
-                <p class="compare-card-tag">{item.tag || "Secure VPN service"}</p>
+                <p class="compare-card-tag">{item.tag || "Secure VPN"}</p>
                 <p class="compare-card-text">
                   {item.summary || item.description}
                 </p>
@@ -107,7 +114,7 @@ const faqJsonLd = {
 
                 <div class="compare-card-actions">
                   <a href={`/${item.category}/${item.slug}`} class="btn btn-secondary">
-                    Read Review →
+                    Read {item.name} Review →
                   </a>
                   <a
                     href={item.affiliate}
@@ -126,27 +133,20 @@ const faqJsonLd = {
         <section class="compare-section">
           <h2>Best VPN by Privacy Features</h2>
           <ul class="compare-list">
-            <li><strong>Best overall privacy:</strong> NordVPN — strong encryption and no-logs policy.</li>
-            <li><strong>Best for anonymity:</strong> NordVPN — advanced security tools.</li>
-            <li><strong>Best for beginners:</strong> CyberGhost — easy setup with solid protection.</li>
+            <li><strong>Best overall:</strong> NordVPN — strong security and no-logs policy</li>
+            <li><strong>Best for anonymity:</strong> advanced protection tools</li>
+            <li><strong>Best for beginners:</strong> CyberGhost — easy setup</li>
           </ul>
           <p>
-            Privacy-focused users should always prioritize security features over
-            price. A trusted VPN service is an important tool for protecting your
-            personal data online.
+            Privacy users should prioritize security over price when choosing a VPN.
           </p>
         </section>
 
         <section class="compare-section">
           <h2>Final Verdict</h2>
           <p>
-            If privacy is your main concern, choosing a trusted VPN with a proven
-            no-logs policy is essential. NordVPN remains one of the strongest
-            choices thanks to its advanced security features and strong reputation.
-          </p>
-          <p>
-            The best VPN for privacy is one that balances security, speed, and ease
-            of use while keeping your data protected at all times.
+            A trusted VPN with strong privacy features is essential for protecting your data.
+            NordVPN remains one of the best choices.
           </p>
 
           <div class="compare-bottom-cta">
@@ -156,13 +156,13 @@ const faqJsonLd = {
               target="_blank"
               rel="nofollow sponsored noopener"
             >
-              Stay Private with NordVPN →
+              Stay Private →
             </a>
           </div>
         </section>
 
         <section class="compare-section compare-faq-section">
-          <h2>VPN Privacy FAQ</h2>
+          <h2>VPN FAQ</h2>
           <div class="compare-faq-list">
             {faqItems.map((item) => (
               <details class="compare-faq-item">
@@ -179,24 +179,31 @@ const faqJsonLd = {
         <div class="compare-sidebar-box">
           <h3>Quick Summary</h3>
           <ul>
-            <li>Focus on privacy and security</li>
-            <li>Choose a no-logs VPN</li>
-            <li>Use encryption and protection tools</li>
+            <li>Focus on privacy</li>
+            <li>No-logs policy is key</li>
+            <li>Use secure VPN providers</li>
           </ul>
         </div>
 
         <div class="compare-sidebar-box">
           <h3>Read Next</h3>
-          <ul class="compare-sidebar-links">
-            <li><a href="/vpn/nordvpn">NordVPN Review</a></li>
-            <li><a href="/vpn/cyberghost">CyberGhost Review</a></li>
-          </ul>
+          {currentGuides.length > 0 && (
+            <ul class="compare-sidebar-links">
+              {currentGuides.map((item) => (
+                <li>
+                  <a href={`/${currentCategory}/${item.slug}`}>
+                    {item.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
         <div class="compare-sidebar-box">
           <h3>Best Choice</h3>
           <p>
-            Protect your data and stay anonymous online with a trusted VPN.
+            Protect your data with a trusted VPN.
           </p>
           <a
             href="/go/nordvpn"
@@ -204,7 +211,7 @@ const faqJsonLd = {
             target="_blank"
             rel="nofollow sponsored noopener"
           >
-            Get NordVPN →
+            Get VPN →
           </a>
         </div>
       </aside>

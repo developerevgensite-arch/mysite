@@ -352,11 +352,13 @@
     }
     
    /* TOOLS GRID home*/
-    .tools-grid{
-        display:grid;
-        grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-        gap:30px;
-        margin-top:40px;
+    .tools-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit,minmax(260px,1fr));
+        gap: 30px;
+        margin-top: 40px;
+
+        align-items: stretch; /* 🔥 ВАЖНО */
         }
         
         .tool-card{
@@ -365,6 +367,10 @@
         border-radius:10px;
         box-shadow:0 5px 15px rgba(0,0,0,0.05);
         transition:0.2s;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        align-items: flex-start;
         }
         
         .tool-card:hover{
@@ -377,9 +383,14 @@
         }
         
         .tool-card p{
+          flex-grow: 1;    
         color:#555;
         font-size:14px;
         margin-bottom:18px;
+        }
+
+        .tool-card .btn {
+        margin-top: auto;
         }
         
         .tool-rating {

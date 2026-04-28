@@ -1,38 +1,46 @@
 ---
-// Category page (wordpress)
+// Category page (WordPress tools)
 
 import Layout from "../../layouts/Layout.astro";
 import reviews from "../../data/reviews.json";
 
-const wpTools = reviews
+const wpReviews = reviews
   .filter((review) => review.category === "wordpress-tools")
   .sort((a, b) => b.rating - a.rating);
 
+// FAQ
 const faqItems = [
   {
     q: "What WordPress tools do I need to launch a site?",
-    a: "Most sites need a good theme, a page builder (optional), a caching/performance plugin, SEO basics, security hardening, and backups. Pick fewer, higher-quality plugins to avoid bloat."
+    a: "At minimum, you need hosting, a theme, and a few essential plugins like SEO, caching, and security tools."
   },
   {
     q: "Are page builders like Elementor bad for speed?",
-    a: "They can be fast if you keep layouts simple, use optimized hosting, caching, and avoid heavy add-ons. The biggest speed wins usually come from hosting, caching, image optimization, and reducing unused plugins."
+    a: "They can add some overhead, but with proper hosting and optimization, Elementor works well for most sites."
   },
   {
     q: "How many plugins is too many?",
-    a: "There is no perfect number, but more plugins means more updates, potential conflicts, and overhead. Focus on reputable plugins that replace multiple smaller ones and remove anything you don’t use."
+    a: "There is no fixed number, but generally 5–15 well-coded plugins is safe. Avoid installing unnecessary plugins."
   },
   {
     q: "Do I need a dedicated SEO plugin?",
-    a: "Often yes. An SEO plugin helps manage titles, meta descriptions, sitemaps, schema, and indexing controls. However, it won’t replace good content, internal links, and fast page speed."
+    a: "Yes. SEO plugins help optimize titles, meta descriptions, and technical SEO, improving visibility in search engines."
   },
   {
     q: "What’s the best way to back up a WordPress site?",
-    a: "Use automated off-site backups (cloud storage), keep multiple restore points, and test restores. A good host backup is helpful, but independent backups give you more control."
+    a: "Use a backup plugin or your hosting provider’s backup system to regularly save your website data."
   },
   {
     q: "How do I avoid plugin conflicts?",
-    a: "Keep WordPress/core/theme/plugins updated, avoid abandoned plugins, and test changes on staging if possible. If something breaks, disable recently added plugins first to isolate the issue."
+    a: "Use well-maintained plugins, keep them updated, and avoid installing multiple plugins with the same functionality."
   }
+];
+
+// GUIDES (самое важное)
+const guides = [
+  { slug: "best-wordpress-plugins", title: "Best WordPress Plugins" },
+  { slug: "best-elementor-addons", title: "Best Elementor Addons" },
+  { slug: "best-seo-plugins", title: "Best SEO Plugins" }
 ];
 
 const faqJsonLd = {
@@ -53,73 +61,84 @@ const faqJsonLd = {
 
 <section class="category-hero">
 
-<h1>Best WordPress Tools</h1>
+<h1>Best WordPress Tools & Plugins</h1>
 
-<p class="category-subtitle">
-Discover the best plugins and builders to design, optimize and grow WordPress sites.
+<p class="category-text">
+  Looking for the best WordPress tools? We selected top plugins, builders, and tools
+  to help you create fast, secure, and professional websites.
 </p>
 
 </section>
 
 <section class="tools-grid">
 
-  {wpTools.map((item) => (
+  {wpReviews.map((item) => (
     <article class="tool-card">
+
       {item.badge && <div class="card-badge">{item.badge}</div>}
+
       <h2>{item.name}</h2>
+
       {item.tag && <p class="card-tag">{item.tag}</p>}
+
       <p>{item.description}</p>
-  
+
       <div class="tool-meta">
         <span class="rating">⭐ {item.rating} / 5 (Our score)</span>
       </div>
-  
+
       <div class="buttons">
+
         <a href={`/wordpress-tools/${item.slug}`} class="btn btn-secondary">
           Read Review →
         </a>
-  
+
         <a href={item.affiliate} class="btn btn-primary" target="_blank" rel="nofollow sponsored noopener">
-          Check Tool →
+          Try Now →
         </a>
+
       </div>
+
     </article>
   ))}
-  
-  </section>
-
-<section class="container-text">
-
-<h2>How to Choose the Best WordPress Tools</h2>
-
-<p>
-The best WordPress setup depends on what you want to build. Some tools help you design pages faster, while others improve SEO, speed, backups or security.
-</p>
-
-<p>
-A good rule is to use fewer tools, but choose the ones that solve real problems. Too many plugins can make your site slower and harder to maintain.
-</p>
 
 </section>
 
 <section class="container-text">
 
-<h2>Best WordPress Tools by Use Case</h2>
+  <h2>How to Choose WordPress Tools</h2>
 
-<ul class="use-cases">
-  <li><strong>Best for page building:</strong> Elementor — flexible visual builder for beginners and professionals</li>
-  <li><strong>Best for site growth:</strong> tools that improve SEO, speed and lead generation</li>
-  <li><strong>Best overall value:</strong> simple plugins with clear setup and reliable support</li>
-</ul>
+  <p>
+  WordPress tools help you build and manage your website without coding.
+  Choosing the right tools improves performance, SEO, and design.
+  </p>
+
+  <p>
+  It is better to use a few high-quality plugins instead of many low-quality ones.
+  Focus on performance, compatibility, and long-term support.
+  </p>
 
 </section>
 
+<section class="container-text">
 
-<section class="faq" aria-label="WordPress tools FAQ">
+  <h2>Best Tools by Use Case</h2>
+
+  <ul class="use-cases">
+    <li><strong>Best builder:</strong> Elementor — visual page builder</li>
+    <li><strong>Best SEO:</strong> Rank Math — optimization tools</li>
+    <li><strong>Best performance:</strong> LiteSpeed Cache — fast loading</li>
+  </ul>
+
+</section>
+
+<!-- FAQ -->
+<section class="faq" aria-label="WordPress FAQ">
   <div class="faq-inner">
     <h2>WordPress Tools FAQ</h2>
+
     <p class="faq-subtitle">
-      Quick answers to common questions about WordPress plugins, builders and performance.
+      Quick answers to common questions about WordPress plugins, builders, and tools.
     </p>
 
     <div class="faq-list">
@@ -127,7 +146,7 @@ A good rule is to use fewer tools, but choose the ones that solve real problems.
         <details class="faq-item">
           <summary class="faq-question">
             <span>{item.q}</span>
-            <span class="faq-icon" aria-hidden="true">+</span>
+            <span class="faq-icon">+</span>
           </summary>
           <div class="faq-answer">
             <p>{item.a}</p>
@@ -135,6 +154,25 @@ A good rule is to use fewer tools, but choose the ones that solve real problems.
         </details>
       ))}
     </div>
+  </div>
+</section>
+
+<!-- GUIDES -->
+<section class="guides-section-box">
+
+  <div class="faq-inner">
+
+    <h2>WordPress Guides</h2>
+
+    <div class="guides-grid">
+      {guides.map((item) => (
+        <a href={`/wordpress-tools/${item.slug}`} class="guide-card">
+          <h3>{item.title}</h3>
+          <span>Read Guide →</span>
+        </a>
+      ))}
+    </div>
+
   </div>
 </section>
 
@@ -307,6 +345,47 @@ color:#4b5563;
 
 .faq-answer p{
 margin:0;
+}
+
+.guides-section-box{
+  max-width:1000px;
+  margin:80px auto 0px;
+  padding:20px 20px;
+}
+
+.guides-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:16px;
+  margin-top:20px;
+}
+
+.guide-card{
+  background:#f9fafb;
+  padding:18px;
+  border-radius:10px;
+  text-decoration:none;
+  color:#111;
+  border:1px solid #eef1f5;
+  transition:0.2s;
+  display:block;
+}
+
+.guide-card:hover{
+  background:#fff;
+  transform:translateY(-3px);
+  box-shadow:0 8px 20px rgba(0,0,0,0.06);
+}
+
+.guide-card h3{
+  margin:0 0 8px;
+  font-size:16px;
+}
+
+.guide-card span{
+  color:#ff8a00;
+  font-weight:600;
+  font-size:14px;
 }
 
 </style>

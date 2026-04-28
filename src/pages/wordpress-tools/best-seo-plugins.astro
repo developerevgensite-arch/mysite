@@ -1,0 +1,232 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import "../../styles/compare-pages.css";
+import reviews from "../../data/reviews.json";
+import { guides } from "../../data/guides.js";
+
+const pathname = Astro.url.pathname.split("/").filter(Boolean);
+
+const currentCategory = pathname[0] || ""; // wordpress-tools
+const currentSlug = pathname[1] || "";     // best-seo-plugins
+
+const currentGuides = (guides[currentCategory] ?? [])
+  .filter((item) => item.slug !== currentSlug)
+  .slice(0, 4);
+
+const categoryReviews = reviews
+  .filter((item) =>
+    item.category === currentCategory &&
+    item.subCategory === "seo"
+  )
+  .sort((a, b) => (b.rating || 0) - (a.rating || 0));
+
+const topItems = categoryReviews.slice(0, 3);
+
+const faqItems = [
+  {
+    q: "What is the best SEO plugin?",
+    a: "Popular options include Rank Math, Yoast SEO, and All in One SEO."
+  },
+  {
+    q: "Do I need an SEO plugin?",
+    a: "Yes. SEO plugins help optimize your site and improve rankings."
+  },
+  {
+    q: "Is Rank Math better than Yoast?",
+    a: "Rank Math offers more features for free, but both are strong plugins."
+  },
+  {
+    q: "Can SEO plugins improve rankings?",
+    a: "They help optimize your site, but content and backlinks are also important."
+  }
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map((item) => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.a
+    }
+  }))
+};
+---
+
+<Layout
+  title="Best SEO Plugins for WordPress in 2026"
+  description="Compare the best SEO plugins for WordPress to improve rankings and traffic."
+>
+<script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)}></script>
+
+<section class="compare-hero">
+  <div class="page-container">
+    <p class="compare-eyebrow">SEO Guide</p>
+    <h1>Best SEO Plugins for WordPress in 2026</h1>
+
+    <p class="compare-intro">
+      Looking to improve your rankings? These SEO plugins help optimize your
+      content, technical SEO, and overall website performance.
+    </p>
+
+    <div class="compare-cta-row">
+      <a href="#top-picks" class="btn btn-primary">See Top Plugins</a>
+      {topItems[0] && (
+        <a href={`/${topItems[0].category}/${topItems[0].slug}`} class="btn btn-secondary">
+          Read {topItems[0].name} Review →
+        </a>
+      )}
+    </div>
+  </div>
+</section>
+
+<section class="compare-content">
+  <div class="page-container compare-layout">
+
+    <article class="compare-main">
+
+      <section class="compare-section">
+        <h2>How to Choose an SEO Plugin</h2>
+
+        <p>
+          SEO plugins help optimize your website for search engines by managing
+          meta tags, sitemaps, and technical SEO settings.
+        </p>
+
+        <p>
+          Choose a plugin that is easy to use, regularly updated, and fits your
+          workflow.
+        </p>
+
+        <p>
+          Using one good plugin is better than installing multiple overlapping tools.
+        </p>
+      </section>
+
+      <section class="compare-section" id="top-picks">
+        <h2>Top {currentCategory.replace("-", " ")} Picks</h2>
+
+        <div class="compare-cards-grid">
+          {topItems.map((item, index) => (
+            <div class="compare-card">
+              {index === 0 && <span class="compare-badge">Top Pick</span>}
+
+              <h3>{item.name}</h3>
+              <p class="compare-card-tag">{item.tag || "SEO plugin"}</p>
+
+              <p class="compare-card-text">
+                {item.summary || item.description}
+              </p>
+
+              <div class="compare-rating">★ {item.rating}/5</div>
+
+              <div class="compare-card-actions">
+                <a href={`/${item.category}/${item.slug}`} class="btn btn-secondary">
+                  Read {item.name} Review →
+                </a>
+                <a
+                  href={item.affiliate}
+                  class="btn btn-primary"
+                  target="_blank"
+                  rel="nofollow sponsored noopener"
+                >
+                  Get Plugin →
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="compare-section">
+        <h2>Best SEO Plugins by Use Case</h2>
+
+        <ul class="compare-list">
+          <li><strong>Best overall:</strong> Rank Math</li>
+          <li><strong>Best for beginners:</strong> Yoast SEO</li>
+          <li><strong>Best all-in-one:</strong> All in One SEO</li>
+        </ul>
+      </section>
+
+      <section class="compare-section">
+        <h2>Final Verdict</h2>
+
+        <p>
+          SEO plugins are essential for improving visibility in search engines.
+          Choose one reliable plugin and use it consistently.
+        </p>
+
+        <div class="compare-bottom-cta">
+          <a
+            href="/go/rank-math"
+            class="btn btn-primary"
+            target="_blank"
+            rel="nofollow sponsored noopener"
+          >
+            Start SEO →
+          </a>
+        </div>
+      </section>
+
+      <section class="compare-section compare-faq-section">
+        <h2>SEO FAQ</h2>
+
+        <div class="compare-faq-list">
+          {faqItems.map((item) => (
+            <details class="compare-faq-item">
+              <summary>{item.q}</summary>
+              <p>{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+    </article>
+
+    <aside class="compare-sidebar">
+
+      <div class="compare-sidebar-box">
+        <h3>Quick Summary</h3>
+        <ul>
+          <li>Improve rankings</li>
+          <li>Optimize content</li>
+          <li>Grow organic traffic</li>
+        </ul>
+      </div>
+
+      <div class="compare-sidebar-box">
+        <h3>Read Next</h3>
+        {currentGuides.length > 0 && (
+          <ul class="compare-sidebar-links">
+            {currentGuides.map((item) => (
+              <li>
+                <a href={`/${currentCategory}/${item.slug}`}>
+                  {item.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+      <div class="compare-sidebar-box">
+        <h3>Best Starting Point</h3>
+        <p>Start with one SEO plugin and grow from there.</p>
+        <a
+          href="/go/rank-math"
+          class="btn btn-primary compare-sidebar-btn"
+          target="_blank"
+          rel="nofollow sponsored noopener"
+        >
+          Start SEO →
+        </a>
+      </div>
+
+    </aside>
+
+  </div>
+</section>
+
+</Layout>

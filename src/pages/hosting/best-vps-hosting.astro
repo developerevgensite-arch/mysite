@@ -2,29 +2,39 @@
 import Layout from "../../layouts/Layout.astro";
 import "../../styles/compare-pages.css"; 
 import reviews from "../../data/reviews.json";
+import { guides } from "../../data/guides.js";
 
-const hostingReviews = reviews
-  .filter((item) => item.category === "hosting")
+const pathname = Astro.url.pathname.split("/").filter(Boolean);
+
+const currentCategory = pathname[0] || "";
+const currentSlug = pathname[1] || "";
+
+const currentGuides = (guides[currentCategory] ?? [])
+  .filter((item) => item.slug !== currentSlug)
+  .slice(0, 4);
+
+const categoryReviews = reviews
+  .filter((item) => item.category === currentCategory)
   .sort((a, b) => (b.rating || 0) - (a.rating || 0));
 
-const topHosting = hostingReviews.slice(0, 2);
+const topItems = categoryReviews.slice(0, 2);
 
 const faqItems = [
   {
     q: "What is VPS hosting?",
-    a: "VPS (Virtual Private Server) hosting gives you dedicated resources on a virtual server. It offers more power and control than shared hosting, without the cost of a full dedicated server."
+    a: "VPS (Virtual Private Server) hosting gives you dedicated resources on a virtual server. It offers more power and control than shared hosting."
   },
   {
     q: "Who should use VPS hosting?",
-    a: "VPS hosting is ideal for growing websites, eCommerce stores, and users who need better performance and more control than shared hosting provides."
+    a: "VPS hosting is ideal for growing websites, eCommerce stores, and users who need better performance and more control."
   },
   {
     q: "Is VPS hosting better than shared hosting?",
-    a: "Yes, VPS hosting offers better performance, stability, and flexibility. However, it is usually more expensive and may require basic technical knowledge."
+    a: "Yes, VPS offers better performance and stability, but it is usually more expensive."
   },
   {
     q: "Do I need technical skills for VPS hosting?",
-    a: "Some VPS plans require server management skills, but many providers offer managed VPS hosting, which is easier to use for beginners."
+    a: "Not necessarily. Many providers offer managed VPS hosting which is beginner-friendly."
   }
 ];
 
@@ -60,7 +70,11 @@ const faqJsonLd = {
 
       <div class="compare-cta-row">
         <a href="#top-picks" class="btn btn-primary">See Top Picks</a>
-        <a href="/hosting/cloudways" class="btn btn-secondary">Read Cloudways Review</a>
+        {topItems[0] && (
+          <a href={`/${topItems[0].category}/${topItems[0].slug}`} class="btn btn-secondary">
+            Read {topItems[0].name} Review →
+          </a>
+        )}
       </div>
     </div>
   </section>
@@ -86,13 +100,13 @@ const faqJsonLd = {
         </section>
 
         <section class="compare-section" id="top-picks">
-          <h2>Our Top VPS Hosting Picks</h2>
+          <h2>Our Top {currentCategory.replace("-", " ")} Picks</h2>
           <p class="compare-note">
             These providers offer the best VPS performance and reliability.
           </p>
 
           <div class="compare-cards-grid">
-            {topHosting.map((item, index) => (
+            {topItems.map((item, index) => (
               <div class="compare-card">
                 {index === 0 && <span class="compare-badge">Top Pick</span>}
                 <h3>{item.name}</h3>
@@ -104,7 +118,7 @@ const faqJsonLd = {
 
                 <div class="compare-card-actions">
                   <a href={`/${item.category}/${item.slug}`} class="btn btn-secondary">
-                    Read Review →
+                    Read {item.name} Review →
                   </a>
                   <a
                     href={item.affiliate}
@@ -182,12 +196,17 @@ const faqJsonLd = {
 
         <div class="compare-sidebar-box">
           <h3>Read Next</h3>
-          <ul class="compare-sidebar-links">
-            <li><a href="/hosting/cloudways">Cloudways Review</a></li>
-            <li><a href="/hosting/hostinger">Hostinger Review</a></li>
-            <li><a href="/hosting/interserver">InterServer Review</a></li>
-            <li><a href="/hosting/best-hosting">Best Hosting</a></li>
-          </ul>
+          {currentGuides.length > 0 && (
+            <ul class="compare-sidebar-links">
+              {currentGuides.map((item) => (
+                <li>
+                  <a href={`/${currentCategory}/${item.slug}`}>
+                    {item.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
         <div class="compare-sidebar-box">

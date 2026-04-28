@@ -2,29 +2,39 @@
 import Layout from "../../layouts/Layout.astro";
 import "../../styles/compare-pages.css"; 
 import reviews from "../../data/reviews.json";
+import { guides } from "../../data/guides.js";
+
+const pathname = Astro.url.pathname.split("/").filter(Boolean);
+
+const currentCategory = pathname[0] || ""; // vpn
+const currentSlug = pathname[1] || "";     // best-vpn-for-netflix
+
+const currentGuides = (guides[currentCategory] ?? [])
+  .filter((item) => item.slug !== currentSlug)
+  .slice(0, 4);
 
 const vpnReviews = reviews
-  .filter((item) => item.category === "vpn")
+  .filter((item) => item.category === currentCategory)
   .sort((a, b) => (b.rating || 0) - (a.rating || 0));
 
-const topVpn = vpnReviews.slice(0, 2);
+const topItems = vpnReviews.slice(0, 2);
 
 const faqItems = [
   {
     q: "Which VPN works best for Netflix?",
-    a: "Top VPNs like NordVPN and CyberGhost are often recommended for Netflix due to their fast speeds and ability to access different regions. However, availability can change over time."
+    a: "Top VPNs like NordVPN and CyberGhost are often recommended for Netflix due to their fast speeds and ability to access different regions."
   },
   {
     q: "Can a VPN unblock Netflix in other countries?",
-    a: "Yes, a VPN can help access different Netflix libraries by connecting to servers in other countries. However, Netflix actively blocks some VPN servers."
+    a: "Yes, a VPN can help access different Netflix libraries by connecting to servers in other countries."
   },
   {
     q: "Will using a VPN affect streaming quality?",
-    a: "A VPN can slightly reduce speed, but high-quality providers offer fast servers that support HD and even 4K streaming without buffering."
+    a: "A VPN can slightly reduce speed, but high-quality providers support HD and 4K streaming."
   },
   {
     q: "Is it legal to use a VPN for Netflix?",
-    a: "Using a VPN is legal in most countries, but it may go against Netflix's terms of service. Users should check local laws and platform rules."
+    a: "Using a VPN is legal in most countries, but it may go against Netflix’s terms of service."
   }
 ];
 
@@ -44,7 +54,7 @@ const faqJsonLd = {
 
 <Layout
   title="Best VPN for Netflix in 2026"
-  description="Looking for the best VPN for Netflix? Compare top VPNs for streaming, speed, and access to global content libraries."
+  description="Compare the best VPNs for Netflix: speed, streaming performance, and global access."
 >
   <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)}></script>
 
@@ -54,13 +64,16 @@ const faqJsonLd = {
       <h1>Best VPN for Netflix in 2026</h1>
       <p class="compare-intro">
         Want to watch Netflix content from different countries? We tested popular VPN services
-        to find the best options for streaming, speed, and reliability. This guide helps you
-        choose a VPN that works with Netflix without buffering or interruptions.
+        to find the best options for streaming, speed, and reliability.
       </p>
 
       <div class="compare-cta-row">
         <a href="#top-picks" class="btn btn-primary">See Top Picks</a>
-        <a href="/vpn/nordvpn" class="btn btn-secondary">Read NordVPN Review</a>
+        {topItems[0] && (
+          <a href={`/${topItems[0].category}/${topItems[0].slug}`} class="btn btn-secondary">
+            Read {topItems[0].name} Review →
+          </a>
+        )}
       </div>
     </div>
   </section>
@@ -72,29 +85,26 @@ const faqJsonLd = {
         <section class="compare-section">
           <h2>How to Choose the Best VPN for Netflix</h2>
           <p>
-            Not every VPN works with Netflix. The platform actively blocks many VPN servers,
-            so choosing the right provider is important. The best VPN for Netflix should offer
-            fast speeds, stable connections, and servers optimized for streaming.
+            Not every VPN works with Netflix. The best VPN should offer fast speeds,
+            stable connections, and servers optimized for streaming.
           </p>
           <p>
-            Speed is critical for streaming. A slow VPN can cause buffering or reduce video
-            quality. Look for VPNs that support modern protocols like WireGuard and have
-            servers close to your location.
+            Speed is critical for streaming. Look for VPNs with modern protocols
+            and servers close to your location.
           </p>
           <p>
-            It is also important to choose a VPN with a large server network. This increases
-            your chances of finding a working server if one gets blocked.
+            A large server network helps you find working servers when some get blocked.
           </p>
         </section>
 
         <section class="compare-section" id="top-picks">
-          <h2>Our Top VPN Picks for Netflix</h2>
+          <h2>Our Top {currentCategory.replace("-", " ")} Picks</h2>
           <p class="compare-note">
-            These VPNs are currently the best options for streaming and accessing global content.
+            These VPNs are currently the best options for streaming.
           </p>
 
           <div class="compare-cards-grid">
-            {topVpn.map((item, index) => (
+            {topItems.map((item, index) => (
               <div class="compare-card">
                 {index === 0 && <span class="compare-badge">Top Pick</span>}
                 <h3>{item.name}</h3>
@@ -106,7 +116,7 @@ const faqJsonLd = {
 
                 <div class="compare-card-actions">
                   <a href={`/${item.category}/${item.slug}`} class="btn btn-secondary">
-                    Read Review →
+                    Read {item.name} Review →
                   </a>
                   <a
                     href={item.affiliate}
@@ -123,28 +133,23 @@ const faqJsonLd = {
         </section>
 
         <section class="compare-section">
-          <h2>Best VPN for Netflix by Use Case</h2>
+          <h2>Best VPN by Use Case</h2>
           <ul class="compare-list">
-            <li><strong>Best overall:</strong> NordVPN — fast speeds and reliable streaming</li>
-            <li><strong>Best for beginners:</strong> CyberGhost — simple apps and streaming servers</li>
-            <li><strong>Best for value:</strong> affordable plans with good performance</li>
+            <li><strong>Best overall:</strong> NordVPN — fast and reliable</li>
+            <li><strong>Best for beginners:</strong> CyberGhost — simple apps</li>
+            <li><strong>Best value:</strong> affordable plans with good performance</li>
           </ul>
           <p>
-            Different VPNs perform differently depending on your location and internet speed.
-            Testing multiple servers is often the best way to find the optimal setup for streaming.
+            VPN performance depends on your location. Testing different servers helps
+            achieve the best streaming experience.
           </p>
         </section>
 
         <section class="compare-section">
           <h2>Final Verdict</h2>
           <p>
-            If you want a reliable VPN for Netflix, NordVPN is one of the best choices thanks
-            to its speed and consistent performance. CyberGhost is also a great option,
-            especially for beginners who want easy streaming setup.
-          </p>
-          <p>
-            The best VPN for Netflix is one that balances speed, reliability, and access to
-            multiple regions. Always test servers to get the best streaming experience.
+            NordVPN is one of the best choices for Netflix thanks to speed and reliability.
+            CyberGhost is also a strong option for beginners.
           </p>
 
           <div class="compare-bottom-cta">
@@ -160,7 +165,7 @@ const faqJsonLd = {
         </section>
 
         <section class="compare-section compare-faq-section">
-          <h2>Netflix VPN FAQ</h2>
+          <h2>VPN FAQ</h2>
           <div class="compare-faq-list">
             {faqItems.map((item) => (
               <details class="compare-faq-item">
@@ -177,26 +182,31 @@ const faqJsonLd = {
         <div class="compare-sidebar-box">
           <h3>Quick Summary</h3>
           <ul>
-            <li>Best VPNs for Netflix streaming</li>
-            <li>Access global content libraries</li>
-            <li>Fast speeds and stable connections</li>
+            <li>Best VPNs for Netflix</li>
+            <li>Access global content</li>
+            <li>Fast and stable streaming</li>
           </ul>
         </div>
 
         <div class="compare-sidebar-box">
           <h3>Read Next</h3>
-          <ul class="compare-sidebar-links">
-            <li><a href="/vpn/nordvpn">NordVPN Review</a></li>
-            <li><a href="/vpn/cyberghost">CyberGhost Review</a></li>
-            <li><a href="/vpn/best-vpn">Best VPN</a></li>
-            <li><a href="/vpn/best-vpn-for-streaming">Best VPN for Streaming</a></li>
-          </ul>
+          {currentGuides.length > 0 && (
+            <ul class="compare-sidebar-links">
+              {currentGuides.map((item) => (
+                <li>
+                  <a href={`/${currentCategory}/${item.slug}`}>
+                    {item.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
         <div class="compare-sidebar-box">
           <h3>Best Choice</h3>
           <p>
-            For streaming Netflix without buffering, a fast and reliable VPN is essential.
+            For streaming Netflix, choose a fast and reliable VPN.
           </p>
           <a
             href="/go/nordvpn"

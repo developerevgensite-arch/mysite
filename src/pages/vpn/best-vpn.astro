@@ -2,29 +2,39 @@
 import Layout from "../../layouts/Layout.astro";
 import "../../styles/compare-pages.css";
 import reviews from "../../data/reviews.json";
+import { guides } from "../../data/guides.js";
 
-const vpnReviews = reviews
-  .filter((item) => item.category === "vpn")
+const pathname = Astro.url.pathname.split("/").filter(Boolean);
+
+const currentCategory = pathname[0] || ""; // vpn
+const currentSlug = pathname[1] || "";     // best-vpn
+
+const currentGuides = (guides[currentCategory] ?? [])
+  .filter((item) => item.slug !== currentSlug)
+  .slice(0, 4);
+
+const categoryReviews = reviews
+  .filter((item) => item.category === currentCategory)
   .sort((a, b) => (b.rating || 0) - (a.rating || 0));
 
-const topVpn = vpnReviews.slice(0, 2);
+const topItems = categoryReviews.slice(0, 2);
 
 const faqItems = [
   {
     q: "What is the best VPN for beginners?",
-    a: "The best VPN for beginners is one that is easy to use, reliable, and offers good speed. Services like NordVPN and CyberGhost are often recommended because they have simple apps and strong security features."
+    a: "A beginner-friendly VPN should be easy to use, reliable, and fast. Providers like NordVPN and CyberGhost are popular choices."
   },
   {
     q: "Is a VPN necessary in 2026?",
-    a: "A VPN is useful if you care about privacy, security on public Wi-Fi, or accessing content from different countries. While not everyone needs one daily, it is still an important tool for online protection."
+    a: "A VPN is useful for privacy, security on public Wi-Fi, and accessing content from different regions."
   },
   {
     q: "Will a VPN slow down my internet?",
-    a: "A VPN can slightly reduce speed because traffic is encrypted and routed through servers. However, good providers minimize this impact and still offer fast browsing and streaming."
+    a: "A VPN may slightly reduce speed, but high-quality providers minimize this impact."
   },
   {
     q: "How do I choose the best VPN?",
-    a: "Compare speed, server locations, privacy policy, ease of use, and pricing. It is also important to choose a VPN with a no-logs policy and good reputation."
+    a: "Focus on speed, privacy policy, ease of use, and server locations."
   }
 ];
 
@@ -44,7 +54,7 @@ const faqJsonLd = {
 
 <Layout
   title="Best VPN in 2026"
-  description="Compare the best VPN services for privacy, streaming, and security. See top VPN picks, features, and quick answers before choosing a provider."
+  description="Compare the best VPN services for privacy, streaming, and security."
 >
   <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)}></script>
 
@@ -53,15 +63,17 @@ const faqJsonLd = {
       <p class="compare-eyebrow">VPN Guide</p>
       <h1>Best VPN in 2026</h1>
       <p class="compare-intro">
-        Looking for the best VPN? We tested popular providers like NordVPN and
-        CyberGhost to help you choose the right one for privacy, streaming, and
-        secure browsing. This guide is designed for beginners, travelers, and
-        anyone who wants to protect their online activity.
+        Looking for the best VPN? We reviewed top providers to help you choose
+        the right option for privacy, streaming, and security.
       </p>
 
       <div class="compare-cta-row">
         <a href="#top-picks" class="btn btn-primary">See Top Picks</a>
-        <a href="/vpn/nordvpn" class="btn btn-secondary">Read NordVPN Review</a>
+        {topItems[0] && (
+          <a href={`/${topItems[0].category}/${topItems[0].slug}`} class="btn btn-secondary">
+            Read {topItems[0].name} Review →
+          </a>
+        )}
       </div>
     </div>
   </section>
@@ -73,35 +85,28 @@ const faqJsonLd = {
         <section class="compare-section">
           <h2>How to Choose the Best VPN</h2>
           <p>
-            Choosing the best VPN depends on your needs. If you want privacy and
-            security, look for strong encryption and a no-logs policy. If you care
-            about streaming or speed, choose a provider with fast servers and good
-            global coverage.
+            The best VPN depends on your needs — privacy, streaming, or security.
           </p>
           <p>
-            Important factors include speed, number of servers, supported devices,
-            ease of use, and pricing. Some VPNs are better for beginners, while
-            others offer advanced features for experienced users.
+            Key factors include speed, server locations, ease of use, and pricing.
           </p>
           <p>
-            For most users, it is better to choose a reliable and easy-to-use VPN
-            rather than the most complex option. You can always switch or upgrade
-            later if your needs change.
+            Most users should choose a simple and reliable VPN and upgrade later if needed.
           </p>
         </section>
 
         <section class="compare-section" id="top-picks">
-          <h2>Our Top VPN Picks</h2>
+          <h2>Our Top {currentCategory.replace("-", " ")} Picks</h2>
           <p class="compare-note">
             These are the main VPN providers currently featured on the site.
           </p>
 
           <div class="compare-cards-grid">
-            {topVpn.map((item, index) => (
+            {topItems.map((item, index) => (
               <div class="compare-card">
                 {index === 0 && <span class="compare-badge">Top Pick</span>}
                 <h3>{item.name}</h3>
-                <p class="compare-card-tag">{item.tag || "Reliable VPN service"}</p>
+                <p class="compare-card-tag">{item.tag || "VPN service"}</p>
                 <p class="compare-card-text">
                   {item.summary || item.description}
                 </p>
@@ -109,7 +114,7 @@ const faqJsonLd = {
 
                 <div class="compare-card-actions">
                   <a href={`/${item.category}/${item.slug}`} class="btn btn-secondary">
-                    Read Review →
+                    Read {item.name} Review →
                   </a>
                   <a
                     href={item.affiliate}
@@ -128,27 +133,19 @@ const faqJsonLd = {
         <section class="compare-section">
           <h2>Best VPN by Use Case</h2>
           <ul class="compare-list">
-            <li><strong>Best overall:</strong> NordVPN — strong security and speed.</li>
-            <li><strong>Best for beginners:</strong> CyberGhost — easy to use and setup.</li>
-            <li><strong>Best for privacy:</strong> NordVPN — advanced protection features.</li>
+            <li><strong>Best overall:</strong> NordVPN — speed and security</li>
+            <li><strong>Best for beginners:</strong> CyberGhost — easy to use</li>
+            <li><strong>Best for privacy:</strong> strong encryption and no-logs</li>
           </ul>
           <p>
-            Different users need different VPN features. Some care about streaming,
-            others about privacy or security. That is why comparison pages and
-            detailed reviews help you make the right choice.
+            Different VPNs focus on different strengths, so choosing the right one depends on your needs.
           </p>
         </section>
 
         <section class="compare-section">
           <h2>Final Verdict</h2>
           <p>
-            If you want a reliable all-around VPN, NordVPN is one of the strongest
-            options available today. If your priority is ease of use, CyberGhost is
-            a great choice for beginners.
-          </p>
-          <p>
-            The best VPN depends on your goals. Focus on speed, privacy, and ease
-            of use to find the right provider for your needs.
+            NordVPN is one of the strongest all-around VPNs today.
           </p>
 
           <div class="compare-bottom-cta">
@@ -158,7 +155,7 @@ const faqJsonLd = {
               target="_blank"
               rel="nofollow sponsored noopener"
             >
-              Visit NordVPN →
+              Visit VPN →
             </a>
           </div>
         </section>
@@ -174,30 +171,38 @@ const faqJsonLd = {
             ))}
           </div>
         </section>
+
       </article>
 
       <aside class="compare-sidebar">
         <div class="compare-sidebar-box">
           <h3>Quick Summary</h3>
           <ul>
-            <li>Compare VPN providers in one place</li>
-            <li>Useful for privacy, streaming, and travel</li>
-            <li>Includes reviews and pricing links</li>
+            <li>Top VPN providers</li>
+            <li>Privacy and streaming</li>
+            <li>Easy to compare</li>
           </ul>
         </div>
 
         <div class="compare-sidebar-box">
           <h3>Read Next</h3>
-          <ul class="compare-sidebar-links">
-            <li><a href="/vpn/nordvpn">NordVPN Review</a></li>
-            <li><a href="/vpn/cyberghost">CyberGhost Review</a></li>
-          </ul>
+          {currentGuides.length > 0 && (
+            <ul class="compare-sidebar-links">
+              {currentGuides.map((item) => (
+                <li>
+                  <a href={`/${currentCategory}/${item.slug}`}>
+                    {item.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
         <div class="compare-sidebar-box">
           <h3>Best Starting Point</h3>
           <p>
-            New to VPNs? Start with a simple and reliable provider.
+            Start with a reliable VPN and upgrade later if needed.
           </p>
           <a
             href="/go/nordvpn"
@@ -205,7 +210,7 @@ const faqJsonLd = {
             target="_blank"
             rel="nofollow sponsored noopener"
           >
-            Check NordVPN →
+            Get VPN →
           </a>
         </div>
       </aside>

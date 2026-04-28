@@ -1,0 +1,223 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import "../../styles/compare-pages.css";
+import reviews from "../../data/reviews.json";
+import { guides } from "../../data/guides.js";
+
+const pathname = Astro.url.pathname.split("/").filter(Boolean);
+
+const currentCategory = pathname[0] || ""; // wordpress-tools
+const currentSlug = pathname[1] || "";     // best-elementor-addons
+
+const currentGuides = (guides[currentCategory] ?? [])
+  .filter((item) => item.slug !== currentSlug)
+  .slice(0, 4);
+
+const categoryReviews = reviews
+  .filter((item) =>
+    item.category === currentCategory &&
+    item.subCategory === "elementor-addons"
+  )
+  .sort((a, b) => (b.rating || 0) - (a.rating || 0));
+
+const topItems = categoryReviews.slice(0, 3);
+
+const faqItems = [
+  {
+    q: "What are Elementor addons?",
+    a: "Elementor addons extend Elementor with extra widgets and features."
+  },
+  {
+    q: "Do I need Elementor addons?",
+    a: "Not always. They are useful for advanced layouts and functionality."
+  },
+  {
+    q: "Are Elementor addons free?",
+    a: "Some are free, but premium versions offer more features."
+  },
+  {
+    q: "Which Elementor addon is best?",
+    a: "Popular options include Essential Addons, Crocoblock, and Ultimate Addons."
+  }
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map((item) => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.a
+    }
+  }))
+};
+---
+
+<Layout
+  title="Best Elementor Addons in 2026"
+  description="Compare the best Elementor addons to extend your WordPress site."
+>
+<script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)}></script>
+
+<section class="compare-hero">
+  <div class="page-container">
+    <p class="compare-eyebrow">Elementor Guide</p>
+    <h1>Best Elementor Addons in 2026</h1>
+
+    <p class="compare-intro">
+      Looking to extend Elementor? We reviewed top addons to help you build more advanced websites.
+    </p>
+
+    <div class="compare-cta-row">
+      <a href="#top-picks" class="btn btn-primary">See Top Addons</a>
+      {topItems[0] && (
+        <a href={`/${topItems[0].category}/${topItems[0].slug}`} class="btn btn-secondary">
+          Read {topItems[0].name} Review →
+        </a>
+      )}
+    </div>
+  </div>
+</section>
+
+<section class="compare-content">
+  <div class="page-container compare-layout">
+
+    <article class="compare-main">
+
+      <section class="compare-section">
+        <h2>How to Choose Elementor Addons</h2>
+
+        <p>
+          Elementor addons add extra widgets and features to your site.
+        </p>
+
+        <p>
+          Choose addons based on performance and only install what you need.
+        </p>
+
+        <p>
+          Too many addons can slow down your website.
+        </p>
+      </section>
+
+      <section class="compare-section" id="top-picks">
+        <h2>Top {currentCategory.replace("-", " ")} Picks</h2>
+
+        <div class="compare-cards-grid">
+          {topItems.map((item, index) => (
+            <div class="compare-card">
+              {index === 0 && <span class="compare-badge">Top Pick</span>}
+
+              <h3>{item.name}</h3>
+              <p class="compare-card-tag">{item.tag || "Addon plugin"}</p>
+
+              <p class="compare-card-text">
+                {item.summary || item.description}
+              </p>
+
+              <div class="compare-rating">★ {item.rating}/5</div>
+
+              <div class="compare-card-actions">
+                <a href={`/${item.category}/${item.slug}`} class="btn btn-secondary">
+                  Read {item.name} Review →
+                </a>
+                <a
+                  href={item.affiliate}
+                  class="btn btn-primary"
+                  target="_blank"
+                  rel="nofollow sponsored noopener"
+                >
+                  Try Now →
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section class="compare-section">
+        <h2>Best Addons by Use Case</h2>
+
+        <ul class="compare-list">
+          <li><strong>Best overall:</strong> Essential Addons</li>
+          <li><strong>Best advanced:</strong> Crocoblock</li>
+          <li><strong>Best lightweight:</strong> Ultimate Addons</li>
+        </ul>
+      </section>
+
+      <section class="compare-section">
+        <h2>Final Verdict</h2>
+
+        <p>
+          Start with one addon and expand only if needed.
+        </p>
+
+        <div class="compare-bottom-cta">
+          <a href="/go/elementor" class="btn btn-primary" target="_blank" rel="nofollow sponsored noopener">
+            Try Elementor →
+          </a>
+        </div>
+      </section>
+
+      <section class="compare-section compare-faq-section">
+        <h2>Elementor Addons FAQ</h2>
+
+        <div class="compare-faq-list">
+          {faqItems.map((item) => (
+            <details class="compare-faq-item">
+              <summary>{item.q}</summary>
+              <p>{item.a}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+    </article>
+
+    <aside class="compare-sidebar">
+
+      <div class="compare-sidebar-box">
+        <h3>Quick Summary</h3>
+        <ul>
+          <li>Extend Elementor features</li>
+          <li>Add widgets and templates</li>
+          <li>Improve design flexibility</li>
+        </ul>
+      </div>
+
+      <div class="compare-sidebar-box">
+        <h3>Read Next</h3>
+        {currentGuides.length > 0 && (
+          <ul class="compare-sidebar-links">
+            {currentGuides.map((item) => (
+              <li>
+                <a href={`/${currentCategory}/${item.slug}`}>
+                  {item.title}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+
+      <div class="compare-sidebar-box">
+        <h3>Best Starting Point</h3>
+        <p>Start with Elementor and expand later.</p>
+        <a
+          href="/go/elementor"
+          class="btn btn-primary compare-sidebar-btn"
+          target="_blank"
+          rel="nofollow sponsored noopener"
+        >
+          Start Elementor →
+        </a>
+      </div>
+
+    </aside>
+
+  </div>
+</section>
+
+</Layout>

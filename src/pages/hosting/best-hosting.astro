@@ -6,12 +6,22 @@
 import Layout from "../../layouts/Layout.astro";
 import "../../styles/compare-pages.css"; // 
 import reviews from "../../data/reviews.json";
+import { guides } from "../../data/guides.js";
 
-const hostingReviews = reviews
-  .filter((item) => item.category === "hosting")
+const pathname = Astro.url.pathname.split("/").filter(Boolean);
+
+const currentCategory = pathname[0] || ""; // hosting,vpn ...
+const currentSlug = pathname[1] || "";     // best-hosting, best-...
+
+const currentGuides = (guides[currentCategory] ?? [])
+  .filter((item) => item.slug !== currentSlug)
+  .slice(0, 4);
+
+const categoryReviews = reviews
+  .filter((item) => item.category === currentCategory)
   .sort((a, b) => (b.rating || 0) - (a.rating || 0));
 
-const topHosting = hostingReviews.slice(0, 2);
+const topItems = categoryReviews.slice(0, 2);
 
 const faqItems = [
   {
@@ -65,7 +75,11 @@ const faqJsonLd = {
 
       <div class="compare-cta-row">
         <a href="#top-picks" class="btn btn-primary">See Top Picks</a>
-        <a href="/hosting/hostinger" class="btn btn-secondary">Read Hostinger Review</a>
+        {topItems[0] && (
+          <a href={`/${topItems[0].category}/${topItems[0].slug}`} class="btn btn-secondary">
+            Read {topItems[0].name} Review →
+          </a>
+        )}
       </div>
     </div>
   </section>
@@ -95,13 +109,13 @@ const faqJsonLd = {
         </section>
 
         <section class="compare-section" id="top-picks">
-          <h2>Our Top Hosting Picks</h2>
+          <h2>Our Top {currentCategory.replace("-", " ")} Picks</h2>
           <p class="compare-note">
             These are the main providers currently featured on the site.
           </p>
 
           <div class="compare-cards-grid">
-            {topHosting.map((item, index) => (
+            {topItems.map((item, index) => (
               <div class="compare-card">
                 {index === 0 && <span class="compare-badge">Top Pick</span>}
                 <h3>{item.name}</h3>
@@ -113,7 +127,7 @@ const faqJsonLd = {
 
                 <div class="compare-card-actions">
                   <a href={`/${item.category}/${item.slug}`} class="btn btn-secondary">
-                    Read Review →
+                    Read {item.name} Review →
                   </a>
                   <a
                     href={item.affiliate}
@@ -195,12 +209,17 @@ const faqJsonLd = {
 
         <div class="compare-sidebar-box">
           <h3>Read Next</h3>
-          <ul class="compare-sidebar-links">
-            <li><a href="/hosting/hostinger">Hostinger Review</a></li>
-            <li><a href="/hosting/interserver">InterServer Review</a></li>
-            <li><a href="/hosting/cloudways">Cloudways Review</a></li>
-            <li><a href="/hosting/bluehost">Bluehost Review</a></li>
-          </ul>
+            {currentGuides.length > 0 && (
+              <ul class="compare-sidebar-links">
+                {currentGuides.map((item) => (
+                  <li>
+                    <a href={`/${currentCategory}/${item.slug}`}>
+                      {item.title}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
         </div>
 
         <div class="compare-sidebar-box">

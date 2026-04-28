@@ -2,26 +2,40 @@
 import Layout from "../../layouts/Layout.astro";
 import "../../styles/compare-pages.css"; 
 import reviews from "../../data/reviews.json";
+import { guides } from "../../data/guides.js";
 
+const pathname = Astro.url.pathname.split("/").filter(Boolean);
+
+const currentCategory = pathname[0] || "";
+const currentSlug = pathname[1] || "";
+
+const currentGuides = (guides[currentCategory] ?? [])
+  .filter((item) => item.slug !== currentSlug)
+  .slice(0, 4);
+
+// 🔥 получаем конкретные сервисы
 const hostinger = reviews.find((item) => item.slug === "hostinger");
 const bluehost = reviews.find((item) => item.slug === "bluehost");
+
+// 🔥 защита от null (очень важно)
+const compareItems = [hostinger, bluehost].filter(Boolean);
 
 const faqItems = [
   {
     q: "Which is better: Hostinger or Bluehost?",
-    a: "Hostinger is often better for pricing and performance, while Bluehost is popular for beginners and WordPress integration. The best choice depends on your needs."
+    a: "Hostinger is often better for pricing and performance, while Bluehost is popular for beginners and WordPress integration."
   },
   {
     q: "Is Hostinger cheaper than Bluehost?",
-    a: "Yes, Hostinger usually offers lower introductory prices compared to Bluehost, making it a better option for budget users."
+    a: "Yes, Hostinger usually offers lower introductory prices compared to Bluehost."
   },
   {
     q: "Which hosting is better for WordPress?",
-    a: "Both support WordPress. Bluehost is officially recommended by WordPress, while Hostinger offers better performance and pricing in many cases."
+    a: "Both support WordPress. Bluehost is officially recommended, while Hostinger offers better value."
   },
   {
     q: "Can I switch hosting providers later?",
-    a: "Yes, you can migrate your website to another hosting provider. Many hosts offer free migration services."
+    a: "Yes, many hosting providers offer free migration services."
   }
 ];
 
@@ -41,7 +55,7 @@ const faqJsonLd = {
 
 <Layout
   title="Hostinger vs Bluehost (2026 Comparison)"
-  description="Compare Hostinger vs Bluehost: pricing, performance, ease of use, and features. Find out which hosting provider is better for your website."
+  description="Compare Hostinger vs Bluehost: pricing, performance, ease of use, and features."
 >
   <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)}></script>
 
@@ -52,12 +66,16 @@ const faqJsonLd = {
       <p class="compare-intro">
         Choosing between Hostinger and Bluehost? Both are popular hosting providers,
         but they offer different advantages. This comparison will help you decide
-        which one is better for your website in 2026.
+        which one is better for your website.
       </p>
 
       <div class="compare-cta-row">
         <a href="#comparison" class="btn btn-primary">See Comparison</a>
-        <a href="/hosting/hostinger" class="btn btn-secondary">Read Hostinger Review</a>
+        {compareItems[0] && (
+          <a href={`/${compareItems[0].category}/${compareItems[0].slug}`} class="btn btn-secondary">
+            Read {compareItems[0].name} Review →
+          </a>
+        )}
       </div>
     </div>
   </section>
@@ -67,10 +85,10 @@ const faqJsonLd = {
       <article class="compare-main">
 
         <section class="compare-section" id="comparison">
-          <h2>Hostinger vs Bluehost: Quick Comparison</h2>
+          <h2>Quick Comparison</h2>
 
           <div class="compare-cards-grid">
-            {[hostinger, bluehost].map((item) => (
+            {compareItems.map((item) => (
               <div class="compare-card">
                 <h3>{item.name}</h3>
                 <p class="compare-card-tag">{item.tag || "Hosting provider"}</p>
@@ -81,7 +99,7 @@ const faqJsonLd = {
 
                 <div class="compare-card-actions">
                   <a href={`/${item.category}/${item.slug}`} class="btn btn-secondary">
-                    Read Review →
+                    Read {item.name} Review →
                   </a>
                   <a
                     href={item.affiliate}
@@ -101,16 +119,15 @@ const faqJsonLd = {
           <h2>Pricing</h2>
           <p>
             Hostinger is usually the cheaper option, especially for long-term plans.
-            Bluehost tends to have higher renewal prices, which is important to consider
-            when choosing a hosting provider.
+            Bluehost tends to have higher renewal prices.
           </p>
         </section>
 
         <section class="compare-section">
           <h2>Performance</h2>
           <p>
-            Hostinger generally offers better performance thanks to modern infrastructure
-            and optimized servers. Bluehost is stable but may not be as fast in some cases.
+            Hostinger generally offers better performance thanks to modern infrastructure.
+            Bluehost is stable but may be slightly slower in some cases.
           </p>
         </section>
 
@@ -118,7 +135,7 @@ const faqJsonLd = {
           <h2>Ease of Use</h2>
           <p>
             Bluehost is very beginner-friendly, especially for WordPress users.
-            Hostinger also offers an easy-to-use control panel and quick setup.
+            Hostinger also offers a simple and modern dashboard.
           </p>
         </section>
 
@@ -126,8 +143,7 @@ const faqJsonLd = {
           <h2>Final Verdict</h2>
           <p>
             If you want better value and performance, Hostinger is often the better choice.
-            If you prefer a well-known brand with WordPress integration, Bluehost is still
-            a solid option.
+            Bluehost is a solid option for beginners.
           </p>
 
           <div class="compare-bottom-cta">
@@ -143,7 +159,7 @@ const faqJsonLd = {
         </section>
 
         <section class="compare-section compare-faq-section">
-          <h2>Hosting Comparison FAQ</h2>
+          <h2>Comparison FAQ</h2>
           <div class="compare-faq-list">
             {faqItems.map((item) => (
               <details class="compare-faq-item">
@@ -168,12 +184,17 @@ const faqJsonLd = {
 
         <div class="compare-sidebar-box">
           <h3>Read Next</h3>
-          <ul class="compare-sidebar-links">
-            <li><a href="/hosting/hostinger">Hostinger Review</a></li>
-            <li><a href="/hosting/bluehost">Bluehost Review</a></li>
-            <li><a href="/hosting/best-hosting">Best Hosting</a></li>
-            <li><a href="/hosting/best-cheap-hosting">Best Cheap Hosting</a></li>
-          </ul>
+          {currentGuides.length > 0 && (
+            <ul class="compare-sidebar-links">
+              {currentGuides.map((item) => (
+                <li>
+                  <a href={`/${currentCategory}/${item.slug}`}>
+                    {item.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
         <div class="compare-sidebar-box">

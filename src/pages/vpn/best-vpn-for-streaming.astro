@@ -2,29 +2,39 @@
 import Layout from "../../layouts/Layout.astro";
 import "../../styles/compare-pages.css";
 import reviews from "../../data/reviews.json";
+import { guides } from "../../data/guides.js";
+
+const pathname = Astro.url.pathname.split("/").filter(Boolean);
+
+const currentCategory = pathname[0] || ""; // vpn
+const currentSlug = pathname[1] || "";     // best-vpn-for-streaming
+
+const currentGuides = (guides[currentCategory] ?? [])
+  .filter((item) => item.slug !== currentSlug)
+  .slice(0, 4);
 
 const vpnReviews = reviews
-  .filter((item) => item.category === "vpn")
+  .filter((item) => item.category === currentCategory)
   .sort((a, b) => (b.rating || 0) - (a.rating || 0));
 
-const topVpn = vpnReviews.slice(0, 2);
+const topItems = vpnReviews.slice(0, 2);
 
 const faqItems = [
   {
     q: "What is the best VPN for streaming?",
-    a: "The best VPN for streaming is one that offers fast speeds, stable connections, and servers optimized for platforms like Netflix, YouTube, and other streaming services. NordVPN is often a top choice."
+    a: "A good streaming VPN should offer fast speeds, stable connections, and access to multiple regions."
   },
   {
-    q: "Can a VPN unblock Netflix and other streaming services?",
-    a: "Many VPNs can help access content from different regions, but availability depends on the provider and the platform. Good VPNs regularly update their servers to maintain access."
+    q: "Can a VPN unblock Netflix?",
+    a: "Yes, many VPNs allow access to different regions, but performance depends on the provider."
   },
   {
     q: "Will a VPN reduce streaming quality?",
-    a: "A VPN may slightly reduce speed, but high-quality providers minimize this impact and still allow HD or even 4K streaming."
+    a: "Premium VPNs usually support HD and 4K streaming with minimal speed loss."
   },
   {
-    q: "What features matter for streaming VPNs?",
-    a: "Speed, server locations, bandwidth limits, and streaming-optimized servers are the most important features for smooth streaming."
+    q: "What features matter for streaming?",
+    a: "Speed, server locations, and stable connections are the most important factors."
   }
 ];
 
@@ -44,24 +54,26 @@ const faqJsonLd = {
 
 <Layout
   title="Best VPN for Streaming in 2026"
-  description="Find the best VPN for streaming Netflix, YouTube, and other platforms. Compare fast VPN services for smooth HD and 4K streaming."
+  description="Compare the best VPNs for streaming Netflix and more. Fast, stable, and reliable VPN providers."
 >
   <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)}></script>
 
   <section class="compare-hero">
     <div class="page-container">
-      <p class="compare-eyebrow">VPN Streaming Guide</p>
+      <p class="compare-eyebrow">VPN Guide</p>
       <h1>Best VPN for Streaming in 2026</h1>
       <p class="compare-intro">
-        Looking for the best VPN for streaming? We tested top VPN providers to
-        help you watch content from different regions, avoid buffering, and enjoy
-        fast and stable streaming. This guide is perfect for users who want smooth
-        video playback and access to global content.
+        Looking for a VPN for streaming? We tested top providers to help you watch
+        content from different regions without buffering.
       </p>
 
       <div class="compare-cta-row">
         <a href="#top-picks" class="btn btn-primary">See Top Picks</a>
-        <a href="/vpn/nordvpn" class="btn btn-secondary">Read NordVPN Review</a>
+        {topItems[0] && (
+          <a href={`/${topItems[0].category}/${topItems[0].slug}`} class="btn btn-secondary">
+            Read {topItems[0].name} Review →
+          </a>
+        )}
       </div>
     </div>
   </section>
@@ -73,33 +85,28 @@ const faqJsonLd = {
         <section class="compare-section">
           <h2>How to Choose a VPN for Streaming</h2>
           <p>
-            Choosing a VPN for streaming requires focusing on speed and server
-            availability. A good VPN should have fast connections and servers in
-            multiple countries to access different content libraries.
+            Streaming VPNs need fast speeds and stable connections.
           </p>
           <p>
-            Look for providers that offer unlimited bandwidth and optimized
-            streaming servers. Stability is also important to avoid buffering or
-            connection drops during playback.
+            Choose providers with servers in multiple countries and unlimited bandwidth.
           </p>
           <p>
-            For most users, a fast and reliable VPN with simple apps is the best
-            choice for everyday streaming.
+            A reliable VPN helps avoid buffering and unlock global content.
           </p>
         </section>
 
         <section class="compare-section" id="top-picks">
-          <h2>Top VPNs for Streaming</h2>
+          <h2>Our Top {currentCategory.replace("-", " ")} Picks</h2>
           <p class="compare-note">
-            These VPN providers offer fast speeds and reliable streaming access.
+            These VPNs are best for streaming performance.
           </p>
 
           <div class="compare-cards-grid">
-            {topVpn.map((item, index) => (
+            {topItems.map((item, index) => (
               <div class="compare-card">
                 {index === 0 && <span class="compare-badge">Top Pick</span>}
                 <h3>{item.name}</h3>
-                <p class="compare-card-tag">{item.tag || "Fast VPN service"}</p>
+                <p class="compare-card-tag">{item.tag || "Streaming VPN"}</p>
                 <p class="compare-card-text">
                   {item.summary || item.description}
                 </p>
@@ -107,7 +114,7 @@ const faqJsonLd = {
 
                 <div class="compare-card-actions">
                   <a href={`/${item.category}/${item.slug}`} class="btn btn-secondary">
-                    Read Review →
+                    Read {item.name} Review →
                   </a>
                   <a
                     href={item.affiliate}
@@ -124,28 +131,21 @@ const faqJsonLd = {
         </section>
 
         <section class="compare-section">
-          <h2>Best VPN by Streaming Use Case</h2>
+          <h2>Best VPN by Use Case</h2>
           <ul class="compare-list">
-            <li><strong>Best overall:</strong> NordVPN — fast speeds and global servers.</li>
-            <li><strong>Best for HD/4K:</strong> NordVPN — stable high-speed performance.</li>
-            <li><strong>Best for beginners:</strong> CyberGhost — easy setup for streaming.</li>
+            <li><strong>Best overall:</strong> NordVPN — fast and stable</li>
+            <li><strong>Best for 4K:</strong> high-speed servers</li>
+            <li><strong>Best for beginners:</strong> easy-to-use apps</li>
           </ul>
           <p>
-            Streaming requires both speed and reliability. Choosing a high-quality
-            VPN ensures a smooth viewing experience without interruptions.
+            A good VPN ensures smooth streaming without interruptions.
           </p>
         </section>
 
         <section class="compare-section">
           <h2>Final Verdict</h2>
           <p>
-            If you want a fast and reliable VPN for streaming, NordVPN is one of
-            the best options available. It offers strong performance, wide server
-            coverage, and consistent streaming quality.
-          </p>
-          <p>
-            The best VPN for streaming should balance speed, reliability, and ease
-            of use to provide a smooth viewing experience.
+            NordVPN is one of the best choices for streaming due to speed and reliability.
           </p>
 
           <div class="compare-bottom-cta">
@@ -155,13 +155,13 @@ const faqJsonLd = {
               target="_blank"
               rel="nofollow sponsored noopener"
             >
-              Start Streaming with NordVPN →
+              Start Streaming →
             </a>
           </div>
         </section>
 
         <section class="compare-section compare-faq-section">
-          <h2>Streaming VPN FAQ</h2>
+          <h2>VPN FAQ</h2>
           <div class="compare-faq-list">
             {faqItems.map((item) => (
               <details class="compare-faq-item">
@@ -178,24 +178,31 @@ const faqJsonLd = {
         <div class="compare-sidebar-box">
           <h3>Quick Summary</h3>
           <ul>
-            <li>Optimized for streaming</li>
-            <li>Fast and stable connections</li>
+            <li>Fast streaming VPNs</li>
             <li>Access global content</li>
+            <li>Stable connections</li>
           </ul>
         </div>
 
         <div class="compare-sidebar-box">
           <h3>Read Next</h3>
-          <ul class="compare-sidebar-links">
-            <li><a href="/vpn/nordvpn">NordVPN Review</a></li>
-            <li><a href="/vpn/cyberghost">CyberGhost Review</a></li>
-          </ul>
+          {currentGuides.length > 0 && (
+            <ul class="compare-sidebar-links">
+              {currentGuides.map((item) => (
+                <li>
+                  <a href={`/${currentCategory}/${item.slug}`}>
+                    {item.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
         <div class="compare-sidebar-box">
           <h3>Best for Streaming</h3>
           <p>
-            Enjoy smooth and fast streaming with a reliable VPN service.
+            Enjoy smooth streaming with a reliable VPN.
           </p>
           <a
             href="/go/nordvpn"
@@ -203,7 +210,7 @@ const faqJsonLd = {
             target="_blank"
             rel="nofollow sponsored noopener"
           >
-            Watch with NordVPN →
+            Get VPN →
           </a>
         </div>
       </aside>
