@@ -290,7 +290,8 @@
   "category": "wordpress-tools",
   "subCategory": "elementor-addons",
   "rating": 4.8,
-  "affiliate": "/go/essential-addons",
+  "affiliate_old": "/go/essential-addons",
+  "affiliate": "https://essential-addons.com/",
   "faq": [
     {
       "q": "Is Essential Addons free?",
@@ -322,7 +323,8 @@
   "category": "wordpress-tools",
   "subCategory": "elementor-addons",
   "rating": 4.7,
-  "affiliate": "/go/crocoblock",
+  "affiliate_old": "/go/crocoblock",
+  "affiliate": "https://crocoblock.com/",
   "faq": [
     {
       "q": "Is Crocoblock good for beginners?",
@@ -354,7 +356,9 @@
   "category": "wordpress-tools",
   "subCategory": "elementor-addons",
   "rating": 4.6,
-  "affiliate": "/go/ultimate-addons",
+  
+  "affiliate_old": "/go/ultimate-addons",
+"affiliate": "https://ultimateelementor.com/",
   "faq": [
     {
       "q": "Is Ultimate Addons free?",
@@ -387,7 +391,9 @@
   "category": "wordpress-tools",
   "subCategory": "security",
   "rating": 4.8,
-  "affiliate": "/go/wordfence",
+  
+  "affiliate_old": "/go/wordfence",
+"affiliate": "https://www.wordfence.com/",
 
   "faq": [
     {
@@ -420,7 +426,9 @@
   "category": "wordpress-tools",
   "subCategory": "cache",
   "rating": 4.9,
-  "affiliate": "/go/wp-rocket",
+  
+  "affiliate_old": "/go/wp-rocket",
+"affiliate": "https://wp-rocket.me/",
 
   "faq": [
     {
@@ -452,7 +460,9 @@
   "category": "wordpress-tools",
   "subCategory": "cache",
   "rating": 4.8,
-  "affiliate": "/go/litespeed",
+  
+  "affiliate_old": "/go/litespeed",
+"affiliate": "https://www.litespeedtech.com/",
 
   "faq": [
     {
@@ -484,7 +494,9 @@
   "category": "wordpress-tools",
   "subCategory": "cache",
   "rating": 4.6,
-  "affiliate": "/go/w3cache",
+  
+  "affiliate_old": "/go/w3cache",
+"affiliate": "https://wordpress.org/plugins/w3-total-cache/",
 
   "faq": [
     {
@@ -516,7 +528,9 @@
   "category": "wordpress-tools",
   "subCategory": "seo",
   "rating": 4.9,
-  "affiliate": "/go/rank-math",
+  
+  "affiliate_old": "/go/rank-math",
+"affiliate": "https://rankmath.com/",
   "faq": [
   {
     "q": "Is Rank Math good for beginners?",
@@ -547,7 +561,10 @@
   "category": "wordpress-tools",
   "subCategory": "seo",
   "rating": 4.7,
-  "affiliate": "/go/yoast",
+  
+  "affiliate_old": "/go/yoast",
+"affiliate": "https://yoast.com/",
+
   "faq": [
   {
     "q": "Is Yoast SEO good for beginners?",
