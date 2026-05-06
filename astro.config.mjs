@@ -5,6 +5,7 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   output: 'server',
   adapter: cloudflare(),
+  trailingSlash: "always",
 
   site: 'https://techtoolreviews.com',
 
