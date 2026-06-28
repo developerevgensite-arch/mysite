@@ -8,6 +8,13 @@ export const guides = {
 
   vpn: [
     { slug: "best-vpn", title: "Best VPN" },
+  
+    { slug: "what-is-a-vpn", title: "What Is a VPN?" },
+    { slug: "how-does-a-vpn-work", title: "How Does a VPN Work?" },
+    { slug: "is-a-vpn-worth-it", title: "Is a VPN Worth It?" },
+    { slug: "free-vpn-vs-paid-vpn", title: "Free VPN vs Paid VPN" },
+    { slug: "vpn-protocols-explained", title: "VPN Protocols Explained" },
+  
     { slug: "best-vpn-for-privacy", title: "Best VPN for Privacy" },
     { slug: "best-vpn-for-streaming", title: "Best VPN for Streaming" },
     { slug: "best-vpn-for-netflix", title: "Best VPN for Netflix" }

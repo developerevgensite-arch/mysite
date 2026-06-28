@@ -3,6 +3,7 @@
 
 import Layout from "../../layouts/Layout.astro";
 import reviews from "../../data/reviews.json";
+import { guides as vpnGuides } from "../../data/guides.js";
 
 const vpnReviews = reviews
   .filter((review) => review.category === "vpn")
@@ -35,13 +36,7 @@ const faqItems = [
   }
 ];
 
-// ссылки внизу страницы
-const guides = [
-  { slug: "best-vpn", title: "Best VPN" },
-  { slug: "best-vpn-for-streaming", title: "Best VPN for Streaming" },
-  { slug: "best-vpn-for-privacy", title: "Best VPN for Privacy" },
-  { slug: "best-vpn-for-netflix", title: "Best Vpn for Netflix" }
-];
+const guides = vpnGuides.vpn ?? [];
 
 const faqJsonLd = {
   "@context": "https://schema.org",

@@ -1,0 +1,408 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import "../../styles/compare-pages.css";
+import { guides } from "../../data/guides.js";
+
+const pathname = Astro.url.pathname.split("/").filter(Boolean);
+const currentCategory = pathname[0] || "";
+const currentSlug = pathname[1] || "";
+
+const currentGuides = (guides[currentCategory] ?? [])
+  .filter((item) => item.slug !== currentSlug)
+  .slice(0, 6);
+
+const faqItems = [
+  {
+    q: "Does a VPN route all my internet traffic?",
+    a: "Most full-device VPN apps route all traffic from your device through the VPN tunnel by default. Some services also offer split tunneling, which lets you choose specific apps or websites to bypass the VPN."
+  },
+  {
+    q: "What happens to my data inside the VPN tunnel?",
+    a: "Your data is encrypted on your device before it leaves. It travels securely to the VPN server, where it is decrypted and sent to the destination website. The return traffic follows the same path in reverse."
+  },
+  {
+    q: "Can my ISP see anything when I use a VPN?",
+    a: "Your ISP can usually see that you are connected to a VPN and how much data you transfer, but it typically cannot see the specific websites or content inside the encrypted tunnel."
+  },
+  {
+    q: "Why does server location matter?",
+    a: "The VPN server's location affects your visible IP address, connection speed, and which regional content you can access. Closer servers usually mean lower latency and faster speeds."
+  },
+  {
+    q: "What is a kill switch and why does it matter?",
+    a: "A kill switch blocks internet access if the VPN connection drops unexpectedly. This prevents your real IP address and unencrypted traffic from being exposed during a brief disconnect."
+  }
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map((item) => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.a
+    }
+  }))
+};
+---
+
+<Layout
+  title="How Does a VPN Work?"
+  description="Understand how VPN encryption, tunneling, and servers protect your internet connection. A step-by-step explanation for beginners."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)}></script>
+
+  <section class="compare-hero">
+    <div class="page-container">
+      <p class="compare-eyebrow">VPN Guide</p>
+      <h1>How Does a VPN Work?</h1>
+      <p class="compare-intro">
+        VPNs sound technical, but the process behind them follows a clear sequence:
+        encrypt, tunnel, route, decrypt. This guide walks through each step so you know
+        exactly what happens when you click Connect.
+      </p>
+
+      <div class="compare-cta-row">
+        <a href="#step-by-step" class="btn btn-primary">See the Steps</a>
+        <a href="/vpn/what-is-a-vpn/" class="btn btn-secondary">What Is a VPN? →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="compare-content">
+    <div class="page-container compare-layout">
+      <article class="compare-main">
+
+        <section class="compare-section">
+          <h2>The Basic Idea: A Private Tunnel</h2>
+          <p>
+            When you browse without a VPN, your device sends requests directly to websites
+            through your internet service provider. Each site can see your IP address, and
+            anyone on the same local network may observe unencrypted traffic.
+          </p>
+          <p>
+            A VPN changes that path. Your device first connects to a VPN server through an
+            encrypted tunnel. Websites then see the VPN server's IP address instead of yours.
+            The VPN acts as a middle layer between you and the open internet.
+          </p>
+          <p>
+            If you are new to VPNs entirely, start with our
+            <a href="/vpn/what-is-a-vpn/">beginner's guide to what a VPN is</a> before diving
+            into the technical details below.
+          </p>
+        </section>
+
+        <section class="compare-section" id="step-by-step">
+          <h2>Step-by-Step: What Happens When You Connect</h2>
+          <p>
+            Here is the typical flow when you open a VPN app and tap Connect:
+          </p>
+          <ol class="compare-list">
+            <li><strong>Authentication:</strong> The app verifies your account with the VPN provider's servers.</li>
+            <li><strong>Encryption keys are exchanged:</strong> Your device and the VPN server agree on encryption methods.</li>
+            <li><strong>The tunnel opens:</strong> Your internet traffic is wrapped in an encrypted packet.</li>
+            <li><strong>Traffic is routed:</strong> Encrypted data travels to the VPN server you selected.</li>
+            <li><strong>The server forwards requests:</strong> The VPN server decrypts traffic and sends it to the destination website.</li>
+            <li><strong>Responses return the same way:</strong> Website data comes back through the server, gets encrypted again, and reaches your device.</li>
+          </ol>
+          <p>
+            From your perspective, browsing feels normal. Under the hood, your connection takes
+            a longer but protected route. That extra hop is why some VPNs can slightly reduce
+            speed, especially if you connect to a server far away.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>Encryption: The Core Security Layer</h2>
+          <p>
+            Encryption is what makes a VPN more than a simple proxy. Modern VPN services typically
+            use strong encryption standards such as AES-256, which scrambles data so that only
+            parties with the correct keys can read it.
+          </p>
+
+          <h3>What Gets Encrypted</h3>
+          <p>
+            In a standard VPN setup, the contents of your connection — the websites you visit,
+            the data you send and receive — are encrypted between your device and the VPN server.
+            Your ISP sees that you are using a VPN, but not the details of your activity inside
+            the tunnel.
+          </p>
+
+          <h3>Encryption Protocols</h3>
+          <p>
+            The encryption method depends on the VPN protocol in use. WireGuard, OpenVPN, and
+            IKEv2/IPsec are the most common options today. Each balances speed, security, and
+            compatibility differently. For a full breakdown, read our
+            <a href="/vpn/vpn-protocols-explained/">VPN protocols explained</a> guide.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>VPN Servers and IP Addresses</h2>
+          <p>
+            VPN providers operate networks of servers around the world. When you connect to a
+            server in another country, websites generally treat you as a visitor from that region.
+            That is why VPNs can help with geo-restricted content, though streaming platforms
+            may block known VPN IP ranges.
+          </p>
+          <p>
+            Server choice affects performance. A server in your own country or a neighboring one
+            usually delivers the fastest speeds. A server on another continent adds latency but
+            may be necessary for accessing specific regional libraries, such as those covered in
+            our <a href="/vpn/best-vpn-for-netflix/">best VPN for Netflix</a> guide.
+          </p>
+
+          <div class="compare-table-wrap">
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th>Server Choice</th>
+                  <th>Typical Speed</th>
+                  <th>Best Use Case</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Nearby server (same country)</td>
+                  <td>Fastest</td>
+                  <td>Everyday browsing, privacy, public Wi-Fi</td>
+                </tr>
+                <tr>
+                  <td>Neighboring country</td>
+                  <td>Good</td>
+                  <td>Travel, regional content, balanced privacy</td>
+                </tr>
+                <tr>
+                  <td>Distant country</td>
+                  <td>Slower</td>
+                  <td>Specific geo-restricted content</td>
+                </tr>
+                <tr>
+                  <td>Specialty streaming server</td>
+                  <td>Varies</td>
+                  <td>Streaming platforms with VPN detection</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="compare-section">
+          <h2>Key VPN Features Explained</h2>
+          <p>
+            Beyond basic tunneling, most quality VPN apps include features that improve security
+            and reliability:
+          </p>
+          <ul class="compare-list">
+            <li><strong>Kill switch:</strong> Blocks internet access if the VPN drops, preventing accidental data leaks.</li>
+            <li><strong>DNS leak protection:</strong> Ensures domain name requests go through the VPN, not your ISP's DNS.</li>
+            <li><strong>Split tunneling:</strong> Lets selected apps bypass the VPN while others stay protected.</li>
+            <li><strong>Multi-hop (double VPN):</strong> Routes traffic through two servers for an extra layer of privacy.</li>
+            <li><strong>Obfuscation:</strong> Disguises VPN traffic to help in restrictive network environments.</li>
+          </ul>
+          <p>
+            Not every user needs advanced features, but a kill switch and DNS leak protection
+            are worth prioritizing. Privacy-focused users should look for providers covered in our
+            <a href="/vpn/best-vpn-for-privacy/">best VPN for privacy</a> comparison.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>Who Can See What?</h2>
+          <p>
+            Understanding visibility is important. A VPN changes who can observe your activity,
+            but it does not remove all observers.
+          </p>
+
+          <div class="compare-table-wrap">
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th>Observer</th>
+                  <th>Without VPN</th>
+                  <th>With VPN</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Your ISP</td>
+                  <td>Can see sites and activity</td>
+                  <td>Sees VPN connection, not content</td>
+                </tr>
+                <tr>
+                  <td>Public Wi-Fi snoopers</td>
+                  <td>Can intercept unencrypted data</td>
+                  <td>See encrypted traffic only</td>
+                </tr>
+                <tr>
+                  <td>Websites you visit</td>
+                  <td>See your real IP</td>
+                  <td>See VPN server IP</td>
+                </tr>
+                <tr>
+                  <td>VPN provider</td>
+                  <td>Not involved</td>
+                  <td>Can technically see traffic unless no-logs</td>
+                </tr>
+                <tr>
+                  <td>Logged-in accounts</td>
+                  <td>Know who you are</td>
+                  <td>Still know who you are</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            This is why choosing a trustworthy VPN provider matters. You are shifting visibility
+            from your ISP to the VPN company. A strict no-logs policy and independent audits
+            help reduce that trust gap.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>Tunneling vs. Encryption: Two Different Jobs</h2>
+          <p>
+            Beginners often conflate tunneling and encryption, but they are separate concepts.
+            <strong>Tunneling</strong> is the act of wrapping your data packets inside another
+            protocol so they travel through a private path. <strong>Encryption</strong> is the
+            scrambling of that data so nobody can read it even if they intercept the packets.
+          </p>
+          <p>
+            A VPN uses both together. The tunnel routes your traffic through the VPN server,
+            while encryption protects the contents from your device all the way to that server.
+            After the server decrypts and forwards your request, the connection between the
+            VPN server and the destination website uses normal HTTPS encryption — the same
+            padlock you see in your browser.
+          </p>
+          <p>
+            This two-layer model is why a VPN protects you on public Wi-Fi but does not
+            automatically secure every part of your online activity. Websites you visit still
+            use their own security, and logged-in services still know who you are.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>VPN on Different Devices</h2>
+          <p>
+            VPN apps are available for virtually every platform. On desktop, a full-device VPN
+            routes all traffic through the tunnel. On mobile, the same applies when the VPN
+            app is active in the background. Some providers also offer browser extensions,
+            but these typically protect only browser traffic — not other apps on your device.
+          </p>
+          <p>
+            Router-level VPN setup is another option for households that want to protect every
+            connected device without installing apps individually. This requires a compatible
+            router and more technical setup, but it covers smart TVs, game consoles, and IoT
+            devices that do not support VPN apps natively.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>Final Recommendation</h2>
+          <p>
+            A VPN works by encrypting your traffic, sending it through a remote server, and
+            masking your IP address along the way. The technology is straightforward once you
+            understand the tunnel-and-relay model.
+          </p>
+          <p>
+            For most users, the practical takeaway is simple: pick a reputable provider with
+            modern protocols, reliable apps, and strong privacy policies. NordVPN, Surfshark,
+            and CyberGhost all offer beginner-friendly apps that handle the technical work
+            automatically.
+          </p>
+
+          <div class="compare-bottom-cta compare-cta-row">
+            <a href="/vpn/nordvpn/" class="btn btn-primary">Read NordVPN Review →</a>
+            <a href="/vpn/surfshark/" class="btn btn-secondary">Read Surfshark Review →</a>
+            <a href="/vpn/best-vpn/" class="btn btn-secondary">See Best VPN Guide →</a>
+          </div>
+        </section>
+
+        <section class="compare-section compare-faq-section">
+          <h2>VPN FAQ</h2>
+          <div class="compare-faq-list">
+            {faqItems.map((item) => (
+              <details class="compare-faq-item">
+                <summary>{item.q}</summary>
+                <p>{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+
+      </article>
+
+      <aside class="compare-sidebar">
+        <div class="compare-sidebar-box">
+          <h3>Quick Summary</h3>
+          <ul>
+            <li>VPN encrypts traffic on your device</li>
+            <li>Data travels through a remote server</li>
+            <li>Websites see the VPN server's IP</li>
+            <li>Your ISP sees a VPN connection, not details</li>
+          </ul>
+        </div>
+
+        <div class="compare-sidebar-box">
+          <h3>Read Next</h3>
+          {currentGuides.length > 0 && (
+            <ul class="compare-sidebar-links">
+              {currentGuides.slice(0, 4).map((item) => (
+                <li>
+                  <a href={`/${currentCategory}/${item.slug}/`}>{item.title}</a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        <div class="compare-sidebar-box">
+          <h3>Compare Providers</h3>
+          <p>
+            See how top VPNs handle encryption, speed, and privacy.
+          </p>
+          <a href="/vpn/best-vpn/" class="btn btn-primary compare-sidebar-btn">
+            See Best VPN Guide →
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .compare-table-wrap {
+    overflow-x: auto;
+    margin: 20px 0;
+  }
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+  }
+  .compare-table th,
+  .compare-table td {
+    border: 1px solid #e5e7eb;
+    padding: 12px 14px;
+    text-align: left;
+  }
+  .compare-table th {
+    background: #f9fafb;
+    font-weight: 700;
+    color: #1f2937;
+  }
+  .compare-table tr:nth-child(even) td {
+    background: #fafbfc;
+  }
+  .compare-section a:not(.btn) {
+    color: #1e3a8a;
+    text-decoration: none;
+  }
+  .compare-section a:not(.btn):hover {
+    text-decoration: underline;
+  }
+</style>

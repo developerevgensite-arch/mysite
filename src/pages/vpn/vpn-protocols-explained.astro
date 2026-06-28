@@ -1,0 +1,446 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import "../../styles/compare-pages.css";
+import { guides } from "../../data/guides.js";
+
+const pathname = Astro.url.pathname.split("/").filter(Boolean);
+const currentCategory = pathname[0] || "";
+const currentSlug = pathname[1] || "";
+
+const currentGuides = (guides[currentCategory] ?? [])
+  .filter((item) => item.slug !== currentSlug)
+  .slice(0, 6);
+
+const faqItems = [
+  {
+    q: "Which VPN protocol is fastest?",
+    a: "WireGuard is generally the fastest modern VPN protocol. It uses lightweight code and efficient encryption, which means less overhead and better speeds on most connections. OpenVPN over UDP is also fast but typically slower than WireGuard."
+  },
+  {
+    q: "Which VPN protocol is most secure?",
+    a: "OpenVPN and WireGuard are both considered highly secure when properly implemented. OpenVPN has a longer track record, while WireGuard uses modern cryptography by design. IKEv2/IPsec is also secure and widely used on mobile devices."
+  },
+  {
+    q: "Should I use OpenVPN or WireGuard?",
+    a: "For most users in 2026, WireGuard is the better default because it is faster and simpler. Use OpenVPN if you need maximum compatibility with older routers, specific network configurations, or corporate environments that require it."
+  },
+  {
+    q: "What protocol do VPN apps use by default?",
+    a: "Most modern VPN apps default to WireGuard or their own WireGuard-based protocol (like NordLynx or Lightway). You can usually switch protocols in the app's settings if needed."
+  },
+  {
+    q: "Does the protocol affect streaming and gaming?",
+    a: "Yes. Faster protocols like WireGuard reduce latency and buffering, which helps with streaming and online gaming. Slower or older protocols may cause noticeable lag, especially on long-distance server connections."
+  }
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map((item) => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.a
+    }
+  }))
+};
+---
+
+<Layout
+  title="VPN Protocols Explained"
+  description="WireGuard, OpenVPN, IKEv2 — what do VPN protocols mean and which should you use? A clear guide for beginners."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)}></script>
+
+  <section class="compare-hero">
+    <div class="page-container">
+      <p class="compare-eyebrow">VPN Guide</p>
+      <h1>VPN Protocols Explained</h1>
+      <p class="compare-intro">
+        VPN apps mention protocols like WireGuard, OpenVPN, and IKEv2 — but what do they
+        actually mean? This guide explains each major protocol in plain English and helps
+        you pick the right one.
+      </p>
+
+      <div class="compare-cta-row">
+        <a href="#protocol-comparison" class="btn btn-primary">Compare Protocols</a>
+        <a href="/vpn/how-does-a-vpn-work/" class="btn btn-secondary">How VPNs Work →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="compare-content">
+    <div class="page-container compare-layout">
+      <article class="compare-main">
+
+        <section class="compare-section">
+          <h2>What Is a VPN Protocol?</h2>
+          <p>
+            A VPN protocol is the set of rules that determines how your device and the VPN
+            server communicate. It defines how data is encrypted, authenticated, and transmitted
+            through the tunnel. Different protocols trade off speed, security, and compatibility
+            in different ways.
+          </p>
+          <p>
+            Think of protocols like different shipping methods. All of them get your package
+            (data) from point A to point B, but some are faster, some are more secure, and
+            some work better in certain conditions. Your VPN app usually picks a default
+            protocol for you, but understanding the options helps when troubleshooting
+            speed or connection issues.
+          </p>
+          <p>
+            If you are new to VPNs, our guides on
+            <a href="/vpn/what-is-a-vpn/">what a VPN is</a> and
+            <a href="/vpn/how-does-a-vpn-work/">how a VPN works</a> provide helpful background
+            before diving into protocol details.
+          </p>
+        </section>
+
+        <section class="compare-section" id="protocol-comparison">
+          <h2>Major VPN Protocols Compared</h2>
+
+          <div class="compare-table-wrap">
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th>Protocol</th>
+                  <th>Speed</th>
+                  <th>Security</th>
+                  <th>Best For</th>
+                  <th>Drawbacks</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>WireGuard</td>
+                  <td>Excellent</td>
+                  <td>Very strong</td>
+                  <td>Everyday use, streaming, mobile</td>
+                  <td>Newer, may be blocked on some networks</td>
+                </tr>
+                <tr>
+                  <td>OpenVPN (UDP)</td>
+                  <td>Good</td>
+                  <td>Excellent</td>
+                  <td>General use, router setups</td>
+                  <td>Slower than WireGuard, heavier code</td>
+                </tr>
+                <tr>
+                  <td>OpenVPN (TCP)</td>
+                  <td>Moderate</td>
+                  <td>Excellent</td>
+                  <td>Restrictive networks, firewalls</td>
+                  <td>Slowest OpenVPN mode</td>
+                </tr>
+                <tr>
+                  <td>IKEv2/IPsec</td>
+                  <td>Very good</td>
+                  <td>Strong</td>
+                  <td>Mobile devices, quick reconnects</td>
+                  <td>Less flexible than OpenVPN</td>
+                </tr>
+                <tr>
+                  <td>L2TP/IPsec</td>
+                  <td>Moderate</td>
+                  <td>Acceptable</td>
+                  <td>Legacy device support</td>
+                  <td>Outdated, may be blocked, slower</td>
+                </tr>
+                <tr>
+                  <td>PPTP</td>
+                  <td>Fast</td>
+                  <td>Weak</td>
+                  <td>Not recommended</td>
+                  <td>Known security vulnerabilities</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="compare-section">
+          <h2>WireGuard: The Modern Default</h2>
+          <p>
+            WireGuard is a relatively new VPN protocol designed for simplicity and speed.
+            Its codebase is small — around 4,000 lines compared to OpenVPN's hundreds of
+            thousands — which makes it easier to audit and less prone to bugs. It uses modern
+            cryptography (ChaCha20, Curve25519, BLAKE2s) built into the protocol itself.
+          </p>
+          <p>
+            Most leading VPN providers now support WireGuard, either directly or through a
+            customized version. NordVPN uses NordLynx (based on WireGuard), ExpressVPN uses
+            Lightway, and Surfshark offers standard WireGuard in its apps. For most users in
+            2026, WireGuard or a WireGuard-based protocol is the best default choice.
+          </p>
+
+          <h3>When to Use WireGuard</h3>
+          <ul class="compare-list">
+            <li>Everyday browsing and general privacy</li>
+            <li>Streaming and HD video — see our <a href="/vpn/best-vpn-for-streaming/">streaming guide</a></li>
+            <li>Mobile devices where battery efficiency matters</li>
+            <li>When you want the best balance of speed and security</li>
+          </ul>
+        </section>
+
+        <section class="compare-section">
+          <h2>OpenVPN: The Proven Standard</h2>
+          <p>
+            OpenVPN has been the industry standard for over two decades. It is open-source,
+            highly configurable, and supports both UDP (faster) and TCP (more reliable on
+            restrictive networks) transport modes. Its long history means it has been
+            extensively tested and audited by security researchers worldwide.
+          </p>
+          <p>
+            The main downside is performance. OpenVPN's larger codebase and heavier encryption
+            handshake add overhead, making it noticeably slower than WireGuard on the same
+            server and connection. It remains an excellent choice when compatibility or
+            network restrictions are a concern.
+          </p>
+
+          <h3>When to Use OpenVPN</h3>
+          <ul class="compare-list">
+            <li>Router-level VPN configurations</li>
+            <li>Networks that block WireGuard traffic</li>
+            <li>When your provider or IT department requires it</li>
+            <li>Situations where maximum protocol maturity matters</li>
+          </ul>
+        </section>
+
+        <section class="compare-section">
+          <h2>IKEv2/IPsec: Best for Mobile</h2>
+          <p>
+            IKEv2 (Internet Key Exchange version 2) paired with IPsec is particularly strong
+            on mobile devices. Its standout feature is MOBIKE — the ability to reconnect quickly
+            when you switch between Wi-Fi and mobile data without dropping the VPN tunnel.
+          </p>
+          <p>
+            If you frequently move between networks on your phone or tablet, IKEv2 provides
+            a smoother experience than OpenVPN. Speed is generally good, though WireGuard has
+            surpassed it in most benchmarks. IKEv2 is built into many operating systems natively,
+            which can simplify setup.
+          </p>
+
+          <h3>When to Use IKEv2</h3>
+          <ul class="compare-list">
+            <li>Smartphones and tablets that switch networks often</li>
+            <li>When you need fast reconnection after sleep or network change</li>
+            <li>Environments where WireGuard is unavailable</li>
+          </ul>
+        </section>
+
+        <section class="compare-section">
+          <h2>Protocols to Avoid</h2>
+          <p>
+            Not all protocols belong on a modern VPN. These older options have known weaknesses:
+          </p>
+
+          <h3>PPTP (Point-to-Point Tunneling Protocol)</h3>
+          <p>
+            PPTP was one of the earliest VPN protocols and is now considered broken from a
+            security standpoint. Its encryption has known vulnerabilities that can be exploited
+            with modern computing power. No reputable VPN provider should offer PPTP in 2026.
+          </p>
+
+          <h3>L2TP/IPsec (Layer 2 Tunneling Protocol)</h3>
+          <p>
+            L2TP/IPsec is better than PPTP but still outdated. It is slower, uses fixed ports
+            that are easy to block, and has had security concerns over the years. It persists
+            mainly for legacy device compatibility. If your VPN app offers L2TP, switch to
+            WireGuard or OpenVPN instead.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>Provider-Specific Protocols</h2>
+          <p>
+            Some VPN companies build custom protocols based on open standards. These are
+            designed to improve speed, reliability, or obfuscation:
+          </p>
+          <ul class="compare-list">
+            <li><strong>NordLynx (NordVPN):</strong> Built on WireGuard with additional privacy enhancements for user authentication.</li>
+            <li><strong>Lightway (ExpressVPN):</strong> A lightweight custom protocol focused on speed and quick reconnections.</li>
+            <li><strong>Catapult Hydra (Hotspot Shield):</strong> Optimized for speed, though less transparent than open-source alternatives.</li>
+          </ul>
+          <p>
+            Custom protocols can perform well, but open-source options like WireGuard and
+            OpenVPN offer greater transparency because anyone can inspect the code. When
+            evaluating a provider, check whether their custom protocol has been independently
+            audited. Our <a href="/vpn/nordvpn/">NordVPN review</a> covers NordLynx in detail.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>Which Protocol Should You Choose?</h2>
+          <p>
+            For the vast majority of users, the answer is simple: use whatever your VPN app
+            sets as the default in 2026 — which is almost always WireGuard or a WireGuard-based
+            protocol. You only need to change protocols if you experience a specific problem.
+          </p>
+
+          <div class="compare-table-wrap">
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th>Your Situation</th>
+                  <th>Recommended Protocol</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>General browsing and privacy</td>
+                  <td>WireGuard</td>
+                </tr>
+                <tr>
+                  <td>Streaming and Netflix</td>
+                  <td>WireGuard — see <a href="/vpn/best-vpn-for-netflix/">Netflix guide</a></td>
+                </tr>
+                <tr>
+                  <td>Mobile phone on the go</td>
+                  <td>WireGuard or IKEv2</td>
+                </tr>
+                <tr>
+                  <td>Restrictive network or firewall</td>
+                  <td>OpenVPN (TCP) or obfuscated mode</td>
+                </tr>
+                <tr>
+                  <td>Router VPN setup</td>
+                  <td>OpenVPN or WireGuard (if supported)</td>
+                </tr>
+                <tr>
+                  <td>Maximum privacy focus</td>
+                  <td>WireGuard or OpenVPN — see <a href="/vpn/best-vpn-for-privacy/">privacy guide</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="compare-section">
+          <h2>How to Change Protocols in Your VPN App</h2>
+          <p>
+            Most users never need to touch protocol settings, but knowing where they are helps
+            when troubleshooting. In typical VPN apps, you will find protocol options under
+            Settings → Connection → VPN Protocol (exact labels vary by provider).
+          </p>
+          <p>
+            If your connection is slow, try switching to WireGuard or your provider's
+            WireGuard-based protocol. If you cannot connect at all — for example, on a hotel
+            or corporate network — switch to OpenVPN TCP or enable obfuscation mode if your
+            provider offers it. If your phone drops the VPN when switching from Wi-Fi to
+            mobile data, try IKEv2 instead.
+          </p>
+          <p>
+            After changing protocols, always run a quick DNS leak test to confirm your real
+            IP is hidden. Most providers include a built-in connection status screen that
+            shows your assigned VPN IP and active protocol.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>Final Recommendation</h2>
+          <p>
+            VPN protocols determine how your encrypted tunnel is built. WireGuard is the
+            best default for most users in 2026 — it is fast, secure, and efficient. OpenVPN
+            remains a solid fallback for compatibility and restrictive networks. Avoid outdated
+            protocols like PPTP and L2TP.
+          </p>
+          <p>
+            The good news is that top VPN apps handle protocol selection automatically.
+            NordVPN, Surfshark, and CyberGhost all default to modern, fast protocols so you
+            do not need to configure anything manually.
+          </p>
+
+          <div class="compare-bottom-cta compare-cta-row">
+            <a href="/vpn/nordvpn/" class="btn btn-primary">Read NordVPN Review →</a>
+            <a href="/vpn/surfshark/" class="btn btn-secondary">Read Surfshark Review →</a>
+            <a href="/vpn/best-vpn/" class="btn btn-secondary">See Best VPN Guide →</a>
+          </div>
+        </section>
+
+        <section class="compare-section compare-faq-section">
+          <h2>VPN FAQ</h2>
+          <div class="compare-faq-list">
+            {faqItems.map((item) => (
+              <details class="compare-faq-item">
+                <summary>{item.q}</summary>
+                <p>{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+
+      </article>
+
+      <aside class="compare-sidebar">
+        <div class="compare-sidebar-box">
+          <h3>Quick Summary</h3>
+          <ul>
+            <li>WireGuard = fastest modern default</li>
+            <li>OpenVPN = proven, compatible fallback</li>
+            <li>IKEv2 = best for mobile switching</li>
+            <li>Avoid PPTP and L2TP</li>
+          </ul>
+        </div>
+
+        <div class="compare-sidebar-box">
+          <h3>Read Next</h3>
+          {currentGuides.length > 0 && (
+            <ul class="compare-sidebar-links">
+              {currentGuides.slice(0, 4).map((item) => (
+                <li>
+                  <a href={`/${currentCategory}/${item.slug}/`}>{item.title}</a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        <div class="compare-sidebar-box">
+          <h3>Find a Good VPN</h3>
+          <p>
+            Compare providers that support modern protocols.
+          </p>
+          <a href="/vpn/best-vpn/" class="btn btn-primary compare-sidebar-btn">
+            See Best VPN Guide →
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .compare-table-wrap {
+    overflow-x: auto;
+    margin: 20px 0;
+  }
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+  }
+  .compare-table th,
+  .compare-table td {
+    border: 1px solid #e5e7eb;
+    padding: 12px 14px;
+    text-align: left;
+  }
+  .compare-table th {
+    background: #f9fafb;
+    font-weight: 700;
+    color: #1f2937;
+  }
+  .compare-table tr:nth-child(even) td {
+    background: #fafbfc;
+  }
+  .compare-section a:not(.btn) {
+    color: #1e3a8a;
+    text-decoration: none;
+  }
+  .compare-section a:not(.btn):hover {
+    text-decoration: underline;
+  }
+</style>

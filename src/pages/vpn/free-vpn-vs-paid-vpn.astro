@@ -1,0 +1,390 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import "../../styles/compare-pages.css";
+import { guides } from "../../data/guides.js";
+
+const pathname = Astro.url.pathname.split("/").filter(Boolean);
+const currentCategory = pathname[0] || "";
+const currentSlug = pathname[1] || "";
+
+const currentGuides = (guides[currentCategory] ?? [])
+  .filter((item) => item.slug !== currentSlug)
+  .slice(0, 6);
+
+const faqItems = [
+  {
+    q: "Are free VPNs ever safe to use?",
+    a: "A small number of free VPNs from reputable companies offer limited but legitimate service, often as a trial for their paid plans. Most standalone free VPNs are risky because they may monetize your data, show intrusive ads, or use weak encryption."
+  },
+  {
+    q: "Why do free VPNs have data limits?",
+    a: "Running VPN servers costs money. Free tiers limit bandwidth or daily data to control expenses and encourage upgrades to paid plans. Unlimited free VPNs are especially suspicious because they need another revenue source."
+  },
+  {
+    q: "Can a free VPN unblock Netflix?",
+    a: "Rarely, and not reliably. Streaming platforms block most free VPN IP addresses. Paid providers invest in maintaining servers that work with streaming, which is why they charge subscription fees."
+  },
+  {
+    q: "Is Proton VPN's free plan a good exception?",
+    a: "Proton VPN's free tier is one of the more trustworthy options because it comes from a company with a strong privacy reputation. However, it has speed and server limitations compared to paid tiers and other premium providers."
+  },
+  {
+    q: "What is the biggest risk of free VPNs?",
+    a: "The biggest risk is that the provider may log and sell your browsing data, inject ads, or use insecure encryption. Instead of protecting you, the VPN becomes the observer."
+  }
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map((item) => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.a
+    }
+  }))
+};
+---
+
+<Layout
+  title="Free VPN vs Paid VPN"
+  description="Compare free and paid VPNs honestly. Learn the real trade-offs in privacy, speed, security, and streaming before you choose."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)}></script>
+
+  <section class="compare-hero">
+    <div class="page-container">
+      <p class="compare-eyebrow">VPN Guide</p>
+      <h1>Free VPN vs Paid VPN</h1>
+      <p class="compare-intro">
+        Free VPNs are tempting, but the trade-offs are bigger than most ads suggest.
+        This guide compares free and paid options across privacy, speed, and security
+        so you can choose with your eyes open.
+      </p>
+
+      <div class="compare-cta-row">
+        <a href="#comparison" class="btn btn-primary">See Comparison</a>
+        <a href="/vpn/is-a-vpn-worth-it/" class="btn btn-secondary">Is a VPN Worth It? →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="compare-content">
+    <div class="page-container compare-layout">
+      <article class="compare-main">
+
+        <section class="compare-section">
+          <h2>Why the Free vs Paid Debate Matters</h2>
+          <p>
+            VPN providers operate expensive global server networks. When a service is completely
+            free with no clear business model, you should ask how it pays for infrastructure.
+            In many cases, the answer is advertising, data collection, or selling user insights
+            to third parties.
+          </p>
+          <p>
+            That does not mean every free VPN is malicious. A few reputable companies offer
+            limited free tiers as a gateway to paid plans. But the majority of standalone free
+            VPN apps in app stores pose serious privacy risks — the opposite of what you want
+            from a privacy tool.
+          </p>
+          <p>
+            If you are still deciding whether you need a VPN at all, read
+            <a href="/vpn/is-a-vpn-worth-it/">is a VPN worth it</a> first. This page assumes
+            you have already decided a VPN fits your needs.
+          </p>
+        </section>
+
+        <section class="compare-section" id="comparison">
+          <h2>Free VPN vs Paid VPN: Side-by-Side Comparison</h2>
+
+          <div class="compare-table-wrap">
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th>Feature</th>
+                  <th>Free VPN</th>
+                  <th>Paid VPN</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Monthly cost</td>
+                  <td>$0</td>
+                  <td>~$2–$5 on annual plans</td>
+                </tr>
+                <tr>
+                  <td>Data limits</td>
+                  <td>Often capped (500 MB–10 GB/month)</td>
+                  <td>Usually unlimited</td>
+                </tr>
+                <tr>
+                  <td>Speed</td>
+                  <td>Slower, crowded servers</td>
+                  <td>Faster, priority bandwidth</td>
+                </tr>
+                <tr>
+                  <td>Server locations</td>
+                  <td>Few countries, limited choice</td>
+                  <td>Dozens to 100+ countries</td>
+                </tr>
+                <tr>
+                  <td>Privacy policy</td>
+                  <td>Often vague or concerning</td>
+                  <td>Clearer no-logs claims, some audited</td>
+                </tr>
+                <tr>
+                  <td>Ads</td>
+                  <td>Common in free apps</td>
+                  <td>Ad-free experience</td>
+                </tr>
+                <tr>
+                  <td>Streaming support</td>
+                  <td>Rarely works reliably</td>
+                  <td>Better, though not guaranteed</td>
+                </tr>
+                <tr>
+                  <td>Device connections</td>
+                  <td>Usually 1 device</td>
+                  <td>5–unlimited depending on provider</td>
+                </tr>
+                <tr>
+                  <td>Customer support</td>
+                  <td>Minimal or none</td>
+                  <td>Live chat, email, help centers</td>
+                </tr>
+                <tr>
+                  <td>Advanced features</td>
+                  <td>Kill switch, split tunneling often missing</td>
+                  <td>Full feature set available</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="compare-section">
+          <h2>The Hidden Cost of Free VPNs</h2>
+          <p>
+            When you are not paying with money, you may be paying with something else. These
+            are the most common ways free VPNs generate revenue:
+          </p>
+
+          <h3>Data Collection and Selling</h3>
+          <p>
+            Some free VPNs log browsing activity, connection timestamps, and device information,
+            then sell aggregated data to advertisers or data brokers. This directly contradicts
+            the reason most people want a VPN. Always read the privacy policy before installing
+            any free app.
+          </p>
+
+          <h3>Advertising and Tracking</h3>
+          <p>
+            Free VPN apps frequently display banner ads, push notifications, and sponsored content.
+            Some inject ads into web pages you visit. This not only degrades your experience but
+            can introduce additional tracking beyond what a normal browser would allow.
+          </p>
+
+          <h3>Weak or Outdated Security</h3>
+          <p>
+            Maintaining secure encryption and patching vulnerabilities requires investment.
+            Free providers may use outdated protocols, skip security audits, or lack basic
+            features like a kill switch. A VPN without a kill switch can briefly expose your
+            real IP if the connection drops.
+          </p>
+
+          <h3>Malware and Fake Apps</h3>
+          <p>
+            Researchers have repeatedly found fake VPN apps in mobile app stores that contain
+            malware or spyware. Sticking to well-known providers reduces this risk significantly.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>When a Free VPN Might Be Acceptable</h2>
+          <p>
+            Free VPNs are not always off-limits. There are narrow situations where a limited
+            free tier can work:
+          </p>
+          <ul class="compare-list">
+            <li><strong>Testing before you buy:</strong> A reputable provider's free tier lets you try the app before committing to a paid plan.</li>
+            <li><strong>Occasional light use:</strong> Checking email once on airport Wi-Fi with a trusted free tier may be acceptable.</li>
+            <li><strong>Privacy-focused free tiers:</strong> A handful of providers offer free plans backed by strong privacy policies, though with speed and server limits.</li>
+          </ul>
+          <p>
+            Even in these cases, treat free VPNs as a temporary solution. For regular use,
+            a paid subscription from a provider covered in our
+            <a href="/vpn/best-vpn-for-privacy/">best VPN for privacy</a> guide is the safer
+            long-term choice.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>What You Get With a Paid VPN</h2>
+          <p>
+            Paid VPNs justify their cost through infrastructure, security investment, and
+            transparent business models. Here is what your subscription typically includes:
+          </p>
+          <ul class="compare-list">
+            <li><strong>Unlimited bandwidth</strong> for streaming, downloading, and daily browsing</li>
+            <li><strong>Large server networks</strong> across many countries for speed and flexibility</li>
+            <li><strong>Modern encryption protocols</strong> like WireGuard and OpenVPN</li>
+            <li><strong>Kill switch and leak protection</strong> to prevent accidental exposure</li>
+            <li><strong>Multi-device support</strong> for phones, laptops, tablets, and routers</li>
+            <li><strong>Customer support</strong> when something goes wrong</li>
+            <li><strong>Streaming-optimized servers</strong> for platforms like Netflix — see our
+              <a href="/vpn/best-vpn-for-streaming/">streaming guide</a></li>
+          </ul>
+          <p>
+            At $2–$5 per month on annual plans, paid VPNs cost less than most streaming services.
+            If you use a VPN regularly, the price per day is negligible compared to the privacy
+            and security benefits.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>Red Flags: When to Walk Away From a Free VPN</h2>
+          <p>
+            Not sure whether a free VPN is trustworthy? Watch for these warning signs:
+          </p>
+          <ul class="compare-list">
+            <li>No clear company name, address, or team behind the app</li>
+            <li>Privacy policy that allows data sharing with "partners" or "affiliates"</li>
+            <li>Requests for unnecessary permissions (contacts, location, phone calls)</li>
+            <li>Unlimited free bandwidth with no upgrade path — ask how they pay for servers</li>
+            <li>No mention of encryption standards or protocols used</li>
+            <li>Overwhelmingly negative reviews citing data leaks or aggressive ads</li>
+          </ul>
+          <p>
+            If you spot two or more of these red flags, delete the app and choose a paid
+            alternative. The few dollars per month is far cheaper than recovering from a
+            privacy breach.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>How to Evaluate Any VPN — Free or Paid</h2>
+          <p>
+            Before installing any VPN, free or paid, check these points:
+          </p>
+          <ol class="compare-list">
+            <li>Read the privacy policy — does it claim no logs? Is it specific or vague?</li>
+            <li>Research the company behind the app — is it a known brand with a public reputation?</li>
+            <li>Check for independent security audits — paid providers like NordVPN and Surfshark publish audit results.</li>
+            <li>Look at the app store reviews — patterns of complaints about ads or data leaks are red flags.</li>
+            <li>Test for DNS leaks — use a leak test tool after connecting to verify the VPN works correctly.</li>
+          </ol>
+          <p>
+            Understanding <a href="/vpn/how-does-a-vpn-work/">how a VPN works</a> and which
+            <a href="/vpn/vpn-protocols-explained/">protocols</a> it uses will help you evaluate
+            providers more confidently.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>Final Recommendation</h2>
+          <p>
+            For most people, a paid VPN is the clear winner. Free VPNs carry real privacy and
+            security risks that often outweigh the savings. If budget is a concern, choose an
+            affordable annual plan from a reputable provider rather than a free app with an
+            unknown business model.
+          </p>
+          <p>
+            NordVPN offers a strong balance of speed, privacy, and features. Surfshark is
+            excellent value with unlimited device connections. CyberGhost is one of the
+            easiest options for beginners who want dedicated streaming servers.
+          </p>
+
+          <div class="compare-bottom-cta compare-cta-row">
+            <a href="/vpn/nordvpn/" class="btn btn-primary">Read NordVPN Review →</a>
+            <a href="/vpn/surfshark/" class="btn btn-secondary">Read Surfshark Review →</a>
+            <a href="/vpn/cyberghost/" class="btn btn-secondary">Read CyberGhost Review →</a>
+          </div>
+        </section>
+
+        <section class="compare-section compare-faq-section">
+          <h2>VPN FAQ</h2>
+          <div class="compare-faq-list">
+            {faqItems.map((item) => (
+              <details class="compare-faq-item">
+                <summary>{item.q}</summary>
+                <p>{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+
+      </article>
+
+      <aside class="compare-sidebar">
+        <div class="compare-sidebar-box">
+          <h3>Quick Summary</h3>
+          <ul>
+            <li>Free VPNs often monetize your data</li>
+            <li>Paid VPNs offer speed, security, and support</li>
+            <li>Annual plans cost ~$2–$5/month</li>
+            <li>Always read the privacy policy first</li>
+          </ul>
+        </div>
+
+        <div class="compare-sidebar-box">
+          <h3>Read Next</h3>
+          {currentGuides.length > 0 && (
+            <ul class="compare-sidebar-links">
+              {currentGuides.slice(0, 4).map((item) => (
+                <li>
+                  <a href={`/${currentCategory}/${item.slug}/`}>{item.title}</a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        <div class="compare-sidebar-box">
+          <h3>Best Paid Options</h3>
+          <p>
+            Compare top-rated VPN providers side by side.
+          </p>
+          <a href="/vpn/best-vpn/" class="btn btn-primary compare-sidebar-btn">
+            See Best VPN Guide →
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .compare-table-wrap {
+    overflow-x: auto;
+    margin: 20px 0;
+  }
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+  }
+  .compare-table th,
+  .compare-table td {
+    border: 1px solid #e5e7eb;
+    padding: 12px 14px;
+    text-align: left;
+  }
+  .compare-table th {
+    background: #f9fafb;
+    font-weight: 700;
+    color: #1f2937;
+  }
+  .compare-table tr:nth-child(even) td {
+    background: #fafbfc;
+  }
+  .compare-section a:not(.btn) {
+    color: #1e3a8a;
+    text-decoration: none;
+  }
+  .compare-section a:not(.btn):hover {
+    text-decoration: underline;
+  }
+</style>
