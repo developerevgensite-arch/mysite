@@ -1,0 +1,438 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import "../../styles/compare-pages.css";
+import { guides } from "../../data/guides.js";
+
+const pathname = Astro.url.pathname.split("/").filter(Boolean);
+const currentCategory = pathname[0] || "";
+const currentSlug = pathname[1] || "";
+
+const currentGuides = (guides[currentCategory] ?? [])
+  .filter((item) => item.slug !== currentSlug)
+  .slice(0, 6);
+
+const faqItems = [
+  {
+    q: "Is Windows Defender good enough in 2026?",
+    a: "For most Windows users who keep the operating system updated, avoid risky downloads, and use a modern browser, Windows Defender provides solid baseline protection. Independent lab tests consistently rank it among the top free antivirus options. Users who need multi-device coverage, identity monitoring, or advanced parental controls may still benefit from a paid suite."
+  },
+  {
+    q: "Do I need to install Windows Defender separately?",
+    a: "No. Microsoft Defender Antivirus is built into Windows 10 and Windows 11. It activates automatically if no other antivirus is installed. You can manage it through Windows Security in your system settings."
+  },
+  {
+    q: "Can I use Windows Defender with Norton or McAfee?",
+    a: "No. Running two real-time antivirus programs at the same time causes conflicts and can reduce protection. If you install Norton or McAfee, it typically replaces Defender as your primary scanner. Uninstall the third-party product to let Defender take over again."
+  },
+  {
+    q: "Does Windows Defender slow down my PC?",
+    a: "Defender is designed to run efficiently in the background on modern hardware. Because it is integrated into Windows, it generally uses fewer resources than many third-party antivirus suites. Performance impact is usually minimal during everyday tasks."
+  },
+  {
+    q: "What does Windows Defender not include?",
+    a: "Defender focuses on malware detection, firewall basics, and device security. It does not include identity theft monitoring, a bundled VPN, password manager, or parental controls across multiple devices — features that paid suites like Norton and McAfee often bundle into their subscriptions."
+  }
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map((item) => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.a
+    }
+  }))
+};
+---
+
+<Layout
+  title="Windows Defender Review: Is It Enough in 2026?"
+  description="Is Windows Defender enough to protect your PC? Learn what Microsoft Defender covers, when it is sufficient, and when Norton or McAfee is worth the upgrade."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)}></script>
+
+  <section class="compare-hero">
+    <div class="page-container">
+      <p class="compare-eyebrow">Antivirus Guide</p>
+      <h1>Windows Defender: Is It Enough?</h1>
+      <p class="compare-intro">
+        Every Windows PC ships with Microsoft Defender Antivirus built in — no download,
+        no subscription, no setup wizard. But free and built-in does not always mean
+        complete. This guide explains what Defender actually protects, when it is
+        sufficient on its own, and when upgrading to Norton or McAfee makes sense.
+      </p>
+
+      <div class="compare-cta-row">
+        <a href="#when-enough" class="btn btn-primary">When It's Enough</a>
+        <a href="/antivirus/best-antivirus/" class="btn btn-secondary">Best Antivirus Guide →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="compare-content">
+    <div class="page-container compare-layout">
+      <article class="compare-main">
+
+        <section class="compare-section">
+          <h2>What Is Windows Defender?</h2>
+          <p>
+            Windows Defender — officially called <strong>Microsoft Defender Antivirus</strong>
+            since 2019 — is the built-in security software on Windows 10 and Windows 11.
+            It runs in the background from the moment you set up your PC, scanning files,
+            monitoring downloads, and blocking known threats without requiring a separate
+            installation or account.
+          </p>
+          <p>
+            You manage Defender through the <strong>Windows Security</strong> app, which
+            also covers firewall settings, device performance health, and browser protection.
+            Microsoft updates Defender through Windows Update, so threat definitions stay
+            current as long as your system is patched.
+          </p>
+          <p>
+            For years, built-in antivirus had a reputation for being weak. That changed.
+            Independent testing labs such as AV-TEST and AV-Comparatives now regularly
+            score Microsoft Defender among the top performers for malware detection — often
+            matching or beating paid competitors in core scanning tests.
+          </p>
+        </section>
+
+        <section class="compare-section" id="how-it-works">
+          <h2>How Microsoft Defender Works</h2>
+          <p>
+            Defender uses a layered approach to keep your PC safe. Understanding these
+            layers helps you see both its strengths and its limits.
+          </p>
+          <ul class="compare-list">
+            <li><strong>Real-time protection:</strong> Scans files and programs as they run, open, or download.</li>
+            <li><strong>Cloud-delivered protection:</strong> Sends suspicious file metadata to Microsoft for rapid analysis against known threats.</li>
+            <li><strong>Controlled folder access:</strong> Blocks unauthorized apps from changing files in protected folders — a basic ransomware defense.</li>
+            <li><strong>Microsoft Defender Firewall:</strong> Filters incoming and outgoing network traffic at the system level.</li>
+            <li><strong>SmartScreen:</strong> Warns you about malicious websites and unrecognized apps before you run them.</li>
+          </ul>
+          <p>
+            These tools work together automatically. Unlike some third-party suites, Defender
+            does not nag you with upgrade pop-ups or bundle unrelated software. That simplicity
+            is one reason many users never install anything else — and for a large share of
+            them, that is a reasonable choice.
+          </p>
+          <p>
+            Defender protects against viruses and malware, but it is not a full privacy suite.
+            It does not encrypt your internet traffic — that is what a
+            <a href="/vpn/what-is-a-vpn/">VPN</a> does. And it does not manage your passwords
+            or monitor the dark web for leaked credentials — tools covered in our
+            <a href="/security/what-is-a-password-manager/">password manager guide</a>.
+            Security works best as a stack of complementary tools, not a single app.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>Windows Defender vs. Paid Antivirus</h2>
+          <p>
+            The gap between Defender and paid suites is narrower on core malware detection
+            than marketing suggests. Where paid products pull ahead is in extras — identity
+            protection, multi-device licensing, and bundled utilities.
+          </p>
+
+          <div class="compare-table-wrap">
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th>Feature</th>
+                  <th>Windows Defender</th>
+                  <th>Norton / McAfee (Paid)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Real-time malware scanning</td>
+                  <td>Yes, built in</td>
+                  <td>Yes</td>
+                </tr>
+                <tr>
+                  <td>Ransomware protection</td>
+                  <td>Basic (Controlled Folder Access)</td>
+                  <td>Advanced with dedicated tools</td>
+                </tr>
+                <tr>
+                  <td>Firewall</td>
+                  <td>Windows Defender Firewall</td>
+                  <td>Enhanced firewall with app controls</td>
+                </tr>
+                <tr>
+                  <td>Identity / dark web monitoring</td>
+                  <td>No</td>
+                  <td>Yes (varies by plan)</td>
+                </tr>
+                <tr>
+                  <td>VPN included</td>
+                  <td>No</td>
+                  <td>Often bundled</td>
+                </tr>
+                <tr>
+                  <td>Multi-device licensing</td>
+                  <td>Windows only</td>
+                  <td>Windows, Mac, Android, iOS</td>
+                </tr>
+                <tr>
+                  <td>Parental controls</td>
+                  <td>Basic (Microsoft Family Safety)</td>
+                  <td>Full suite controls</td>
+                </tr>
+                <tr>
+                  <td>Cost</td>
+                  <td>Free with Windows</td>
+                  <td>$30–$100+/year</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            For a deeper breakdown of what free and paid tiers offer, see our
+            <a href="/antivirus/free-vs-paid-antivirus/">free vs paid antivirus</a> comparison.
+            The core question is not whether Defender detects malware — it generally does
+            that well — but whether the additional layers in a paid subscription match
+            how you use your devices.
+          </p>
+        </section>
+
+        <section class="compare-section" id="when-enough">
+          <h2>When Windows Defender Is Enough</h2>
+          <p>
+            Defender is a strong fit for users whose security needs stay within what a
+            well-maintained Windows PC can handle on its own. You likely do not need a
+            paid upgrade if most of the following apply:
+          </p>
+          <ul class="compare-list">
+            <li>You use a single Windows PC and keep Windows Update enabled.</li>
+            <li>You download software from official sources — the Microsoft Store, vendor websites, or trusted repositories.</li>
+            <li>You use a modern browser with built-in phishing protection and avoid clicking suspicious email links.</li>
+            <li>You do not share the PC with children who need strict content filtering.</li>
+            <li>You already use separate tools for passwords and privacy where needed.</li>
+          </ul>
+          <p>
+            Casual home users, students, and remote workers who follow basic security
+            habits often get adequate protection from Defender alone. Microsoft has invested
+            heavily in cloud-based threat intelligence, and Defender benefits from data
+            across hundreds of millions of Windows devices — a scale advantage that keeps
+            its detection rates competitive with standalone products.
+          </p>
+          <p>
+            If you are deciding among Windows-only options, our
+            <a href="/antivirus/best-antivirus-for-windows/">best antivirus for Windows</a>
+            guide compares Defender against top third-party picks so you can see where each
+            one leads.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>When to Upgrade to Norton or McAfee</h2>
+          <p>
+            Paid antivirus makes sense when your protection needs extend beyond a single
+            Windows PC or when you want identity and privacy tools bundled into one subscription.
+            Consider upgrading if any of these situations describe you:
+          </p>
+
+          <div class="compare-table-wrap">
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th>Scenario</th>
+                  <th>Why Defender Falls Short</th>
+                  <th>What Paid Suites Add</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Multiple devices (PC, phone, tablet)</td>
+                  <td>Windows only</td>
+                  <td>One license covers all platforms</td>
+                </tr>
+                <tr>
+                  <td>Identity theft concern</td>
+                  <td>No dark web monitoring</td>
+                  <td>Alerts for leaked SSN, email, and passwords</td>
+                </tr>
+                <tr>
+                  <td>Family with children online</td>
+                  <td>Limited parental controls</td>
+                  <td>Screen time limits, content filtering, location tracking</td>
+                </tr>
+                <tr>
+                  <td>Frequent public Wi-Fi use</td>
+                  <td>No VPN included</td>
+                  <td>Bundled VPN encrypts traffic on untrusted networks</td>
+                </tr>
+                <tr>
+                  <td>Handling sensitive business data</td>
+                  <td>Basic ransomware tools</td>
+                  <td>Advanced backup, encryption, and breach response</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Norton: Best for Identity Protection</h3>
+          <p>
+            <a href="/antivirus/norton/">Norton</a> is a strong upgrade if identity monitoring
+            is your priority. Its paid plans include dark web scanning, credit monitoring
+            on higher tiers, and a VPN for encrypted browsing. Norton also scores consistently
+            well in lab tests and offers a polished interface across Windows, Mac, Android,
+            and iOS. If you handle financial accounts, medical records, or business data
+            on your devices, the identity layer alone can justify the subscription.
+          </p>
+
+          <h3>McAfee: Best for Multi-Device Households</h3>
+          <p>
+            <a href="/antivirus/mcafee/">McAfee</a> stands out when you need to protect
+            many devices under one plan. Its unlimited-device licensing on premium tiers
+            makes it cost-effective for families with mixed Windows, Mac, and mobile hardware.
+            McAfee also bundles a VPN, password manager, and parental controls — a practical
+            all-in-one package if you would otherwise buy those tools separately.
+          </p>
+
+          <p>
+            Not sure which paid option fits? Our
+            <a href="/antivirus/norton-vs-mcafee/">Norton vs McAfee</a> comparison breaks
+            down pricing, features, and the type of user each one serves best.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>Getting the Most from Windows Defender</h2>
+          <p>
+            Whether you stick with Defender or eventually upgrade, these steps keep your
+            baseline protection as strong as possible:
+          </p>
+          <ol class="compare-list">
+            <li><strong>Keep Windows Update on.</strong> Defender's threat definitions and engine improvements arrive through system updates.</li>
+            <li><strong>Enable Controlled Folder Access.</strong> Found under Virus &amp; threat protection → Ransomware protection, this blocks unauthorized apps from encrypting your files.</li>
+            <li><strong>Turn on cloud-delivered protection.</strong> Faster detection of new threats relies on Microsoft's cloud analysis.</li>
+            <li><strong>Review SmartScreen settings.</strong> Make sure app and browser SmartScreen are active in Windows Security.</li>
+            <li><strong>Run periodic scans.</strong> Defender scans automatically, but a manual full scan after installing new software does not hurt.</li>
+          </ol>
+          <p>
+            Defender is only one layer. Pair it with a unique password for every account
+            — ideally stored in a dedicated manager — and use a
+            <a href="/vpn/best-vpn/">VPN on public Wi-Fi</a> when you travel or work from
+            cafes and airports. Good security habits matter as much as the software running
+            in the background.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>Final Recommendation</h2>
+          <p>
+            Windows Defender is no longer the afterthought it once was. In 2026, it delivers
+            reliable malware protection for everyday Windows users at zero cost. If you maintain
+            your system, browse carefully, and do not need cross-platform or identity features,
+            Defender is enough — and there is no reason to pay for overlapping scanning.
+          </p>
+          <p>
+            Upgrade to a paid suite when your needs grow beyond a single PC. Norton is the
+            better pick for identity-focused protection, while McAfee suits families protecting
+            many devices at once. Either way, disable Defender's real-time scanning only
+            when the paid product takes over — never run both simultaneously.
+          </p>
+          <p>
+            Compare all options in our
+            <a href="/antivirus/best-antivirus/">best antivirus guide</a> to find the
+            right balance of coverage, cost, and features for your setup.
+          </p>
+
+          <div class="compare-bottom-cta compare-cta-row">
+            <a href="/antivirus/best-antivirus/" class="btn btn-primary">Best Antivirus Guide →</a>
+            <a href="/antivirus/norton/" class="btn btn-secondary">Read Norton Review →</a>
+            <a href="/antivirus/mcafee/" class="btn btn-secondary">Read McAfee Review →</a>
+            <a href="/antivirus/free-vs-paid-antivirus/" class="btn btn-secondary">Free vs Paid Antivirus →</a>
+          </div>
+        </section>
+
+        <section class="compare-section compare-faq-section">
+          <h2>Antivirus FAQ</h2>
+          <div class="compare-faq-list">
+            {faqItems.map((item) => (
+              <details class="compare-faq-item">
+                <summary>{item.q}</summary>
+                <p>{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+
+      </article>
+
+      <aside class="compare-sidebar">
+        <div class="compare-sidebar-box">
+          <h3>Quick Summary</h3>
+          <ul>
+            <li>Defender is built into Windows 10 and 11</li>
+            <li>Strong malware detection at no cost</li>
+            <li>Enough for careful single-PC users</li>
+            <li>Upgrade for identity and multi-device needs</li>
+          </ul>
+        </div>
+
+        <div class="compare-sidebar-box">
+          <h3>Read Next</h3>
+          {currentGuides.length > 0 && (
+            <ul class="compare-sidebar-links">
+              {currentGuides.slice(0, 4).map((item) => (
+                <li>
+                  <a href={`/${currentCategory}/${item.slug}/`}>{item.title}</a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        <div class="compare-sidebar-box">
+          <h3>Compare Top Picks</h3>
+          <p>
+            See how Windows Defender stacks up against Norton, McAfee, and other leading antivirus options.
+          </p>
+          <a href="/antivirus/best-antivirus/" class="btn btn-primary compare-sidebar-btn">
+            See Best Antivirus Guide →
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .compare-table-wrap {
+    overflow-x: auto;
+    margin: 20px 0;
+  }
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+  }
+  .compare-table th,
+  .compare-table td {
+    border: 1px solid #e5e7eb;
+    padding: 12px 14px;
+    text-align: left;
+  }
+  .compare-table th {
+    background: #f9fafb;
+    font-weight: 700;
+    color: #1f2937;
+  }
+  .compare-table tr:nth-child(even) td {
+    background: #fafbfc;
+  }
+  .compare-section a:not(.btn) {
+    color: #1e3a8a;
+    text-decoration: none;
+  }
+  .compare-section a:not(.btn):hover {
+    text-decoration: underline;
+  }
+</style>

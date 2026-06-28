@@ -1,0 +1,437 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import "../../styles/compare-pages.css";
+import reviews from "../../data/reviews.json";
+import { guides } from "../../data/guides.js";
+
+const pathname = Astro.url.pathname.split("/").filter(Boolean);
+
+const currentCategory = pathname[0] || "";
+const currentSlug = pathname[1] || "";
+
+const currentGuides = (guides[currentCategory] ?? [])
+  .filter((item) => item.slug !== currentSlug)
+  .slice(0, 4);
+
+const topItems = ["norton", "mcafee"]
+  .map((slug) => reviews.find((item) => item.slug === slug && item.category === currentCategory))
+  .filter(Boolean);
+
+const faqItems = [
+  {
+    q: "Is Windows Defender enough on its own?",
+    a: "For many Windows 10 and 11 users, Microsoft Defender Antivirus provides solid baseline protection at no cost. It handles real-time malware scanning, cloud-based threat detection, and automatic updates. If you browse carefully, keep Windows patched, and use strong passwords, Defender alone may be sufficient. Paid antivirus from Norton or McAfee adds identity monitoring, advanced ransomware tools, and protection for phones and Macs in your household."
+  },
+  {
+    q: "Should I disable Windows Defender when installing Norton or McAfee?",
+    a: "Do not run two real-time antivirus programs at the same time. When you install Norton or McAfee, the setup process typically configures Windows to use the third-party product as your primary antivirus. Defender may remain active in a limited role or be disabled automatically depending on the version. Follow the installer prompts and confirm in Windows Security that only one real-time provider is active."
+  },
+  {
+    q: "Norton or McAfee — which is better for Windows?",
+    a: "Norton is the stronger all-around pick for Windows users who want a feature-rich security suite with identity monitoring and optional VPN access on higher plans. McAfee is often the better value when you need to protect many Windows PCs plus phones and tablets under one subscription, since many McAfee plans cover unlimited devices."
+  },
+  {
+    q: "Will antivirus slow down my Windows PC?",
+    a: "Modern antivirus software from Norton and McAfee is designed to run quietly in the background on current hardware. You may notice a small impact during full system scans, but everyday tasks like browsing, email, and video calls should feel normal. Schedule deep scans during off-hours if you want to minimize any interruption."
+  },
+  {
+    q: "Do I need antivirus if I only use my Windows PC for basic tasks?",
+    a: "Even light use carries some risk — phishing emails, malicious ads, and compromised downloads can reach any connected device. Windows Defender covers the basics for cautious users on a single PC. If you also bank, shop, or store work files on your machine, a paid suite adds meaningful layers like web protection, ransomware shields, and identity alerts."
+  }
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map((item) => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.a
+    }
+  }))
+};
+---
+
+<Layout
+  title="Best Antivirus for Windows in 2026"
+  description="Find the best antivirus for Windows in 2026. Compare Norton and McAfee against Windows Defender, with clear advice for beginners, families, and privacy-focused users."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)}></script>
+
+  <section class="compare-hero">
+    <div class="page-container">
+      <p class="compare-eyebrow">Antivirus Guide</p>
+      <h1>Best Antivirus for Windows in 2026</h1>
+      <p class="compare-intro">
+        Windows is the most targeted operating system for malware, ransomware, and
+        phishing attacks — but every Windows 10 and 11 PC already ships with
+        Microsoft Defender Antivirus built in. This guide explains when Defender
+        is enough, when a paid suite makes sense, and how Norton and McAfee compare
+        for Windows users who want stronger protection across multiple devices.
+      </p>
+
+      <div class="compare-cta-row">
+        <a href="#top-picks" class="btn btn-primary">See Top Picks</a>
+        {topItems[0] && (
+          <a href={`/${topItems[0].category}/${topItems[0].slug}/`} class="btn btn-secondary">
+            Read {topItems[0].name} Review →
+          </a>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <section class="compare-content">
+    <div class="page-container compare-layout">
+      <article class="compare-main">
+
+        <section class="compare-section">
+          <h2>How to Choose Antivirus for Windows</h2>
+          <p>
+            Picking antivirus for a Windows PC starts with an honest look at what
+            you already have. Microsoft Defender Antivirus runs automatically on
+            modern Windows versions, updates through Windows Update, and scores
+            well in independent lab tests. Before spending money on a third-party
+            product, ask whether Defender's baseline protection already matches
+            your risk level.
+          </p>
+          <p>
+            If you decide to upgrade, focus on three factors: malware detection
+            quality, system performance, and the extras that matter to you. Real-time
+            scanning and ransomware defense are table stakes. Beyond that, some users
+            want identity monitoring, a bundled VPN, parental controls, or coverage
+            for phones and Macs in the same household. Norton and McAfee both cover
+            Windows thoroughly, but they target slightly different priorities.
+          </p>
+          <p>
+            Device count matters on Windows more than on any other platform. A
+            family with two laptops, a desktop, and several phones needs a plan
+            that scales. McAfee often covers unlimited devices on one subscription,
+            while Norton offers tiered plans from single-PC coverage up to family
+            bundles. Compare device limits before you buy — paying for seats you
+            do not need wastes money, and running out of licenses leaves devices
+            exposed.
+          </p>
+          <p>
+            Antivirus is one layer in a broader security setup. A
+            <a href="/security/what-is-a-password-manager/">password manager</a>
+            keeps your Windows login credentials unique across sites, and a
+            <a href="/vpn/best-vpn-for-privacy/">VPN</a> encrypts traffic on
+            public Wi-Fi when you work from coffee shops or airports. If you run
+            a website or small business from home, pairing device security with
+            solid <a href="/hosting/best-hosting/">web hosting</a> that includes
+            SSL and regular backups protects your online presence as well as your PC.
+          </p>
+
+          <div class="compare-table-wrap">
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th>Factor</th>
+                  <th>Why It Matters on Windows</th>
+                  <th>What to Look For</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Real-time protection</td>
+                  <td>Windows faces the highest volume of new malware</td>
+                  <td>Continuous background scanning with automatic signature updates</td>
+                </tr>
+                <tr>
+                  <td>Ransomware defense</td>
+                  <td>Encrypting malware targets documents and photos</td>
+                  <td>Folder shields, behavior monitoring, and rollback tools</td>
+                </tr>
+                <tr>
+                  <td>Web and email protection</td>
+                  <td>Phishing links arrive through browsers and inboxes</td>
+                  <td>URL filtering, attachment scanning, and safe-browsing alerts</td>
+                </tr>
+                <tr>
+                  <td>Performance impact</td>
+                  <td>Windows PCs range from budget laptops to gaming rigs</td>
+                  <td>Light background footprint and schedulable full scans</td>
+                </tr>
+                <tr>
+                  <td>Multi-device licensing</td>
+                  <td>Most households mix Windows PCs with phones and tablets</td>
+                  <td>Clear device limits or unlimited family plans</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="compare-section">
+          <h2>Windows Defender: Your Free Baseline</h2>
+          <p>
+            Before comparing paid products, understand what Microsoft Defender
+            Antivirus already does on your Windows machine. It provides real-time
+            protection against viruses, spyware, and ransomware. It integrates with
+            Windows Security settings, receives cloud-delivered threat intelligence,
+            and updates automatically through Windows Update — no separate subscription
+            required.
+          </p>
+          <p>
+            Independent testing labs regularly rank Defender among the top free
+            antivirus options for Windows. For users who keep the operating system
+            patched, avoid pirated software, and think twice before opening
+            unexpected email attachments, Defender delivers capable protection
+            without adding cost or complexity. Our dedicated
+            <a href="/antivirus/windows-defender/">Windows Defender guide</a>
+            walks through its strengths and limitations in detail.
+          </p>
+          <p>
+            Defender's gaps are about scope, not quality. It does not include
+            identity monitoring, dark web alerts, or cross-platform protection
+            for Mac and Android devices in your home. It also lacks the bundled
+            VPN and password manager features found on premium Norton and McAfee
+            plans. If your security needs stop at a single updated Windows PC
+            used for everyday browsing, Defender may be all you need. If your
+            household has multiple devices or you handle sensitive financial data,
+            a paid suite fills those gaps.
+          </p>
+          <p>
+            The free-versus-paid question comes up constantly. Our
+            <a href="/antivirus/free-vs-paid-antivirus/">free vs paid antivirus</a>
+            guide compares the trade-offs honestly. The short version: Defender
+            is a legitimate starting point, not a compromise — but paid antivirus
+            justifies its cost when you need broader coverage and bundled tools.
+          </p>
+        </section>
+
+        <section class="compare-section" id="top-picks">
+          <h2>Our Top Antivirus Picks for Windows</h2>
+          <p class="compare-note">
+            Norton and McAfee are established brands with long track records on
+            Windows. Both offer real-time malware protection, firewalls, and
+            identity features on qualifying plans — without replacing the need
+            for sensible browsing habits and regular Windows updates.
+          </p>
+
+          <div class="compare-cards-grid">
+            {topItems.map((item, index) => (
+              <div class="compare-card">
+                {index === 0 && <span class="compare-badge">Top Pick</span>}
+                <h3>{item.name}</h3>
+                <p class="compare-card-tag">{item.tag || "Antivirus provider"}</p>
+                <p class="compare-card-text">
+                  {item.summary || item.description}
+                </p>
+                <div class="compare-rating">★ {item.rating}/5</div>
+
+                <div class="compare-card-actions">
+                  <a href={`/${item.category}/${item.slug}/`} class="btn btn-secondary">
+                    Read {item.name} Review →
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <h3>About Norton on Windows</h3>
+          <p>
+            Norton has protected Windows PCs for decades and remains one of the
+            most recognized names in consumer security. Its current Windows app
+            is straightforward to install: download the installer, sign in to
+            your account, and the dashboard shows whether real-time protection,
+            firewall, and web shields are active. Norton's higher-tier plans add
+            identity monitoring, cloud backup, a password manager, and VPN access
+            depending on the subscription level.
+          </p>
+          <p>
+            Norton suits Windows users who want a single comprehensive suite from
+            a trusted brand. If you shop online, handle work documents locally,
+            or want alerts when your personal data appears in a breach, Norton's
+            identity tools add value beyond basic malware scanning. It also
+            supports Mac, Android, and iOS, so mixed-device households can manage
+            everything from one Norton account.
+          </p>
+
+          <h3>About McAfee on Windows</h3>
+          <p>
+            McAfee is another veteran Windows antivirus provider with a focus on
+            family-friendly pricing. A standout feature on many McAfee plans is
+            unlimited device coverage — protect every Windows laptop, desktop,
+            phone, and tablet in your home without counting seats. That makes
+            McAfee practical when your household has more gadgets than people.
+          </p>
+          <p>
+            The McAfee Windows app includes solid malware protection, an enhanced
+            firewall, web browsing safeguards, and identity monitoring on qualifying
+            plans. Parental controls help families filter content and manage screen
+            time across Windows PCs and mobile devices. If your priority is covering
+            many Windows machines affordably while still getting reputable protection,
+            McAfee deserves a close look. See our
+            <a href="/antivirus/norton-vs-mcafee/">Norton vs McAfee</a> comparison
+            for a direct side-by-side breakdown.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>Best Antivirus for Windows by Use Case</h2>
+          <p>
+            Windows users do not all share the same needs. Here is how Norton and
+            McAfee map to common situations:
+          </p>
+          <ul class="compare-list">
+            <li><strong>Best overall for Windows:</strong> Norton — well-rounded suite with identity tools and optional VPN on higher plans.</li>
+            <li><strong>Best for families with many Windows PCs:</strong> McAfee — unlimited device plans simplify protection across every computer in the home.</li>
+            <li><strong>Best if you want to stay free:</strong> Windows Defender — capable baseline protection built into Windows 10 and 11.</li>
+            <li><strong>Best for remote workers:</strong> Norton — identity monitoring and advanced web protection help when you handle sensitive data on a Windows laptop.</li>
+            <li><strong>Best budget-conscious paid option:</strong> McAfee — family plans that cover unlimited devices can offer strong per-device value.</li>
+            <li><strong>Best for privacy-focused users:</strong> Norton — identity alerts and VPN features on select plans add layers beyond basic scanning; pair with a dedicated <a href="/vpn/">VPN</a> if privacy is your top priority.</li>
+          </ul>
+          <p>
+            Still deciding between free and paid? Start with the
+            <a href="/antivirus/free-vs-paid-antivirus/">free vs paid antivirus</a>
+            guide. For a broader look at all options across platforms, see our
+            <a href="/antivirus/best-antivirus/">best antivirus</a> roundup.
+            Browse the full <a href="/antivirus/">antivirus hub</a> for reviews,
+            comparisons, and platform-specific guides.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>Windows Security Tips Beyond Antivirus</h2>
+          <p>
+            Even the best antivirus cannot compensate for risky habits. These
+            practices strengthen your Windows security regardless of which product
+            you choose:
+          </p>
+          <ul class="compare-list">
+            <li><strong>Keep Windows updated:</strong> Security patches close vulnerabilities that malware exploits. Enable automatic updates.</li>
+            <li><strong>Use a password manager:</strong> Unique, strong passwords for every account limit damage from credential leaks. Learn how in our <a href="/security/">security guides</a>.</li>
+            <li><strong>Enable two-factor authentication:</strong> Add a second verification step on email, banking, and work accounts.</li>
+            <li><strong>Be cautious with downloads:</strong> Avoid pirated software, cracked games, and unexpected email attachments.</li>
+            <li><strong>Use a VPN on public Wi-Fi:</strong> Encrypt your connection when browsing on shared networks. See <a href="/vpn/how-does-a-vpn-work/">how a VPN works</a> to understand the benefits.</li>
+            <li><strong>Back up important files:</strong> Ransomware can encrypt local documents. Use cloud backup or an external drive for critical data.</li>
+          </ul>
+          <p>
+            If you run a WordPress site or online store from your Windows PC,
+            device security is only part of the picture. Reliable
+            <a href="/hosting/what-is-web-hosting/">web hosting</a> with SSL
+            certificates, regular backups, and malware scanning on the server
+            side protects your visitors as well. Layer sensible tools rather
+            than relying on any single product alone.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>Final Verdict</h2>
+          <p>
+            The best antivirus for Windows in 2026 depends on how many devices
+            you protect and what extras you need. Windows Defender remains a
+            capable free baseline for cautious users on a single updated PC.
+            Norton is the stronger pick when you want a feature-rich security
+            suite with identity monitoring and optional VPN access from a
+            long-established brand. McAfee is the better fit when you need to
+            protect a large number of Windows machines and mobile devices under
+            one subscription.
+          </p>
+          <p>
+            Before you buy, confirm how many devices your plan covers, which
+            features are included at your tier, and whether Defender already
+            meets your needs. Either way, keeping one reputable antivirus
+            installed and updated is far better than having no protection or
+            running conflicting security programs side by side.
+          </p>
+
+          <div class="compare-bottom-cta compare-cta-row">
+            <a href="/antivirus/norton/" class="btn btn-primary">Read Norton Review →</a>
+            <a href="/antivirus/mcafee/" class="btn btn-secondary">Read McAfee Review →</a>
+            <a href="/antivirus/windows-defender/" class="btn btn-secondary">Windows Defender Guide →</a>
+          </div>
+        </section>
+
+        <section class="compare-section compare-faq-section">
+          <h2>Windows Antivirus FAQ</h2>
+          <div class="compare-faq-list">
+            {faqItems.map((item) => (
+              <details class="compare-faq-item">
+                <summary>{item.q}</summary>
+                <p>{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+
+      </article>
+
+      <aside class="compare-sidebar">
+        <div class="compare-sidebar-box">
+          <h3>Quick Summary</h3>
+          <ul>
+            <li>Windows Defender is a capable free baseline</li>
+            <li>Norton leads for all-around Windows protection</li>
+            <li>McAfee suits multi-device households</li>
+            <li>Never run two real-time antivirus programs at once</li>
+          </ul>
+        </div>
+
+        <div class="compare-sidebar-box">
+          <h3>Read Next</h3>
+          {currentGuides.length > 0 && (
+            <ul class="compare-sidebar-links">
+              {currentGuides.map((item) => (
+                <li>
+                  <a href={`/${currentCategory}/${item.slug}/`}>
+                    {item.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        <div class="compare-sidebar-box">
+          <h3>Explore Antivirus</h3>
+          <p>
+            Compare reviews, guides, and head-to-head breakdowns for every
+            antivirus product on the site.
+          </p>
+          <a href="/antivirus/" class="btn btn-primary compare-sidebar-btn">
+            Browse Antivirus Guides →
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .compare-table-wrap {
+    overflow-x: auto;
+    margin: 20px 0;
+  }
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+  }
+  .compare-table th,
+  .compare-table td {
+    border: 1px solid #e5e7eb;
+    padding: 12px 14px;
+    text-align: left;
+  }
+  .compare-table th {
+    background: #f9fafb;
+    font-weight: 700;
+    color: #1f2937;
+  }
+  .compare-table tr:nth-child(even) td {
+    background: #fafbfc;
+  }
+  .compare-section a:not(.btn) {
+    color: #1e3a8a;
+    text-decoration: none;
+  }
+  .compare-section a:not(.btn):hover {
+    text-decoration: underline;
+  }
+</style>

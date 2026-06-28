@@ -1,0 +1,442 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import "../../styles/compare-pages.css";
+import reviews from "../../data/reviews.json";
+import { guides } from "../../data/guides.js";
+
+const pathname = Astro.url.pathname.split("/").filter(Boolean);
+
+const currentCategory = pathname[0] || "";
+const currentSlug = pathname[1] || "";
+
+const currentGuides = (guides[currentCategory] ?? [])
+  .filter((item) => item.slug !== currentSlug)
+  .slice(0, 4);
+
+const categoryReviews = reviews
+  .filter((item) => item.category === currentCategory)
+  .sort((a, b) => (b.rating || 0) - (a.rating || 0));
+
+const topItems = categoryReviews.slice(0, 2);
+
+const faqItems = [
+  {
+    q: "Do Macs need antivirus in 2026?",
+    a: "Macs are less frequently targeted than Windows PCs, but they are not immune. macOS includes built-in protections like XProtect and Gatekeeper, yet phishing, adware, and cross-platform malware still reach Mac users. Third-party antivirus adds web shields, identity monitoring, and multi-device coverage that Apple's built-in tools do not provide on their own."
+  },
+  {
+    q: "Is macOS built-in security enough?",
+    a: "For careful users who keep macOS updated, avoid untrusted downloads, and use strong passwords, Apple's built-in security handles many everyday threats. Third-party antivirus becomes more valuable if you handle sensitive work, share files across platforms, or want identity alerts and parental controls bundled with malware protection."
+  },
+  {
+    q: "Will Norton or McAfee slow down my Mac?",
+    a: "Both Norton and McAfee have optimized their Mac apps for modern hardware. You may notice a small impact during full system scans, but everyday browsing and work should feel normal. Schedule deep scans during off-hours if you want to minimize any interruption."
+  },
+  {
+    q: "Can I run two antivirus programs on my Mac?",
+    a: "No. Running two real-time antivirus programs together causes conflicts, false alerts, and slower performance. Choose one primary antivirus — either rely on macOS built-in protections alone or install a single third-party suite like Norton or McAfee."
+  },
+  {
+    q: "Does Norton or McAfee work on iPhone and iPad too?",
+    a: "Yes. Both Norton and McAfee offer iOS apps alongside their Mac clients. McAfee's unlimited-device plans are especially convenient for households with multiple iPhones, iPads, and MacBooks under one subscription."
+  }
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map((item) => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.a
+    }
+  }))
+};
+---
+
+<Layout
+  title="Best Antivirus for Mac in 2026"
+  description="Compare the best antivirus for Mac in 2026. See how macOS built-in security stacks up against Norton and McAfee, and find the right protection for your Apple devices."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)}></script>
+
+  <section class="compare-hero">
+    <div class="page-container">
+      <p class="compare-eyebrow">Antivirus Guide</p>
+      <h1>Best Antivirus for Mac in 2026</h1>
+      <p class="compare-intro">
+        Mac users often hear that antivirus is unnecessary — and Apple's built-in
+        protections are genuinely strong. But phishing scams, adware, and cross-platform
+        malware still target macOS every day. This guide compares what macOS already
+        provides against third-party options, with a focus on Norton and McAfee — two
+        established brands with full Mac support — so you can decide whether extra
+        protection is worth it for your setup.
+      </p>
+
+      <div class="compare-cta-row">
+        <a href="#top-picks" class="btn btn-primary">See Top Picks</a>
+        {topItems[0] && (
+          <a href={`/${topItems[0].category}/${topItems[0].slug}/`} class="btn btn-secondary">
+            Read {topItems[0].name} Review →
+          </a>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <section class="compare-content">
+    <div class="page-container compare-layout">
+      <article class="compare-main">
+
+        <section class="compare-section">
+          <h2>macOS Built-In Security vs Third-Party Antivirus</h2>
+          <p>
+            Apple designs macOS with several layers of protection that run without
+            any extra software. XProtect scans downloads against known malware
+            signatures. Gatekeeper blocks apps that are not signed by identified
+            developers or downloaded from the Mac App Store. System Integrity
+            Protection (SIP) prevents unauthorized changes to critical system files.
+            Sandboxing limits what apps can access on your machine. Together, these
+            tools handle a large share of threats that reach Mac users.
+          </p>
+          <p>
+            That is why many Mac owners never install third-party antivirus and
+            remain safe for years. If you download software only from trusted
+            sources, keep macOS and your browsers updated, and avoid clicking
+            suspicious email links, Apple's built-in defenses cover a lot of ground.
+            For a broader look at whether paid protection is necessary at all,
+            read our <a href="/antivirus/free-vs-paid-antivirus/">free vs paid antivirus</a>
+            guide.
+          </p>
+          <p>
+            Third-party antivirus fills gaps that macOS does not address on its own.
+            Dedicated suites add real-time web protection against phishing sites,
+            identity monitoring when your data appears in breaches, firewalls with
+            granular app controls, and parental tools for families. They also protect
+            Windows PCs and Android phones in mixed-device households from one
+            dashboard — something Apple's tools cannot do.
+          </p>
+          <p>
+            The honest answer is not "Macs never need antivirus" or "every Mac
+            must have it." It depends on your risk level. A personal Mac used
+            mainly for browsing and streaming may be fine with macOS alone. A
+            MacBook used for freelance work, online banking, or handling client
+            data benefits from the extra layers Norton or McAfee provide. Security
+            is also broader than malware scanning — pair antivirus with a
+            <a href="/security/what-is-a-password-manager/">password manager</a>
+            and consider a <a href="/vpn/">VPN</a> when you use public Wi-Fi.
+          </p>
+
+          <div class="compare-table-wrap">
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th>Protection Layer</th>
+                  <th>macOS Built-In</th>
+                  <th>Third-Party (Norton / McAfee)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Malware signature scanning</td>
+                  <td>XProtect</td>
+                  <td>Real-time scanning with frequent cloud updates</td>
+                </tr>
+                <tr>
+                  <td>Unsigned app blocking</td>
+                  <td>Gatekeeper</td>
+                  <td>Included, plus extended web download shields</td>
+                </tr>
+                <tr>
+                  <td>Phishing and malicious URLs</td>
+                  <td>Safari warnings (limited)</td>
+                  <td>Browser extensions and network-level blocking</td>
+                </tr>
+                <tr>
+                  <td>Identity / breach monitoring</td>
+                  <td>Not included</td>
+                  <td>Dark web alerts on qualifying plans</td>
+                </tr>
+                <tr>
+                  <td>Cross-platform device coverage</td>
+                  <td>macOS only</td>
+                  <td>Windows, Mac, Android, and iOS</td>
+                </tr>
+                <tr>
+                  <td>Firewall controls</td>
+                  <td>Basic macOS firewall</td>
+                  <td>Enhanced app and network monitoring</td>
+                </tr>
+                <tr>
+                  <td>VPN bundled</td>
+                  <td>iCloud Private Relay (limited scope)</td>
+                  <td>VPN on select Norton and McAfee plans</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="compare-section">
+          <h2>What Mac Users Should Look For</h2>
+          <p>
+            Not every antivirus product treats macOS as a first-class platform.
+            Some Windows-first suites ship Mac apps with fewer features or clunky
+            interfaces. When evaluating options, prioritize providers with native
+            Mac apps that receive regular updates and do not drain battery during
+            background scans.
+          </p>
+          <p>
+            Check whether the plan covers all your Apple devices — MacBook, iMac,
+            iPhone, and iPad — under one subscription. McAfee is often attractive
+            here because many plans protect unlimited devices. Norton typically
+            covers a set number of devices but bundles identity tools and optional
+            VPN access on higher tiers.
+          </p>
+          <p>
+            Performance matters on Mac hardware. Look for lightweight background
+            scanning, the ability to exclude trusted folders from deep scans, and
+            clear notifications that do not interrupt your workflow. Both Norton
+            and McAfee have improved their Mac clients significantly compared to
+            older versions that earned a reputation for slowing machines down.
+          </p>
+          <p>
+            Finally, consider how antivirus fits into your overall security setup.
+            A <a href="/vpn/how-does-a-vpn-work/">VPN</a> encrypts traffic on
+            untrusted networks; a password manager keeps credentials unique across
+            sites. Browse our <a href="/security/">security guides</a> for more
+            on building sensible layers beyond antivirus alone.
+          </p>
+        </section>
+
+        <section class="compare-section" id="top-picks">
+          <h2>Our Top Mac Antivirus Picks</h2>
+          <p class="compare-note">
+            Norton and McAfee are the Mac-compatible antivirus providers featured
+            on this site. Both support macOS with full-featured apps and extend
+            protection to iPhones, iPads, and other platforms in your household.
+          </p>
+
+          <div class="compare-cards-grid">
+            {topItems.map((item, index) => (
+              <div class="compare-card">
+                {index === 0 && <span class="compare-badge">Top Pick</span>}
+                {item.badge && index !== 0 && <span class="compare-badge">{item.badge}</span>}
+                <h3>{item.name}</h3>
+                <p class="compare-card-tag">{item.tag || "Antivirus provider"}</p>
+                <p class="compare-card-text">
+                  {item.summary || item.description}
+                </p>
+                <div class="compare-rating">★ {item.rating}/5</div>
+
+                <div class="compare-card-actions">
+                  <a href={`/${item.category}/${item.slug}/`} class="btn btn-secondary">
+                    Read {item.name} Review →
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <h3>About Norton for Mac</h3>
+          <p>
+            Norton's Mac app delivers the same core protection as its Windows
+            counterpart: real-time malware scanning, ransomware defense, and a
+            firewall that monitors network traffic. The dashboard is clean and
+            status-focused — a green indicator confirms protection is active,
+            and warnings appear clearly when action is needed. Norton is a strong
+            fit for Mac users who want identity monitoring, cloud backup, and
+            optional VPN access bundled into one subscription from a long-established
+            brand.
+          </p>
+          <p>
+            Norton plans scale from single-device coverage to family bundles.
+            If your household mixes Macs with Windows PCs or Android phones,
+            Norton lets you manage every protected device from one account.
+            Higher-tier plans add dark web monitoring and alerts when your
+            personal information surfaces in data breaches — a layer macOS
+            built-in tools do not provide.
+          </p>
+
+          <h3>About McAfee for Mac</h3>
+          <p>
+            McAfee offers a capable Mac client with malware scanning, web
+            protection, and a personal firewall. Where McAfee stands out is
+            device coverage: many plans protect unlimited devices, which is
+            practical when your home has multiple MacBooks, iPhones, iPads,
+            and perhaps a Windows PC — all under one subscription without
+            counting seats.
+          </p>
+          <p>
+            McAfee's Mac app is straightforward to install and includes
+            parental controls on family-oriented plans. Identity monitoring
+            tools alert you when credentials or personal data appear in breaches.
+            For Mac users in larger households who want reputable protection
+            without per-device fees, McAfee is a compelling option. See our
+            <a href="/antivirus/norton-vs-mcafee/">Norton vs McAfee</a>
+            comparison for a direct head-to-head breakdown.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>Best Antivirus for Mac by Use Case</h2>
+          <p>
+            Different Mac users have different priorities. Here is how Norton
+            and McAfee map to common situations:
+          </p>
+          <ul class="compare-list">
+            <li><strong>Best overall for Mac:</strong> Norton — polished Mac app with identity tools and optional VPN on higher plans.</li>
+            <li><strong>Best for Apple households with many devices:</strong> McAfee — unlimited device plans cover every Mac, iPhone, and iPad.</li>
+            <li><strong>Best if you rely on macOS security alone:</strong> Keep Gatekeeper and XProtect enabled, stay updated, and skip third-party antivirus unless your risk profile changes.</li>
+            <li><strong>Best for remote workers on Mac:</strong> Norton — identity monitoring and comprehensive web shields add protection beyond built-in tools.</li>
+            <li><strong>Best for mixed Mac and Windows homes:</strong> Either Norton or McAfee — both manage cross-platform protection from one dashboard.</li>
+            <li><strong>Best for privacy-focused Mac users:</strong> Norton — VPN on select plans; or pair any antivirus with a dedicated <a href="/vpn/best-vpn-for-privacy/">VPN for privacy</a>.</li>
+          </ul>
+          <p>
+            Windows users in your household should read our
+            <a href="/antivirus/best-antivirus-for-windows/">best antivirus for Windows</a>
+            guide for platform-specific advice. For a general overview of top
+            picks across all platforms, visit our
+            <a href="/antivirus/best-antivirus/">best antivirus</a> roundup
+            or browse the full <a href="/antivirus/">antivirus hub</a>.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>When to Stick With macOS Security Alone</h2>
+          <p>
+            Third-party antivirus is not mandatory on every Mac. These situations
+            are where Apple's built-in protections may be sufficient:
+          </p>
+          <ul class="compare-list">
+            <li>You use one Mac for personal browsing, streaming, and email with no sensitive work data stored locally.</li>
+            <li>You download apps only from the Mac App Store or directly from known developers.</li>
+            <li>You keep macOS, Safari, and all apps updated automatically.</li>
+            <li>You already use a password manager and two-factor authentication on important accounts.</li>
+            <li>You are cautious with email attachments and unfamiliar download links.</li>
+          </ul>
+          <p>
+            Even if you skip third-party antivirus, maintain good habits. Enable
+            FileVault to encrypt your drive, use Find My Mac for theft recovery,
+            and review Privacy &amp; Security settings after each macOS update.
+            If your situation changes — new job, shared computer, children using
+            the Mac — reconsider a paid suite.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>Final Verdict</h2>
+          <p>
+            macOS provides a solid security foundation that many users never need
+            to supplement. But Norton and McAfee both offer meaningful extras —
+            web shields, identity monitoring, cross-device management, and parental
+            controls — that Apple's built-in tools do not cover. Norton is the
+            stronger pick for Mac users who want a feature-rich suite with identity
+            tools and optional VPN access. McAfee is the better fit when you need
+            to protect many Apple and non-Apple devices under one affordable plan.
+          </p>
+          <p>
+            Whichever path you choose, avoid running two real-time antivirus
+            programs simultaneously. Pick one approach — macOS alone or a single
+            third-party provider — and keep it updated. Layer sensible habits
+            and complementary tools like a password manager and VPN for defense
+            in depth.
+          </p>
+
+          <div class="compare-bottom-cta compare-cta-row">
+            <a href="/antivirus/norton/" class="btn btn-primary">Read Norton Review →</a>
+            <a href="/antivirus/mcafee/" class="btn btn-secondary">Read McAfee Review →</a>
+            <a href="/antivirus/norton-vs-mcafee/" class="btn btn-secondary">Norton vs McAfee Comparison →</a>
+          </div>
+        </section>
+
+        <section class="compare-section compare-faq-section">
+          <h2>Mac Antivirus FAQ</h2>
+          <div class="compare-faq-list">
+            {faqItems.map((item) => (
+              <details class="compare-faq-item">
+                <summary>{item.q}</summary>
+                <p>{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+
+      </article>
+
+      <aside class="compare-sidebar">
+        <div class="compare-sidebar-box">
+          <h3>Quick Summary</h3>
+          <ul>
+            <li>macOS includes XProtect, Gatekeeper, and SIP</li>
+            <li>Third-party AV adds web shields and identity tools</li>
+            <li>Norton and McAfee both offer full Mac apps</li>
+            <li>Layer with VPN and password tools for best results</li>
+          </ul>
+        </div>
+
+        <div class="compare-sidebar-box">
+          <h3>Read Next</h3>
+          {currentGuides.length > 0 && (
+            <ul class="compare-sidebar-links">
+              {currentGuides.map((item) => (
+                <li>
+                  <a href={`/${currentCategory}/${item.slug}/`}>
+                    {item.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        <div class="compare-sidebar-box">
+          <h3>Explore Antivirus</h3>
+          <p>
+            Compare reviews, guides, and head-to-head breakdowns for every
+            antivirus product on the site.
+          </p>
+          <a href="/antivirus/" class="btn btn-primary compare-sidebar-btn">
+            Browse Antivirus Guides →
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .compare-table-wrap {
+    overflow-x: auto;
+    margin: 20px 0;
+  }
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+  }
+  .compare-table th,
+  .compare-table td {
+    border: 1px solid #e5e7eb;
+    padding: 12px 14px;
+    text-align: left;
+  }
+  .compare-table th {
+    background: #f9fafb;
+    font-weight: 700;
+    color: #1f2937;
+  }
+  .compare-table tr:nth-child(even) td {
+    background: #fafbfc;
+  }
+  .compare-section a:not(.btn) {
+    color: #1e3a8a;
+    text-decoration: none;
+  }
+  .compare-section a:not(.btn):hover {
+    text-decoration: underline;
+  }
+</style>

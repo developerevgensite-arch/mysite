@@ -1,0 +1,396 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import "../../styles/compare-pages.css";
+import reviews from "../../data/reviews.json";
+import { guides } from "../../data/guides.js";
+
+const pathname = Astro.url.pathname.split("/").filter(Boolean);
+
+const currentCategory = pathname[0] || "";
+const currentSlug = pathname[1] || "";
+
+const currentGuides = (guides[currentCategory] ?? [])
+  .filter((item) => item.slug !== currentSlug)
+  .slice(0, 4);
+
+const norton = reviews.find((item) => item.slug === "norton");
+const mcafee = reviews.find((item) => item.slug === "mcafee");
+
+const compareItems = [norton, mcafee].filter(Boolean);
+
+const faqItems = [
+  {
+    q: "Which is better: Norton or McAfee?",
+    a: "Norton tends to score higher for overall protection, identity features, and reputation. McAfee is often the better value for households that need to protect many devices on one subscription."
+  },
+  {
+    q: "Does Norton or McAfee slow down my computer?",
+    a: "Both modern versions are designed to run quietly in the background. Norton and McAfee have improved performance compared to older releases, though any real-time antivirus uses some system resources."
+  },
+  {
+    q: "Can I use Norton or McAfee on Mac and mobile?",
+    a: "Yes. Both Norton and McAfee support Windows, macOS, Android, and iOS. McAfee is especially popular with families that mix phones, tablets, and computers."
+  },
+  {
+    q: "Do Norton and McAfee include a VPN?",
+    a: "Select Norton and McAfee plans bundle VPN access. If a VPN is important to you, compare plan tiers carefully or consider a dedicated VPN alongside your antivirus."
+  },
+  {
+    q: "Is free antivirus enough instead of Norton or McAfee?",
+    a: "Built-in tools like Windows Defender provide a solid baseline, but paid suites add layers such as identity monitoring, advanced ransomware protection, and multi-device management. See our free vs paid antivirus guide for a full breakdown."
+  }
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map((item) => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.a
+    }
+  }))
+};
+---
+
+<Layout
+  title="Norton vs McAfee (2026 Comparison)"
+  description="Compare Norton vs McAfee: pricing, features, ease of use, and device coverage. Find out which antivirus suits your household."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)}></script>
+
+  <section class="compare-hero">
+    <div class="page-container">
+      <p class="compare-eyebrow">Antivirus Comparison</p>
+      <h1>Norton vs McAfee</h1>
+      <p class="compare-intro">
+        Norton and McAfee are two of the most recognized names in antivirus software.
+        Both offer real-time malware protection, identity tools, and cross-platform apps —
+        but they target slightly different priorities. This comparison breaks down pricing,
+        features, usability, and device coverage so you can pick the right fit.
+      </p>
+
+      <div class="compare-cta-row">
+        <a href="#comparison" class="btn btn-primary">See Comparison</a>
+        {compareItems[0] && (
+          <a href={`/${compareItems[0].category}/${compareItems[0].slug}/`} class="btn btn-secondary">
+            Read {compareItems[0].name} Review →
+          </a>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <section class="compare-content">
+    <div class="page-container compare-layout">
+      <article class="compare-main">
+
+        <section class="compare-section">
+          <h2>Why Compare Norton and McAfee?</h2>
+          <p>
+            If you have shopped for antivirus recently, Norton and McAfee probably appeared
+            at the top of every list. They are legacy brands with massive install bases,
+            aggressive marketing, and product lines that stretch far beyond basic virus
+            scanning. That visibility makes them easy defaults — but defaults are not
+            always the best match for your household.
+          </p>
+          <p>
+            Norton and McAfee solve similar problems with different packaging. Norton
+            emphasizes premium protection, identity tools, and a polished user experience
+            on a set number of devices. McAfee leans into value, often covering unlimited
+            devices on a single subscription. Neither is objectively wrong; the right
+            choice depends on how many gadgets you own, what extras you need, and how
+            much you are willing to pay after the introductory discount expires.
+          </p>
+          <p>
+            This page walks through the decision the way we evaluate every product on
+            the site: pricing transparency, feature depth, everyday usability, and real-world
+            device coverage. For full individual reviews, visit our
+            <a href="/antivirus/norton/">Norton review</a> and
+            <a href="/antivirus/mcafee/">McAfee review</a> pages.
+          </p>
+        </section>
+
+        <section class="compare-section" id="comparison">
+          <h2>Quick Comparison</h2>
+
+          <div class="compare-cards-grid">
+            {compareItems.map((item) => (
+              <div class="compare-card">
+                {item.badge && <span class="compare-badge">{item.badge}</span>}
+                <h3>{item.name}</h3>
+                <p class="compare-card-tag">{item.tag || "Antivirus provider"}</p>
+                <p class="compare-card-text">
+                  {item.summary || item.description}
+                </p>
+                <div class="compare-rating">★ {item.rating}/5</div>
+
+                <div class="compare-card-actions">
+                  <a href={`/${item.category}/${item.slug}/`} class="btn btn-secondary">
+                    Read {item.name} Review →
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section class="compare-section">
+          <h2>Pricing</h2>
+          <p>
+            Norton and McAfee both use tiered subscription pricing, with introductory
+            discounts on the first term and higher renewal rates afterward. Exact prices
+            change frequently, but the general pattern is clear: Norton positions itself
+            as a premium all-in-one suite, while McAfee often wins on per-device value
+            for larger households.
+          </p>
+          <p>
+            Norton's entry-level plans typically cover one to three devices and scale up
+            to family bundles that add identity monitoring, cloud backup, and VPN access
+            on higher tiers. McAfee frequently advertises unlimited device protection
+            on its main plans, which makes the math attractive if you need to secure
+            several phones, laptops, and tablets under one account.
+          </p>
+          <p>
+            Before you commit, compare the renewal price — not just the first-year
+            discount. A plan that looks cheap upfront can cost more over two or three
+            years if renewals jump significantly. If budget is your main concern, read
+            our <a href="/antivirus/free-vs-paid-antivirus/">free vs paid antivirus</a>
+            guide to understand what you gain (and lose) by upgrading from built-in
+            protection.
+          </p>
+          <p>
+            Neither brand is the cheapest option on the market, but both justify their
+            pricing with bundled extras. Norton's higher tiers lean toward comprehensive
+            identity and backup tools. McAfee's strength is spreading one subscription
+            across every device in the house without counting seats.
+          </p>
+          <p>
+            Multi-year commitments can lower the monthly cost on both sides, but only
+            if you are confident you will keep the subscription. Cancellation policies
+            and refund windows vary, so read the terms before buying a long-term plan.
+            When in doubt, start with an annual subscription and reassess at renewal time.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>Features</h2>
+          <p>
+            At their core, both Norton and McAfee deliver what you expect from a modern
+            internet security suite: real-time malware scanning, ransomware protection,
+            a firewall, and web shields that block phishing and malicious downloads.
+            Independent testing labs consistently rate both brands well for detection
+            rates, though Norton often has an edge in recent years.
+          </p>
+          <p>
+            Where they diverge is in the extras bundled around antivirus. Norton includes
+            strong identity theft monitoring on mid-tier and premium plans, along with
+            optional cloud backup for important files. Select Norton subscriptions also
+            include a VPN — useful for encrypting traffic on public Wi-Fi, though a
+            dedicated <a href="/vpn/best-vpn/">VPN provider</a> may offer more servers
+            and faster speeds if privacy is a top priority.
+          </p>
+          <p>
+            McAfee counters with its own identity monitoring tools, a password manager
+            on certain plans, and a personal firewall that gives you granular control
+            over network traffic. McAfee's True Key password manager integrates with
+            the suite, which can simplify setup if you want passwords and antivirus
+            under one roof. For a deeper look at password tools, see our
+            <a href="/security/what-is-a-password-manager/">password manager guide</a>.
+          </p>
+          <p>
+            Both products offer safe browsing extensions, email scam filters, and
+            parental controls on family-oriented plans. Norton's parental tools are
+            polished and easy to configure. McAfee's family features are solid and
+            benefit from the unlimited-device model — you can extend protection to
+            children's phones without worrying about seat limits.
+          </p>
+          <p>
+            If you need antivirus specifically for one platform, our platform guides
+            can help narrow the field:
+            <a href="/antivirus/best-antivirus-for-windows/">best antivirus for Windows</a>
+            and
+            <a href="/antivirus/best-antivirus-for-mac/">best antivirus for Mac</a>.
+          </p>
+          <p>
+            Both Norton and McAfee also defend against ransomware, spyware, and zero-day
+            threats through behavioral analysis — not just signature-based detection.
+            That matters because new malware variants appear daily. A suite that relies
+            only on known-virus databases would fall behind quickly. Norton's SONAR and
+            McAfee's Real Protect technologies monitor suspicious behavior in real time,
+            quarantining threats before they encrypt files or exfiltrate data.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>Ease of Use</h2>
+          <p>
+            Norton and McAfee have both invested heavily in simplifying their apps over
+            the past few years. First-time setup on either platform takes a few minutes:
+            download the installer, sign in with your account, and the software walks
+            you through an initial scan.
+          </p>
+          <p>
+            Norton's dashboard is clean and status-focused. A green checkmark tells you
+            protection is active; warnings surface clearly when action is needed. Settings
+            are organized logically, and most users can leave defaults in place without
+            digging into advanced options. Norton is often recommended for beginners who
+            want strong protection without a steep learning curve.
+          </p>
+          <p>
+            McAfee's interface is similarly straightforward, with a home screen that
+            highlights your protection score and suggests quick fixes. Some users find
+            McAfee slightly more promotional inside the app — occasional upsell prompts
+            for additional features — but day-to-day operation is still simple. Running
+            scans, checking quarantined files, and managing devices from a central
+            account portal is intuitive on both platforms.
+          </p>
+          <p>
+            On mobile, both apps are lightweight and run in the background. Norton Mobile
+            Security and McAfee Mobile Security offer Wi-Fi scanning, app privacy checks,
+            and anti-theft tools. Neither will confuse a non-technical user, which matters
+            when you are protecting family members who may not read security documentation.
+          </p>
+          <p>
+            For context on whether paid protection is worth the effort at all, our
+            <a href="/antivirus/best-antivirus/">best antivirus</a> roundup compares
+            Norton and McAfee alongside other leading options.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>Device Coverage</h2>
+          <p>
+            Device limits are one of the biggest practical differences between Norton
+            and McAfee. Norton sells plans tied to a specific number of devices — often
+            one, three, five, or ten depending on the tier. That works well for individuals
+            or small households, but adding a new laptop or phone may require upgrading
+            your plan.
+          </p>
+          <p>
+            McAfee's headline feature on many plans is unlimited device coverage. One
+            subscription can protect every Windows PC, Mac, Android phone, and iOS
+            tablet in your home. For families with teens who each carry a phone and a
+            laptop, that unlimited model removes the friction of counting seats.
+          </p>
+          <p>
+            Both brands support the major operating systems. Windows and macOS get the
+            full feature set, including advanced firewall rules and deep system scans.
+            Mobile apps focus on app safety, Wi-Fi protection, and theft recovery rather
+            than traditional file scanning — which reflects how modern threats target phones.
+          </p>
+          <p>
+            If you rely primarily on Windows and wonder whether built-in tools are enough,
+            read our <a href="/antivirus/windows-defender/">Windows Defender</a> guide
+            before layering a third-party suite on top. Running two real-time antivirus
+            programs simultaneously can cause conflicts, so choose one primary provider
+            and disable the other.
+          </p>
+          <p>
+            Antivirus protects your devices; a VPN encrypts your connection when you
+            browse on untrusted networks. Many users run both. See
+            <a href="/vpn/how-does-a-vpn-work/">how a VPN works</a> if you want to
+            understand how the two tools complement each other. You can also browse our
+            <a href="/vpn/">VPN guides</a> for privacy-focused recommendations that
+            pair well with either antivirus suite.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>Final Verdict</h2>
+          <p>
+            Norton and McAfee are both credible choices with decades of brand recognition
+            and consistently strong malware detection. Your decision comes down to household
+            size, budget, and which extras matter most.
+          </p>
+          <p>
+            Choose Norton if you want the highest-rated overall protection, polished
+            identity monitoring, and a premium feel — especially on plans that include
+            cloud backup and VPN access. Norton is our top pick for users who want an
+            all-in-one suite from a trusted name and are protecting a moderate number
+            of devices.
+          </p>
+          <p>
+            Choose McAfee if you need to cover many devices without upgrading tiers.
+            Families with multiple phones, tablets, and computers often get better
+            value from McAfee's unlimited-device plans, and the core protection is
+            more than adequate for everyday use.
+          </p>
+          <p>
+            Whichever you pick, pair it with good habits: unique passwords, software
+            updates, and caution with email links. Antivirus is one layer in a broader
+            <a href="/security/">security</a> strategy — not a substitute for awareness.
+          </p>
+
+          <div class="compare-bottom-cta compare-cta-row">
+            <a href="/antivirus/norton/" class="btn btn-primary">Read Norton Review →</a>
+            <a href="/antivirus/mcafee/" class="btn btn-secondary">Read McAfee Review →</a>
+            <a href="/antivirus/best-antivirus/" class="btn btn-secondary">See Best Antivirus Guide →</a>
+          </div>
+        </section>
+
+        <section class="compare-section compare-faq-section">
+          <h2>Comparison FAQ</h2>
+          <div class="compare-faq-list">
+            {faqItems.map((item) => (
+              <details class="compare-faq-item">
+                <summary>{item.q}</summary>
+                <p>{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+
+      </article>
+
+      <aside class="compare-sidebar">
+        <div class="compare-sidebar-box">
+          <h3>Quick Summary</h3>
+          <ul>
+            <li>Norton: best overall protection and identity tools</li>
+            <li>McAfee: unlimited devices on many plans</li>
+            <li>Both support Windows, Mac, Android, and iOS</li>
+            <li>Paid suites add layers beyond built-in OS tools</li>
+          </ul>
+        </div>
+
+        <div class="compare-sidebar-box">
+          <h3>Read Next</h3>
+          {currentGuides.length > 0 && (
+            <ul class="compare-sidebar-links">
+              {currentGuides.map((item) => (
+                <li>
+                  <a href={`/${currentCategory}/${item.slug}/`}>
+                    {item.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        <div class="compare-sidebar-box">
+          <h3>Best Choice</h3>
+          <p>
+            Compare Norton, McAfee, and other top-rated antivirus options in one place.
+          </p>
+          <a href="/antivirus/best-antivirus/" class="btn btn-primary compare-sidebar-btn">
+            See Best Antivirus Guide →
+          </a>
+        </div>
+      </aside>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .compare-section a:not(.btn) {
+    color: #1e3a8a;
+    text-decoration: none;
+  }
+  .compare-section a:not(.btn):hover {
+    text-decoration: underline;
+  }
+</style>

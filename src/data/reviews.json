@@ -616,6 +616,68 @@
         "a": "A reputable password manager encrypts your data with a master password. Use a strong master password and enable 2FA for your account."
       }
     ]
+  },
+
+  {
+    "slug": "norton",
+    "name": "Norton",
+    "title": "Norton Antivirus Review",
+    "description": "Comprehensive antivirus and internet security for Windows, Mac, and mobile devices.",
+    "summary": "Norton is a long-established antivirus brand offering strong malware protection, identity monitoring, and a VPN on higher-tier plans. It suits households that want an all-in-one security suite from a trusted name.",
+    "tag": "Best overall",
+    "badge": "#1 Recommended",
+    "category": "antivirus",
+    "rating": 4.8,
+    "affiliate": "",
+    "faq": [
+      {
+        "q": "Is Norton good for beginners?",
+        "a": "Yes. Norton's apps are straightforward to install and manage, with clear dashboards that show your protection status at a glance."
+      },
+      {
+        "q": "Does Norton slow down my computer?",
+        "a": "Modern Norton versions are designed to be lightweight, though any security software uses some system resources. Performance impact is typically modest on current hardware."
+      },
+      {
+        "q": "Does Norton include a VPN?",
+        "a": "Select Norton plans include a VPN feature. Check the plan details before purchasing if a VPN is important to you."
+      },
+      {
+        "q": "How many devices can Norton protect?",
+        "a": "Device limits depend on your plan. Norton offers options for single devices up to family plans covering multiple computers and phones."
+      }
+    ]
+  },
+
+  {
+    "slug": "mcafee",
+    "name": "McAfee",
+    "title": "McAfee Antivirus Review",
+    "description": "Popular antivirus with unlimited device protection and identity monitoring tools.",
+    "summary": "McAfee is a well-known antivirus provider that often covers unlimited devices on a single subscription. It offers solid malware protection, a firewall, and identity features that appeal to families with many phones, tablets, and computers.",
+    "tag": "Best for families",
+    "badge": "Best Value",
+    "category": "antivirus",
+    "rating": 4.6,
+    "affiliate": "",
+    "faq": [
+      {
+        "q": "Is McAfee good for families?",
+        "a": "McAfee is a strong choice for families because many plans protect unlimited devices under one subscription, including phones and tablets."
+      },
+      {
+        "q": "Does McAfee work on Mac and mobile?",
+        "a": "Yes. McAfee supports Windows, macOS, Android, and iOS, making it useful for mixed-device households."
+      },
+      {
+        "q": "What is McAfee identity monitoring?",
+        "a": "Higher-tier McAfee plans include tools that alert you if your personal information appears in data breaches or on the dark web."
+      },
+      {
+        "q": "Can I use McAfee alongside Windows Defender?",
+        "a": "Running two real-time antivirus programs at once can cause conflicts. Choose one primary antivirus and disable or remove the other."
+      }
+    ]
   }
 
 ]

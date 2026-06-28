@@ -1,0 +1,394 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import reviews from "../../data/reviews.json";
+import { guides as antivirusGuides } from "../../data/guides.js";
+
+const antivirusReviews = reviews
+  .filter((review) => review.category === "antivirus")
+  .sort((a, b) => b.rating - a.rating);
+
+const faqItems = [
+  {
+    q: "Do I still need antivirus in 2026?",
+    a: "Yes, for most users. Built-in tools like Windows Defender provide a solid baseline, but dedicated antivirus adds layers like ransomware protection, identity monitoring, and phishing filters that go beyond basic OS security."
+  },
+  {
+    q: "Is free antivirus good enough?",
+    a: "Free antivirus can cover basic malware scanning, but paid plans usually add real-time protection, firewalls, identity monitoring, and support across multiple devices. See our free vs paid guide for a full comparison."
+  },
+  {
+    q: "Will antivirus slow down my computer?",
+    a: "Modern antivirus software is much lighter than older versions. Reputable providers like Norton and McAfee are designed to run quietly in the background with minimal impact on everyday tasks."
+  },
+  {
+    q: "Can I use antivirus and a VPN together?",
+    a: "Yes. Antivirus and VPNs solve different problems. Antivirus protects your device from malware; a VPN encrypts your internet connection. Many people use both together."
+  },
+  {
+    q: "What is the difference between antivirus and internet security suites?",
+    a: "Antivirus focuses on detecting and removing malware. Internet security suites bundle antivirus with extras like firewalls, password managers, VPN access, and identity monitoring."
+  },
+  {
+    q: "Should Mac users install antivirus?",
+    a: "Macs are not immune to malware. While macOS includes built-in protections, dedicated Mac antivirus adds an extra layer against phishing, ransomware, and cross-platform threats."
+  }
+];
+
+const guides = antivirusGuides.antivirus ?? [];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqItems.map((item) => ({
+    "@type": "Question",
+    name: item.q,
+    acceptedAnswer: {
+      "@type": "Answer",
+      text: item.a
+    }
+  }))
+};
+---
+
+<Layout title="Best Antivirus Software">
+
+<section class="category-hero">
+
+<h1>Best Antivirus Software</h1>
+
+<p class="category-subtitle">
+  Looking for reliable antivirus protection? We compare leading options like Norton and McAfee to help you choose the right security software for Windows, Mac, and mobile devices.
+</p>
+
+</section>
+
+<section class="tools-grid">
+
+  {antivirusReviews.map((item) => (
+    <article class={`tool-card ${item.badge ? 'featured' : ''}`}>
+
+      {item.badge && <div class="card-badge">{item.badge}</div>}
+
+      <h2>{item.name}</h2>
+
+      {item.tag && <p class="card-tag">{item.tag}</p>}
+
+      <p>{item.description}</p>
+    <div class="tool-meta">
+      <span class="rating">⭐ {item.rating} / 5 (Our score)</span>
+    </div>
+    <div class="buttons">
+
+    <a href={`/antivirus/${item.slug}/`} class="btn btn-secondary">
+      Read Review →
+    </a>
+
+    <a href="/antivirus/best-antivirus/" class="btn btn-primary">
+      See Best Antivirus Guide →
+    </a>
+
+    </div>
+
+  </article>
+))}
+
+</section>
+
+<section class="container-text">
+
+  <h2>How to Choose the Best Antivirus</h2>
+
+  <p>
+  Choosing antivirus software depends on your devices, budget, and security needs.
+  Some products focus on simple malware protection, while others bundle identity
+  monitoring, VPN access, and family controls into a complete security suite.
+  </p>
+
+  <p>
+  We compare the most popular antivirus brands and highlight the best options
+  for Windows, Mac, and multi-device households.
+  </p>
+
+</section>
+
+  <section class="container-text">
+
+    <h2>Best Antivirus by Use Case</h2>
+
+    <ul class="use-cases">
+      <li><strong>Best overall:</strong> Norton — comprehensive protection and trusted reputation</li>
+      <li><strong>Best for families:</strong> McAfee — unlimited device coverage on many plans</li>
+      <li><strong>Best free option:</strong> Windows Defender — solid baseline for Windows users</li>
+    </ul>
+
+  </section>
+
+
+<section class="faq" aria-label="Antivirus FAQ">
+  <div class="faq-inner">
+    <h2>Antivirus FAQ</h2>
+    <p class="faq-subtitle">
+      Quick answers to common questions about antivirus software.
+    </p>
+
+    <div class="faq-list">
+      {faqItems.map((item) => (
+        <details class="faq-item">
+          <summary class="faq-question">
+            <span>{item.q}</span>
+            <span class="faq-icon" aria-hidden="true">+</span>
+          </summary>
+          <div class="faq-answer">
+            <p>{item.a}</p>
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="guides-section-box">
+
+  <div class="faq-inner">
+
+    <h2>Antivirus Guides</h2>
+
+    <div class="guides-grid">
+      {guides.map((item) => (
+        <a href={`/antivirus/${item.slug}/`} class="guide-card">
+          <h3>{item.title}</h3>
+          <span>Read Guide →</span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+
+<script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)}></script>
+
+<style>
+
+.category-hero{
+max-width:900px;
+margin:auto;
+padding:20px 20px 10px;
+text-align:left;
+}
+
+.category-subtitle{
+font-size:18px;
+color:#555;
+margin-top:10px;
+}
+
+.card-badge{
+  position:absolute;
+  top:12px;
+  right:12px;
+
+  background:#22c55e;
+  color:#fff;
+
+  font-size:12px;
+  font-weight:600;
+
+  padding:5px 9px;
+  border-radius:6px;
+
+  line-height:1;
+}
+
+.card-tag{
+  font-size:14px;
+  color:#ff8a00;
+  font-weight:600;
+  margin:6px 0 8px;
+}
+
+.tools-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:20px;
+margin:20px auto 40px;
+max-width:1000px;
+padding:0 20px;
+}
+
+.tool-card{
+  position: relative;
+  background:#fff;
+  border-radius:12px;
+  padding:20px;
+  box-shadow:0 5px 20px rgba(0,0,0,0.04);
+
+  display:flex;
+  flex-direction:column;
+
+  gap:10px;
+}
+
+.tool-meta{
+font-size:14px;
+color:#444;
+}
+
+.rating{
+font-weight:bold;
+color:#2e7d32;
+}
+
+.btn{
+margin-top:auto;
+align-self:flex-start;
+}
+
+.container-text{
+  max-width:900px;
+  margin:0 auto 30px;
+  padding:0 20px;
+}
+
+.use-cases{
+  margin-top:10px;
+  line-height:1.8;
+  color:#444;
+}
+
+.buttons{
+  margin-top:auto;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+
+
+
+.faq{
+max-width:1000px;
+margin:0 auto 40px;
+padding:0 20px;
+}
+
+.faq-inner{
+background:white;
+border-radius:12px;
+box-shadow:0 5px 20px rgba(0,0,0,0.04);
+padding:22px;
+}
+
+.faq-inner h2{
+margin-top:0;
+margin-bottom:10px;
+}
+
+.faq-subtitle{
+margin:0 0 18px;
+font-size:16px;
+color:#555;
+max-width:760px;
+}
+
+.faq-list{
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+
+.faq-item{
+border:1px solid #eceff3;
+border-radius:10px;
+background:#fff;
+overflow:hidden;
+}
+
+.faq-question{
+list-style:none;
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:16px;
+padding:14px 16px;
+cursor:pointer;
+font-weight:700;
+color:#111827;
+}
+
+.faq-question::-webkit-details-marker{
+display:none;
+}
+
+.faq-icon{
+width:28px;
+height:28px;
+border-radius:8px;
+display:grid;
+place-items:center;
+background:#fff2e5;
+color:#b45309;
+font-weight:800;
+flex:0 0 auto;
+transition:transform .15s ease;
+}
+
+.faq-item[open] .faq-icon{
+transform:rotate(45deg);
+}
+
+.faq-answer{
+padding:0 16px 16px;
+color:#4b5563;
+}
+
+.faq-answer p{
+margin:0;
+}
+
+.guides-section-box{
+  max-width:1000px;
+  margin:80px auto 0px;
+  padding:20px 20px;
+  border-radius:12px;
+}
+
+.guides-section-box h2{
+  margin-top:0;
+}
+
+.guides-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:16px;
+  margin-top:20px;
+}
+
+.guide-card{
+  background:#f9fafb;
+  padding:18px;
+  border-radius:10px;
+  text-decoration:none;
+  color:#111;
+  border:1px solid #eef1f5;
+  transition:0.2s;
+}
+
+.guide-card:hover{
+  background:#fff;
+  transform:translateY(-3px);
+  box-shadow:0 8px 20px rgba(0,0,0,0.06);
+}
+
+.guide-card h3{
+  margin:0 0 8px;
+  font-size:16px;
+}
+
+.guide-card span{
+  color:#ff8a00;
+  font-weight:600;
+  font-size:14px;
+}
+
+</style>
+
+</Layout>

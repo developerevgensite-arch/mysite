@@ -32,6 +32,15 @@ export const guides = {
     { slug: "best-seo-plugins", title: "Best SEO Plugins" },
     { slug: "best-cache-plugins", title: "Best Cache Plugins" },
     { slug: "best-security-plugins", title: "Best Security Plugins" }
+  ],
+
+  antivirus: [
+    { slug: "best-antivirus", title: "Best Antivirus" },
+    { slug: "free-vs-paid-antivirus", title: "Free vs Paid Antivirus" },
+    { slug: "windows-defender", title: "Windows Defender" },
+    { slug: "best-antivirus-for-windows", title: "Best Antivirus for Windows" },
+    { slug: "best-antivirus-for-mac", title: "Best Antivirus for Mac" },
+    { slug: "norton-vs-mcafee", title: "Norton vs McAfee" }
   ]
 
 };

@@ -1,0 +1,451 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import "../../styles/compare-pages.css";
+import { guides } from "../../data/guides.js";
+
+const pathname = Astro.url.pathname.split("/").filter(Boolean);
+const currentCategory = pathname[0] || "";
+const currentSlug = pathname[1] || "";
+
+const currentGuides = (guides[currentCategory] ?? [])
+  .filter((item) => item.slug !== currentSlug)
+  .slice(0, 6);
+
+const faqItems = [
+  {
+    q: "Is free antivirus good enough for everyday use?",
+    a: "For careful Windows users who keep the OS updated and avoid risky downloads, Windows Defender provides solid baseline protection at no cost. Free third-party antivirus can add extra layers, but paid plans typically include stronger real-time protection, ransomware shields, and support across multiple devices."
+  },
+  {
+    q: "Does Windows Defender replace paid antivirus?",
+    a: "Windows Defender covers core malware detection and is built into Windows at no extra cost. Paid antivirus from providers like Norton or McAfee adds identity monitoring, advanced firewalls, VPN bundles, and family controls that Defender does not include by default."
+  },
+  {
+    q: "Why do paid antivirus plans cost money?",
+    a: "Paid antivirus funds threat research, cloud-based scanning infrastructure, customer support, and regular updates against new malware strains. Free tiers often limit features or device counts to encourage upgrades to full subscriptions."
+  },
+  {
+    q: "Can I use free and paid antivirus together?",
+    a: "No. Running two real-time antivirus programs at once causes conflicts, slows your system, and can create security gaps. Choose one primary solution — either a built-in tool like Windows Defender or a single third-party product."
+  },
+  {
+    q: "Is Norton or McAfee worth paying for?",
+    a: "Both Norton and McAfee justify their cost if you want multi-device coverage, identity protection, and extras like VPN access or parental controls. For budget-conscious users who mainly need malware scanning on a single Windows PC, Windows Defender may be sufficient."
+  }
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map((item) => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.a
+    }
+  }))
+};
+---
+
+<Layout
+  title="Free vs Paid Antivirus"
+  description="Compare free and paid antivirus honestly. Learn what Windows Defender covers, what Norton and McAfee add, and when upgrading is worth the cost."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)}></script>
+
+  <section class="compare-hero">
+    <div class="page-container">
+      <p class="compare-eyebrow">Antivirus Guide</p>
+      <h1>Free vs Paid Antivirus</h1>
+      <p class="compare-intro">
+        Free antivirus sounds like an easy win, but the gap between built-in tools
+        and full security suites is wider than most ads suggest. This guide compares
+        free and paid options — including Windows Defender, Norton, and McAfee — so
+        you can choose protection that matches your devices and risk level.
+      </p>
+
+      <div class="compare-cta-row">
+        <a href="#comparison" class="btn btn-primary">See Comparison</a>
+        <a href="/antivirus/best-antivirus/" class="btn btn-secondary">Best Antivirus Guide →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="compare-content">
+    <div class="page-container compare-layout">
+      <article class="compare-main">
+
+        <section class="compare-section">
+          <h2>Why the Free vs Paid Debate Matters</h2>
+          <p>
+            Antivirus software sits between your files and a constant stream of malware,
+            phishing links, and ransomware. The question is not whether you need protection
+            — it is whether the free option on your device is enough, or whether a paid
+            subscription adds meaningful value for how you actually use your computer.
+          </p>
+          <p>
+            Windows users already have Microsoft Defender Antivirus built into the operating
+            system. It runs quietly in the background, updates automatically, and scores
+            well in independent lab tests. That raises a fair question:
+            if Defender is free and effective, why would anyone pay for Norton or McAfee?
+          </p>
+          <p>
+            The answer comes down to scope. Free and built-in tools focus on core malware
+            detection. Paid suites bundle identity monitoring, advanced firewalls, VPN
+            access, parental controls, and multi-device licensing into one subscription.
+            Whether that extra coverage is worth the cost depends on your household, your
+            devices, and how much sensitive data you handle online.
+          </p>
+          <p>
+            If you are still deciding which products to consider, start with our
+            <a href="/antivirus/best-antivirus/">best antivirus</a> guide. This page
+            assumes you want to understand the free-versus-paid trade-offs before
+            committing to a specific brand.
+          </p>
+        </section>
+
+        <section class="compare-section" id="comparison">
+          <h2>Free vs Paid Antivirus: Side-by-Side Comparison</h2>
+
+          <div class="compare-table-wrap">
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th>Feature</th>
+                  <th>Free Antivirus</th>
+                  <th>Paid Antivirus</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Monthly cost</td>
+                  <td>$0 (built-in or free tier)</td>
+                  <td>~$3–$10 on annual plans</td>
+                </tr>
+                <tr>
+                  <td>Core malware scanning</td>
+                  <td>Yes — Windows Defender or free tier</td>
+                  <td>Yes, with faster update cycles</td>
+                </tr>
+                <tr>
+                  <td>Real-time protection</td>
+                  <td>Included with Defender; limited in some free tiers</td>
+                  <td>Full real-time scanning on all devices</td>
+                </tr>
+                <tr>
+                  <td>Ransomware protection</td>
+                  <td>Basic with Defender; varies by free app</td>
+                  <td>Advanced folder and file shields</td>
+                </tr>
+                <tr>
+                  <td>Device coverage</td>
+                  <td>Usually one device or OS only</td>
+                  <td>Multi-device and family plans</td>
+                </tr>
+                <tr>
+                  <td>Identity monitoring</td>
+                  <td>Not included</td>
+                  <td>Dark web alerts, credit monitoring on premium tiers</td>
+                </tr>
+                <tr>
+                  <td>Firewall</td>
+                  <td>Windows Firewall (separate from antivirus)</td>
+                  <td>Enhanced network monitoring and app control</td>
+                </tr>
+                <tr>
+                  <td>VPN included</td>
+                  <td>No</td>
+                  <td>Often bundled — or pair with a
+                    <a href="/vpn/best-vpn/">dedicated VPN</a></td>
+                </tr>
+                <tr>
+                  <td>Password manager</td>
+                  <td>Not included</td>
+                  <td>Often bundled — see
+                    <a href="/security/what-is-a-password-manager/">password managers</a></td>
+                </tr>
+                <tr>
+                  <td>Customer support</td>
+                  <td>Community forums or none</td>
+                  <td>Phone, chat, and dedicated help</td>
+                </tr>
+                <tr>
+                  <td>Phishing and web protection</td>
+                  <td>Browser-level with Defender; varies elsewhere</td>
+                  <td>Extended URL filtering and safe browsing tools</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="compare-section">
+          <h2>The Hidden Limitations of Free Antivirus</h2>
+          <p>
+            Free does not always mean inadequate, but it does mean trade-offs. These
+            are the most common gaps between free tools and paid security suites:
+          </p>
+
+          <h3>Feature Caps and Upgrade Prompts</h3>
+          <p>
+            Many third-party free antivirus products scan for malware but lock advanced
+            features — ransomware rollback, firewall controls, or parental tools — behind
+            a paywall. You get enough protection to stay on the free tier, but constant
+            upgrade notifications can become distracting.
+          </p>
+
+          <h3>Single-Device Licensing</h3>
+          <p>
+            Free tiers typically cover one device. If you also use a phone, tablet, or
+            a second laptop, you either install a separate free app on each device or
+            pay for a multi-device plan. Paid options like
+            <a href="/antivirus/mcafee/">McAfee</a> often cover unlimited devices on
+            family subscriptions, which can be cheaper per device than stacking free apps.
+          </p>
+
+          <h3>No Identity or Financial Monitoring</h3>
+          <p>
+            Malware is only one threat vector. Data breaches expose passwords, Social
+            Security numbers, and credit card details regardless of what antivirus you
+            run. Paid suites from Norton and McAfee include dark web monitoring and
+            identity alerts that free tools simply do not offer.
+          </p>
+
+          <h3>Limited Support When Something Goes Wrong</h3>
+          <p>
+            If ransomware encrypts your files or a trojan steals login credentials, free
+            antivirus users are largely on their own. Paid subscribers get access to
+            support teams trained to walk through removal, recovery, and next steps.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>Windows Defender: The Free Baseline Worth Knowing</h2>
+          <p>
+            For Windows 10 and 11 users, Microsoft Defender Antivirus is the default
+            free option — and it is genuinely capable. It provides real-time protection,
+            cloud-delivered threat detection, and integration with Windows Security
+            settings without installing anything extra.
+          </p>
+          <p>
+            Independent testing organizations regularly score Defender near the top for
+            malware detection. For users who browse carefully, avoid pirated software,
+            and keep Windows updated, Defender alone may be sufficient. Our
+            <a href="/antivirus/windows-defender/">Windows Defender guide</a> covers
+            what it does well and where it stops short.
+          </p>
+          <p>
+            Defender's main limitations are scope, not quality. It does not include
+            identity monitoring, a bundled VPN, or cross-platform protection for Mac
+            and mobile devices in your household. If your security needs extend beyond
+            a single updated Windows PC, a paid suite fills those gaps.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>When Free Antivirus Might Be Enough</h2>
+          <p>
+            Free protection is not wrong for everyone. These situations are where
+            sticking with a free option makes practical sense:
+          </p>
+          <ul class="compare-list">
+            <li><strong>Single Windows PC, low risk:</strong> You use one updated machine, avoid suspicious downloads, and do not store highly privileged data locally.</li>
+            <li><strong>Tight budget:</strong> Windows Defender costs nothing and outperforms many paid products from a decade ago.</li>
+            <li><strong>Testing before you buy:</strong> Some providers offer free trials of paid tiers so you can evaluate features before subscribing.</li>
+            <li><strong>Secondary or guest devices:</strong> A spare laptop used for light browsing may not justify a full suite license.</li>
+          </ul>
+          <p>
+            Even in these cases, consider pairing baseline antivirus with other free
+            security habits: enable two-factor authentication, use a
+            <a href="/security/what-is-a-password-manager/">password manager</a>, and
+            keep your operating system and browsers current.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>What You Get With Paid Antivirus</h2>
+          <p>
+            Paid antivirus justifies its subscription through broader coverage, faster
+            threat response, and bundled tools that would cost more if purchased
+            separately. Here is what a full security suite typically includes:
+          </p>
+          <ul class="compare-list">
+            <li><strong>Multi-device licensing</strong> for Windows, Mac, Android, and iOS in one plan</li>
+            <li><strong>Advanced ransomware protection</strong> with folder shields and rollback features</li>
+            <li><strong>Identity and dark web monitoring</strong> to alert you when personal data appears in breaches</li>
+            <li><strong>Enhanced firewalls</strong> that monitor network traffic and block suspicious connections</li>
+            <li><strong>Safe browsing tools</strong> that flag phishing sites before you enter credentials</li>
+            <li><strong>Parental controls</strong> for filtering content and managing screen time</li>
+            <li><strong>VPN access</strong> on some plans — though a dedicated
+              <a href="/vpn/is-a-vpn-worth-it/">VPN</a> may offer better privacy features</li>
+            <li><strong>Customer support</strong> via phone, chat, or remote assistance</li>
+          </ul>
+          <p>
+            <a href="/antivirus/norton/">Norton</a> is a strong all-around choice with
+            a long track record in independent testing and comprehensive identity tools.
+            <a href="/antivirus/mcafee/">McAfee</a> excels for households that need to
+            protect many devices under one subscription. Compare them directly in our
+            <a href="/antivirus/norton-vs-mcafee/">Norton vs McAfee</a> guide.
+          </p>
+          <p>
+            At roughly $3–$10 per month on annual billing, paid antivirus costs less
+            than many streaming subscriptions. For families or remote workers handling
+            sensitive data, the per-device value often exceeds the monthly fee.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>Red Flags: When Free Antivirus Falls Short</h2>
+          <p>
+            Not all free antivirus apps are trustworthy. Watch for these warning
+            signs before installing any security app:
+          </p>
+          <ul class="compare-list">
+            <li>Unknown developer with no verifiable company information or privacy policy</li>
+            <li>Aggressive ads, browser toolbar installs, or bundled software you did not request</li>
+            <li>Requests for permissions unrelated to security (contacts, SMS, accessibility access)</li>
+            <li>Promises of "100% protection" or unrealistic claims not backed by lab testing</li>
+            <li>No independent test results from organizations like AV-TEST or AV-Comparatives</li>
+            <li>Reviews citing false positives, system slowdowns, or difficulty uninstalling</li>
+          </ul>
+          <p>
+            If you encounter two or more of these red flags, uninstall the app and stick
+            with Windows Defender or a reputable paid provider. Saving a few dollars is
+            not worth installing software that behaves like the malware it claims to
+            block.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>How to Evaluate Any Antivirus — Free or Paid</h2>
+          <p>
+            Before installing any security product, free or paid, check these points:
+          </p>
+          <ol class="compare-list">
+            <li>Review independent lab scores — look for consistent detection rates across multiple test cycles.</li>
+            <li>Read the privacy policy — some free apps collect browsing data to fund their service.</li>
+            <li>Confirm device coverage — ensure the plan protects every OS in your household.</li>
+            <li>Check system impact — modern antivirus should not noticeably slow everyday tasks.</li>
+            <li>Verify uninstall ease — you should be able to remove the product cleanly if it is not a fit.</li>
+            <li>Match features to your risk — remote workers and families need more than basic scanning.</li>
+          </ol>
+          <p>
+            Platform-specific guides can narrow your search further. Windows users should
+            read <a href="/antivirus/best-antivirus-for-windows/">best antivirus for Windows</a>;
+            Mac users should see <a href="/antivirus/best-antivirus-for-mac/">best antivirus for Mac</a>.
+            Antivirus protects your device; a
+            <a href="/vpn/how-does-a-vpn-work/">VPN</a> encrypts your connection — many
+            people use both together for layered security.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>Final Recommendation</h2>
+          <p>
+            For most Windows users on a budget, Windows Defender is a legitimate starting
+            point — not a compromise. It provides capable malware protection at no cost
+            and integrates seamlessly with your operating system. Upgrade to paid antivirus
+            when you need multi-device coverage, identity monitoring, or advanced
+            ransomware tools that free options do not include.
+          </p>
+          <p>
+            If you are ready to pay for broader protection, Norton offers a well-rounded
+            suite with strong identity features, while McAfee is ideal for families
+            protecting many devices under one plan. For a full comparison of top picks,
+            see our best antivirus guide.
+          </p>
+
+          <div class="compare-bottom-cta compare-cta-row">
+            <a href="/antivirus/best-antivirus/" class="btn btn-primary">Best Antivirus Guide →</a>
+            <a href="/antivirus/norton/" class="btn btn-secondary">Read Norton Review →</a>
+            <a href="/antivirus/mcafee/" class="btn btn-secondary">Read McAfee Review →</a>
+            <a href="/antivirus/windows-defender/" class="btn btn-secondary">Windows Defender Guide →</a>
+          </div>
+        </section>
+
+        <section class="compare-section compare-faq-section">
+          <h2>Antivirus FAQ</h2>
+          <div class="compare-faq-list">
+            {faqItems.map((item) => (
+              <details class="compare-faq-item">
+                <summary>{item.q}</summary>
+                <p>{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+
+      </article>
+
+      <aside class="compare-sidebar">
+        <div class="compare-sidebar-box">
+          <h3>Quick Summary</h3>
+          <ul>
+            <li>Windows Defender is a capable free baseline</li>
+            <li>Paid suites add identity, firewall, and multi-device tools</li>
+            <li>Norton and McAfee lead among paid options</li>
+            <li>Never run two real-time antivirus programs at once</li>
+          </ul>
+        </div>
+
+        <div class="compare-sidebar-box">
+          <h3>Read Next</h3>
+          {currentGuides.length > 0 && (
+            <ul class="compare-sidebar-links">
+              {currentGuides.slice(0, 4).map((item) => (
+                <li>
+                  <a href={`/${currentCategory}/${item.slug}/`}>{item.title}</a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        <div class="compare-sidebar-box">
+          <h3>Best Paid Options</h3>
+          <p>
+            Compare top-rated antivirus providers side by side.
+          </p>
+          <a href="/antivirus/best-antivirus/" class="btn btn-primary compare-sidebar-btn">
+            See Best Antivirus Guide →
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .compare-table-wrap {
+    overflow-x: auto;
+    margin: 20px 0;
+  }
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+  }
+  .compare-table th,
+  .compare-table td {
+    border: 1px solid #e5e7eb;
+    padding: 12px 14px;
+    text-align: left;
+  }
+  .compare-table th {
+    background: #f9fafb;
+    font-weight: 700;
+    color: #1f2937;
+  }
+  .compare-table tr:nth-child(even) td {
+    background: #fafbfc;
+  }
+  .compare-section a:not(.btn) {
+    color: #1e3a8a;
+    text-decoration: none;
+  }
+  .compare-section a:not(.btn):hover {
+    text-decoration: underline;
+  }
+</style>

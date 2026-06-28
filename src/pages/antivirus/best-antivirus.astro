@@ -1,0 +1,382 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import "../../styles/compare-pages.css";
+import reviews from "../../data/reviews.json";
+import { guides } from "../../data/guides.js";
+
+const pathname = Astro.url.pathname.split("/").filter(Boolean);
+
+const currentCategory = pathname[0] || "";
+const currentSlug = pathname[1] || "";
+
+const currentGuides = (guides[currentCategory] ?? [])
+  .filter((item) => item.slug !== currentSlug)
+  .slice(0, 4);
+
+const categoryReviews = reviews
+  .filter((item) => item.category === currentCategory)
+  .sort((a, b) => (b.rating || 0) - (a.rating || 0));
+
+const topItems = categoryReviews.slice(0, 2);
+
+const faqItems = [
+  {
+    q: "Do I still need antivirus if Windows Defender is enabled?",
+    a: "Windows Defender provides solid baseline protection on Windows PCs. A dedicated antivirus like Norton or McAfee can add extra layers such as identity monitoring, advanced ransomware tools, and cross-device coverage for phones and Macs. Many users are fine with Defender alone; others prefer a full security suite. See our Windows Defender guide for a detailed comparison."
+  },
+  {
+    q: "Is free antivirus good enough?",
+    a: "Free antivirus can handle basic malware scanning, but paid plans typically include real-time protection, firewalls, identity alerts, parental controls, and support for multiple devices. If you only need light protection on one computer, free tools may suffice. For families or anyone who shops or banks online regularly, paid antivirus is usually worth considering."
+  },
+  {
+    q: "Norton or McAfee — which should I choose?",
+    a: "Norton is often the better fit if you want a well-rounded security suite with identity tools and optional VPN features on higher plans. McAfee tends to appeal to households with many devices because many plans cover unlimited devices under one subscription. Your choice depends on how many devices you need to protect and which extras matter most to you."
+  },
+  {
+    q: "Will antivirus slow down my computer?",
+    a: "Modern antivirus software is designed to run quietly in the background. Norton and McAfee have both improved performance compared to older versions. You may notice a small impact during full scans, but everyday browsing and work should feel normal on current hardware. Schedule deep scans during off-hours if you want to minimize any interruption."
+  },
+  {
+    q: "Can I run two antivirus programs at the same time?",
+    a: "No. Running two real-time antivirus programs together often causes conflicts, false alerts, and slower performance. Choose one primary antivirus, uninstall or disable the other, and keep that single program updated. You can still use a VPN or password manager alongside your antivirus without issues."
+  }
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map((item) => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.a
+    }
+  }))
+};
+---
+
+<Layout
+  title="Best Antivirus in 2026"
+  description="Compare the best antivirus software for Windows, Mac, and mobile. Our top picks for Norton and McAfee, plus a beginner-friendly guide to choosing the right protection in 2026."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)}></script>
+
+  <section class="compare-hero">
+    <div class="page-container">
+      <p class="compare-eyebrow">Antivirus Guide</p>
+      <h1>Best Antivirus in 2026</h1>
+      <p class="compare-intro">
+        Malware, phishing scams, and identity theft are still everyday risks online.
+        This guide compares the best antivirus options for beginners and families,
+        with a focus on Norton and McAfee — two of the most recognized names in
+        computer security. Whether you use Windows, Mac, or mobile devices, you will
+        find clear advice on what to look for and which product fits your situation.
+      </p>
+
+      <div class="compare-cta-row">
+        <a href="#top-picks" class="btn btn-primary">See Top Picks</a>
+        {topItems[0] && (
+          <a href={`/${topItems[0].category}/${topItems[0].slug}/`} class="btn btn-secondary">
+            Read {topItems[0].name} Review →
+          </a>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <section class="compare-content">
+    <div class="page-container compare-layout">
+      <article class="compare-main">
+
+        <section class="compare-section">
+          <h2>How to Choose the Best Antivirus</h2>
+          <p>
+            Choosing antivirus software does not have to be complicated. At its core,
+            antivirus protects your devices from viruses, ransomware, spyware, and
+            other threats that can steal data or damage files. The best choice depends
+            on how many devices you own, what you do online, and whether you want
+            extras like identity monitoring or a bundled VPN.
+          </p>
+          <p>
+            Start by counting your devices. A single Windows laptop has different
+            needs than a household with two computers, three phones, and a tablet.
+            McAfee is often attractive for larger families because many plans cover
+            unlimited devices. Norton is a strong all-around pick when you want a
+            trusted brand with identity tools and optional VPN access on higher tiers.
+          </p>
+          <p>
+            Next, think about your operating systems. Windows users should compare
+            paid antivirus against the built-in
+            <a href="/antivirus/windows-defender/">Windows Defender</a> protection
+            that ships with the OS. Mac users face fewer threats than Windows users
+            but are not immune — phishing and cross-platform malware still matter.
+            If your household mixes platforms, pick software that supports Windows,
+            macOS, Android, and iOS from one dashboard.
+          </p>
+          <p>
+            Finally, decide between free and paid protection. Free tools can scan
+            for malware, but paid suites add real-time blocking, firewalls, web
+            protection, and customer support. Our
+            <a href="/antivirus/free-vs-paid-antivirus/">free vs paid antivirus</a>
+            guide walks through the trade-offs in plain language. For most people
+            who bank, shop, or work online daily, a paid plan from a reputable
+            provider is the safer long-term choice.
+          </p>
+
+          <div class="compare-table-wrap">
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th>Factor</th>
+                  <th>Why It Matters</th>
+                  <th>What to Look For</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Malware protection</td>
+                  <td>Core job of any antivirus</td>
+                  <td>Real-time scanning, ransomware defense, automatic updates</td>
+                </tr>
+                <tr>
+                  <td>Device coverage</td>
+                  <td>One plan should protect everything you use</td>
+                  <td>Clear device limits or unlimited family plans</td>
+                </tr>
+                <tr>
+                  <td>Extra features</td>
+                  <td>Suites bundle tools beyond basic scanning</td>
+                  <td>Firewall, identity monitoring, parental controls, VPN</td>
+                </tr>
+                <tr>
+                  <td>Ease of use</td>
+                  <td>Software you cannot manage does not help</td>
+                  <td>Simple dashboard, clear alerts, easy install</td>
+                </tr>
+                <tr>
+                  <td>Performance impact</td>
+                  <td>Security should not make daily tasks painful</td>
+                  <td>Light background scanning, scheduled deep scans</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            Antivirus is one piece of a broader security picture. A
+            <a href="/security/">password manager</a> keeps your login credentials
+            unique and encrypted, while a <a href="/vpn/">VPN</a> protects your
+            internet connection on public Wi-Fi. Many Norton plans include a VPN
+            feature, but a standalone VPN may still make sense depending on your
+            needs. The key is layering sensible tools rather than relying on any
+            single product alone.
+          </p>
+        </section>
+
+        <section class="compare-section" id="top-picks">
+          <h2>Our Top {currentCategory.replace("-", " ")} Picks</h2>
+          <p class="compare-note">
+            These are the main antivirus providers currently featured on the site.
+            Both Norton and McAfee are established brands with long track records
+            in consumer security.
+          </p>
+
+          <div class="compare-cards-grid">
+            {topItems.map((item, index) => (
+              <div class="compare-card">
+                {index === 0 && <span class="compare-badge">Top Pick</span>}
+                <h3>{item.name}</h3>
+                <p class="compare-card-tag">{item.tag || "Antivirus provider"}</p>
+                <p class="compare-card-text">
+                  {item.summary || item.description}
+                </p>
+                <div class="compare-rating">★ {item.rating}/5</div>
+
+                <div class="compare-card-actions">
+                  <a href={`/${item.category}/${item.slug}/`} class="btn btn-secondary">
+                    Read {item.name} Review →
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <h3>About Norton</h3>
+          <p>
+            Norton has been a household name in antivirus for decades. Its modern
+            products go beyond simple virus scanning — many plans include identity
+            monitoring, a password manager, cloud backup, and VPN access depending
+            on the tier you choose. Norton's interface is designed for non-technical
+            users: install the app, sign in, and the dashboard shows whether your
+            devices are protected.
+          </p>
+          <p>
+            Norton tends to suit users who want one comprehensive security suite
+            from a single trusted brand. If you handle sensitive work on your
+            computer, shop online frequently, or want identity-theft alerts when
+            your personal data appears in breaches, Norton's higher-tier plans
+            are worth exploring. It supports Windows, Mac, Android, and iOS, so
+            mixed-device households can manage protection from one account.
+          </p>
+
+          <h3>About McAfee</h3>
+          <p>
+            McAfee is another veteran in the antivirus space with a focus on
+            family-friendly pricing. A standout feature on many McAfee plans is
+            unlimited device coverage — you can protect every laptop, phone, and
+            tablet in the home without worrying about per-device fees. That makes
+            McAfee a practical choice when your household has more gadgets than
+            people.
+          </p>
+          <p>
+            McAfee includes solid malware protection, a firewall, web browsing
+            safeguards, and identity monitoring tools on qualifying plans. The
+            apps are straightforward to set up, and parental controls help
+            families manage what children access online. If your priority is
+            covering many devices affordably while still getting reputable
+            protection, McAfee deserves a close look.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>Best Antivirus by Use Case</h2>
+          <p>
+            Not everyone needs the same type of protection. Here is how Norton
+            and McAfee map to common situations:
+          </p>
+          <ul class="compare-list">
+            <li><strong>Best overall:</strong> Norton — well-rounded suite with identity tools and optional VPN on higher plans.</li>
+            <li><strong>Best for families with many devices:</strong> McAfee — unlimited device plans simplify protection across phones, tablets, and computers.</li>
+            <li><strong>Best for Windows beginners:</strong> Either Norton or McAfee — both are easy to install; compare against <a href="/antivirus/windows-defender/">Windows Defender</a> first if you want to save money.</li>
+            <li><strong>Best for privacy-focused users:</strong> Norton — identity monitoring and VPN features on select plans add layers beyond basic scanning.</li>
+            <li><strong>Best budget-conscious paid option:</strong> McAfee — family plans that cover unlimited devices can offer strong per-device value.</li>
+          </ul>
+          <p>
+            Windows users should read our
+            <a href="/antivirus/best-antivirus-for-windows/">best antivirus for Windows</a>
+            guide for platform-specific advice. If you are unsure whether paid
+            software is necessary at all, start with the
+            <a href="/antivirus/free-vs-paid-antivirus/">free vs paid antivirus</a>
+            comparison before committing to a subscription.
+          </p>
+          <p>
+            Browse all antivirus reviews and guides on our
+            <a href="/antivirus/">antivirus hub</a> to dig deeper into individual
+            products and head-to-head comparisons.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>Final Verdict</h2>
+          <p>
+            There is no single antivirus that is perfect for everyone, but Norton
+            and McAfee both remain sensible choices in 2026. Norton is the stronger
+            pick if you want a feature-rich security suite with identity monitoring
+            and optional VPN access from a long-established brand. McAfee is the
+            better fit when you need to protect a large number of devices without
+            juggling separate subscriptions.
+          </p>
+          <p>
+            Before you buy, check how many devices your plan covers, which extras
+            are included, and whether built-in protection like Windows Defender
+            already meets your needs. Either way, keeping one reputable antivirus
+            installed and updated is far better than having no protection or
+            running conflicting security programs side by side.
+          </p>
+
+          <div class="compare-bottom-cta compare-cta-row">
+            <a href="/antivirus/norton/" class="btn btn-primary">Read Norton Review →</a>
+            <a href="/antivirus/mcafee/" class="btn btn-secondary">Read McAfee Review →</a>
+            <a href="/antivirus/norton-vs-mcafee/" class="btn btn-secondary">Norton vs McAfee Comparison →</a>
+          </div>
+        </section>
+
+        <section class="compare-section compare-faq-section">
+          <h2>Antivirus FAQ</h2>
+          <div class="compare-faq-list">
+            {faqItems.map((item) => (
+              <details class="compare-faq-item">
+                <summary>{item.q}</summary>
+                <p>{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+
+      </article>
+
+      <aside class="compare-sidebar">
+        <div class="compare-sidebar-box">
+          <h3>Quick Summary</h3>
+          <ul>
+            <li>Norton and McAfee are our top picks</li>
+            <li>Compare device limits and extra features</li>
+            <li>Paid suites beat free tools for families</li>
+            <li>Layer antivirus with VPN and password tools</li>
+          </ul>
+        </div>
+
+        <div class="compare-sidebar-box">
+          <h3>Read Next</h3>
+          {currentGuides.length > 0 && (
+            <ul class="compare-sidebar-links">
+              {currentGuides.map((item) => (
+                <li>
+                  <a href={`/${currentCategory}/${item.slug}/`}>
+                    {item.title}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        <div class="compare-sidebar-box">
+          <h3>Explore Antivirus</h3>
+          <p>
+            Compare reviews, guides, and head-to-head breakdowns for every
+            antivirus product on the site.
+          </p>
+          <a href="/antivirus/" class="btn btn-primary compare-sidebar-btn">
+            Browse Antivirus Guides →
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .compare-table-wrap {
+    overflow-x: auto;
+    margin: 20px 0;
+  }
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+  }
+  .compare-table th,
+  .compare-table td {
+    border: 1px solid #e5e7eb;
+    padding: 12px 14px;
+    text-align: left;
+  }
+  .compare-table th {
+    background: #f9fafb;
+    font-weight: 700;
+    color: #1f2937;
+  }
+  .compare-table tr:nth-child(even) td {
+    background: #fafbfc;
+  }
+  .compare-section a:not(.btn) {
+    color: #1e3a8a;
+    text-decoration: none;
+  }
+  .compare-section a:not(.btn):hover {
+    text-decoration: underline;
+  }
+</style>
