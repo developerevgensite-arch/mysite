@@ -1,0 +1,345 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import "../../styles/compare-pages.css";
+import { guides } from "../../data/guides.js";
+
+const pathname = Astro.url.pathname.split("/").filter(Boolean);
+const currentCategory = pathname[0] || "";
+const currentSlug = pathname[1] || "";
+
+const currentGuides = (guides[currentCategory] ?? [])
+  .filter((item) => item.slug !== currentSlug)
+  .slice(0, 6);
+
+const faqItems = [
+  {
+    q: "Do I need web hosting to create a website?",
+    a: "Yes. Every public website needs hosting to store its files and make them accessible online. You can use shared hosting, VPS, cloud hosting, or managed WordPress hosting depending on your needs and budget."
+  },
+  {
+    q: "What is the difference between a domain and hosting?",
+    a: "A domain is your website address (like example.com). Hosting is the server space where your website files live. You need both for a live website, though some providers sell them together."
+  },
+  {
+    q: "How much does web hosting cost?",
+    a: "Entry-level shared hosting often costs $2–$6 per month on long-term plans. VPS and cloud hosting typically start around $10–$30 or more per month. Renewal prices are usually higher than introductory offers."
+  },
+  {
+    q: "Is shared hosting good enough for beginners?",
+    a: "Yes. Shared hosting is the most affordable and beginner-friendly option. It works well for blogs, portfolio sites, and small business websites with moderate traffic."
+  },
+  {
+    q: "Can I move my website to a different host later?",
+    a: "Yes. You can migrate your files and database to another provider. Many hosts offer free migration tools or services, especially for WordPress sites."
+  }
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map((item) => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.a
+    }
+  }))
+};
+---
+
+<Layout
+  title="What Is Web Hosting? Beginner's Guide 2026"
+  description="Learn what web hosting is, how it works, and which type you need for your first website. A clear guide for beginners with no technical jargon."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)}></script>
+
+  <section class="compare-hero">
+    <div class="page-container">
+      <p class="compare-eyebrow">Hosting Guide</p>
+      <h1>What Is Web Hosting?</h1>
+      <p class="compare-intro">
+        Every website on the internet lives on a server somewhere. Web hosting is the
+        service that provides that server space and keeps your site online. This guide
+        explains how hosting works and helps you choose the right type for your project.
+      </p>
+
+      <div class="compare-cta-row">
+        <a href="#hosting-types" class="btn btn-primary">Hosting Types</a>
+        <a href="/hosting/best-hosting/" class="btn btn-secondary">See Best Hosting Guide →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="compare-content">
+    <div class="page-container compare-layout">
+      <article class="compare-main">
+
+        <section class="compare-section">
+          <h2>Web Hosting in Simple Terms</h2>
+          <p>
+            Web hosting is a service that stores your website files on a powerful computer
+            called a server and makes them available to visitors around the world. When someone
+            types your domain name into a browser, the hosting server delivers your pages to
+            their screen.
+          </p>
+          <p>
+            Without hosting, your website files would sit on your personal computer where
+            nobody could reach them. Hosting providers maintain data centers full of servers
+            with fast internet connections, backup systems, and security tools so your site
+            stays online around the clock.
+          </p>
+          <p>
+            Think of hosting like renting space in a building. Your website is the store,
+            the server is the building, and the hosting company is the landlord who maintains
+            the infrastructure, electricity, and security.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>Domain Name vs. Web Hosting</h2>
+          <p>
+            Beginners often confuse domains and hosting because many companies sell both.
+            They serve different purposes:
+          </p>
+          <ul class="compare-list">
+            <li><strong>Domain name:</strong> Your website address (e.g., mysite.com). It tells browsers where to find your site.</li>
+            <li><strong>Web hosting:</strong> The server that stores and serves your website files when someone visits that address.</li>
+          </ul>
+          <p>
+            You can buy a domain and hosting from the same company or from different providers.
+            If they are separate, you connect them by pointing your domain's DNS settings to
+            your hosting server's address. Most hosts include simple instructions for this step.
+          </p>
+        </section>
+
+        <section class="compare-section" id="hosting-types">
+          <h2>Types of Web Hosting</h2>
+          <p>
+            Not all hosting is the same. The type you choose affects cost, performance,
+            and how much technical work you need to do.
+          </p>
+
+          <div class="compare-table-wrap">
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th>Type</th>
+                  <th>Best For</th>
+                  <th>Typical Cost</th>
+                  <th>Technical Level</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Shared hosting</td>
+                  <td>Blogs, portfolios, small business sites</td>
+                  <td>$2–$8/month</td>
+                  <td>Beginner</td>
+                </tr>
+                <tr>
+                  <td>Managed WordPress</td>
+                  <td>WordPress sites with optimized performance</td>
+                  <td>$5–$25/month</td>
+                  <td>Beginner to intermediate</td>
+                </tr>
+                <tr>
+                  <td>VPS hosting</td>
+                  <td>Growing sites needing more resources</td>
+                  <td>$10–$40/month</td>
+                  <td>Intermediate</td>
+                </tr>
+                <tr>
+                  <td>Cloud hosting</td>
+                  <td>High-traffic or performance-focused sites</td>
+                  <td>$10–$50+/month</td>
+                  <td>Intermediate to advanced</td>
+                </tr>
+                <tr>
+                  <td>Dedicated server</td>
+                  <td>Large sites needing full server control</td>
+                  <td>$80–$200+/month</td>
+                  <td>Advanced</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Shared Hosting</h3>
+          <p>
+            Shared hosting puts multiple websites on one server. It is the cheapest option
+            and the easiest to manage. Most beginners start here. The trade-off is that
+            resources are shared, so a traffic spike on a neighboring site could briefly
+            affect your performance. For a deeper comparison of affordable options, see our
+            <a href="/hosting/best-cheap-hosting/">best cheap hosting</a> guide.
+          </p>
+
+          <h3>VPS and Cloud Hosting</h3>
+          <p>
+            VPS (Virtual Private Server) hosting gives you dedicated resources within a
+            shared physical machine. Cloud hosting distributes your site across multiple
+            servers for better uptime and scalability. Both are upgrades from shared hosting
+            when your site outgrows basic plans. Our
+            <a href="/hosting/best-vps-hosting/">best VPS hosting</a> guide covers when
+            that upgrade makes sense.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>What Happens When Someone Visits Your Site</h2>
+          <p>
+            Understanding the basic flow helps you see why hosting quality matters:
+          </p>
+          <ol class="compare-list">
+            <li>A visitor types your domain name or clicks a link.</li>
+            <li>The browser asks DNS servers where your website is hosted.</li>
+            <li>DNS returns your hosting server's IP address.</li>
+            <li>The browser sends a request to that server.</li>
+            <li>The server finds your website files and sends them back.</li>
+            <li>The browser renders the page for the visitor.</li>
+          </ol>
+          <p>
+            This process usually takes under a second on good hosting. Slow servers, crowded
+            shared plans, or servers far from your visitors add delay. That is why server
+            location, storage type (SSD vs. HDD), and caching features all affect site speed.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>What to Look for in a Hosting Provider</h2>
+          <p>
+            When comparing hosts, focus on factors that affect your daily experience:
+          </p>
+          <ul class="compare-list">
+            <li><strong>Uptime guarantee:</strong> Look for 99.9% or higher. Downtime means lost visitors and revenue.</li>
+            <li><strong>Speed:</strong> SSD storage, modern PHP versions, and built-in caching help pages load faster.</li>
+            <li><strong>Free SSL:</strong> HTTPS is essential for security and trust. Most good hosts include it free.</li>
+            <li><strong>Support quality:</strong> 24/7 live chat is valuable when something breaks at midnight.</li>
+            <li><strong>Control panel:</strong> cPanel, hPanel, or custom dashboards should be easy to navigate.</li>
+            <li><strong>Backups:</strong> Automatic daily backups save you if something goes wrong.</li>
+            <li><strong>Renewal pricing:</strong> Introductory rates are cheap; check what you will pay after the first term.</li>
+          </ul>
+          <p>
+            Our <a href="/hosting/best-hosting/">best hosting guide</a> compares top providers
+            across these criteria. If you are deciding between two popular options, the
+            <a href="/hosting/hostinger-vs-bluehost/">Hostinger vs Bluehost</a> comparison
+            breaks down the key differences.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>Common Hosting Mistakes to Avoid</h2>
+          <ul class="compare-list">
+            <li><strong>Choosing only by price:</strong> The cheapest plan may lack backups, support, or performance.</li>
+            <li><strong>Ignoring renewal costs:</strong> A $2/month intro rate may renew at $10–$15/month.</li>
+            <li><strong>Overbuying too early:</strong> Most new sites do not need VPS or dedicated hosting on day one.</li>
+            <li><strong>Skipping SSL:</strong> Every site should use HTTPS, even a simple blog.</li>
+            <li><strong>Not reading the resource limits:</strong> Check storage, bandwidth, and visitor limits before signing up.</li>
+          </ul>
+        </section>
+
+        <section class="compare-section">
+          <h2>Final Recommendation</h2>
+          <p>
+            Web hosting is the foundation of every website. For most beginners, affordable
+            shared hosting from a reliable provider is the right starting point. You can
+            always upgrade to VPS or cloud hosting as your site grows.
+          </p>
+          <p>
+            Focus on uptime, speed, support, and transparent pricing rather than the lowest
+            introductory rate. Compare options in our hosting guides to find a provider
+            that matches your budget and website type.
+          </p>
+
+          <div class="compare-bottom-cta compare-cta-row">
+            <a href="/hosting/best-hosting/" class="btn btn-primary">See Best Hosting Guide →</a>
+            <a href="/hosting/best-cheap-hosting/" class="btn btn-secondary">See Best Cheap Hosting →</a>
+            <a href="/hosting/best-vps-hosting/" class="btn btn-secondary">See Best VPS Hosting →</a>
+          </div>
+        </section>
+
+        <section class="compare-section compare-faq-section">
+          <h2>Hosting FAQ</h2>
+          <div class="compare-faq-list">
+            {faqItems.map((item) => (
+              <details class="compare-faq-item">
+                <summary>{item.q}</summary>
+                <p>{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+
+      </article>
+
+      <aside class="compare-sidebar">
+        <div class="compare-sidebar-box">
+          <h3>Quick Summary</h3>
+          <ul>
+            <li>Hosting stores your site files on a server</li>
+            <li>Domain = address, hosting = the building</li>
+            <li>Shared hosting is best for beginners</li>
+            <li>Compare uptime, speed, and renewal pricing</li>
+          </ul>
+        </div>
+
+        <div class="compare-sidebar-box">
+          <h3>Read Next</h3>
+          {currentGuides.length > 0 && (
+            <ul class="compare-sidebar-links">
+              {currentGuides.slice(0, 4).map((item) => (
+                <li>
+                  <a href={`/${currentCategory}/${item.slug}/`}>{item.title}</a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        <div class="compare-sidebar-box">
+          <h3>Ready to Choose?</h3>
+          <p>
+            Compare top hosting providers and find the right fit for your website.
+          </p>
+          <a href="/hosting/" class="btn btn-primary compare-sidebar-btn">
+            Browse Hosting Reviews →
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .compare-table-wrap {
+    overflow-x: auto;
+    margin: 20px 0;
+  }
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+  }
+  .compare-table th,
+  .compare-table td {
+    border: 1px solid #e5e7eb;
+    padding: 12px 14px;
+    text-align: left;
+  }
+  .compare-table th {
+    background: #f9fafb;
+    font-weight: 700;
+    color: #1f2937;
+  }
+  .compare-table tr:nth-child(even) td {
+    background: #fafbfc;
+  }
+  .compare-section a:not(.btn) {
+    color: #1e3a8a;
+    text-decoration: none;
+  }
+  .compare-section a:not(.btn):hover {
+    text-decoration: underline;
+  }
+</style>

@@ -1,5 +1,6 @@
 export const guides = {
   hosting: [
+    { slug: "what-is-web-hosting", title: "What Is Web Hosting?" },
     { slug: "best-hosting", title: "Best Hosting" },
     { slug: "best-cheap-hosting", title: "Best Cheap Hosting" },
     { slug: "best-vps-hosting", title: "Best VPS Hosting" },
@@ -20,7 +21,12 @@ export const guides = {
     { slug: "best-vpn-for-netflix", title: "Best VPN for Netflix" }
   ],
 
+  security: [
+    { slug: "what-is-a-password-manager", title: "What Is a Password Manager?" }
+  ],
+
   "wordpress-tools": [
+    { slug: "how-to-choose-wordpress-plugins", title: "How to Choose WordPress Plugins" },
     { slug: "best-wordpress-plugins", title: "Best WordPress Plugins" },
     { slug: "best-elementor-addons", title: "Best Elementor Addons" },
     { slug: "best-seo-plugins", title: "Best SEO Plugins" },

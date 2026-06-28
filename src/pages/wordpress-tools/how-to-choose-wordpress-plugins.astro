@@ -1,0 +1,381 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import "../../styles/compare-pages.css";
+import { guides } from "../../data/guides.js";
+
+const pathname = Astro.url.pathname.split("/").filter(Boolean);
+const currentCategory = pathname[0] || "";
+const currentSlug = pathname[1] || "";
+
+const currentGuides = (guides[currentCategory] ?? [])
+  .filter((item) => item.slug !== currentSlug)
+  .slice(0, 6);
+
+const faqItems = [
+  {
+    q: "How many WordPress plugins should I install?",
+    a: "There is no fixed limit, but most well-run sites use 10–20 plugins. Quality matters more than quantity. Avoid installing plugins you do not need, and never run two plugins that do the same job."
+  },
+  {
+    q: "Are free WordPress plugins safe?",
+    a: "Many free plugins in the official WordPress directory are safe and well-maintained. Check the number of active installs, recent update history, user reviews, and whether the developer has a support forum before installing."
+  },
+  {
+    q: "Can plugins slow down my website?",
+    a: "Yes. Poorly coded or outdated plugins can add database queries, load extra scripts, and increase page load time. Choose lightweight plugins from reputable developers and remove any you are not actively using."
+  },
+  {
+    q: "Should I update plugins automatically?",
+    a: "Automatic updates work well for minor security patches on trusted plugins. For major version updates, manual updates with a backup first are safer, especially on production sites."
+  },
+  {
+    q: "What plugins does every WordPress site need?",
+    a: "Most sites benefit from an SEO plugin, a caching plugin, a security plugin, and a backup solution. Beyond that, choose plugins based on your specific site type — e-commerce, blog, portfolio, etc."
+  }
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map((item) => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.a
+    }
+  }))
+};
+---
+
+<Layout
+  title="How to Choose WordPress Plugins"
+  description="Learn how to pick the right WordPress plugins without slowing down your site. A practical guide covering quality, compatibility, and essential plugin categories."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)}></script>
+
+  <section class="compare-hero">
+    <div class="page-container">
+      <p class="compare-eyebrow">WordPress Guide</p>
+      <h1>How to Choose WordPress Plugins</h1>
+      <p class="compare-intro">
+        WordPress plugins extend your site with new features, but choosing the wrong ones
+        can slow down your site, create security risks, or cause conflicts. This guide
+        shows you how to evaluate plugins and build a lean, reliable setup.
+      </p>
+
+      <div class="compare-cta-row">
+        <a href="#essential-plugins" class="btn btn-primary">Essential Plugins</a>
+        <a href="/wordpress-tools/best-wordpress-plugins/" class="btn btn-secondary">See Best Plugins Guide →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="compare-content">
+    <div class="page-container compare-layout">
+      <article class="compare-main">
+
+        <section class="compare-section">
+          <h2>What Are WordPress Plugins?</h2>
+          <p>
+            Plugins are add-on software that extends WordPress with new functionality.
+            Need a contact form? There is a plugin for that. Want better SEO, faster loading,
+            or e-commerce? Plugins handle it without writing code.
+          </p>
+          <p>
+            The WordPress plugin directory contains tens of thousands of free plugins.
+            Premium plugins from third-party marketplaces add even more options. This abundance
+            is powerful but can be overwhelming — especially when many plugins overlap in
+            what they do.
+          </p>
+          <p>
+            The key principle is simple: install only what you need, from developers you
+            trust, and keep everything updated. Our
+            <a href="/wordpress-tools/best-wordpress-plugins/">best WordPress plugins</a>
+            guide is a good starting point for proven options.
+          </p>
+        </section>
+
+        <section class="compare-section" id="essential-plugins">
+          <h2>Essential Plugin Categories</h2>
+          <p>
+            Most WordPress sites need tools in a few core categories. Here is what each
+            category covers and why it matters:
+          </p>
+
+          <div class="compare-table-wrap">
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th>Category</th>
+                  <th>Purpose</th>
+                  <th>Our Guide</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>SEO</td>
+                  <td>Meta titles, sitemaps, schema markup, content analysis</td>
+                  <td><a href="/wordpress-tools/best-seo-plugins/">Best SEO Plugins</a></td>
+                </tr>
+                <tr>
+                  <td>Caching</td>
+                  <td>Page speed, browser caching, image optimization</td>
+                  <td><a href="/wordpress-tools/best-cache-plugins/">Best Cache Plugins</a></td>
+                </tr>
+                <tr>
+                  <td>Security</td>
+                  <td>Firewall, malware scanning, login protection</td>
+                  <td><a href="/wordpress-tools/best-security-plugins/">Best Security Plugins</a></td>
+                </tr>
+                <tr>
+                  <td>Page builder</td>
+                  <td>Visual drag-and-drop page design</td>
+                  <td><a href="/wordpress-tools/best-elementor-addons/">Best Elementor Addons</a></td>
+                </tr>
+                <tr>
+                  <td>Backup</td>
+                  <td>Automated site backups and restore</td>
+                  <td>Included in hosting or security plugins</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            Start with one plugin per category. Running two SEO plugins or two caching
+            plugins at the same time often causes conflicts and wastes server resources.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>How to Evaluate a Plugin Before Installing</h2>
+          <p>
+            Before adding any plugin to your site, run through this checklist:
+          </p>
+
+          <h3>1. Check Active Installations and Reviews</h3>
+          <p>
+            Popular plugins with hundreds of thousands of active installs and strong ratings
+            are generally safer bets. Very new plugins with few installs carry more risk,
+            though some excellent tools start small.
+          </p>
+
+          <h3>2. Look at the Update History</h3>
+          <p>
+            A plugin updated within the last few months shows active development. Plugins
+            not updated for over a year may have compatibility issues with current WordPress
+            versions or unpatched security vulnerabilities.
+          </p>
+
+          <h3>3. Read Recent Reviews</h3>
+          <p>
+            Sort reviews by most recent. Patterns of complaints about broken updates,
+            poor support, or site crashes after installation are red flags.
+          </p>
+
+          <h3>4. Test Compatibility</h3>
+          <p>
+            Check the plugin page for tested WordPress version compatibility. If you use
+            a page builder like Elementor, verify the plugin works with it before installing
+            on your live site.
+          </p>
+
+          <h3>5. Review the Developer</h3>
+          <p>
+            Established companies and developers with multiple well-maintained plugins
+            tend to offer better long-term support than one-off authors with no track record.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>Common Plugin Mistakes to Avoid</h2>
+          <ul class="compare-list">
+            <li><strong>Installing too many plugins:</strong> Each plugin adds code that runs on every page load. Stick to what you actually use.</li>
+            <li><strong>Duplicate functionality:</strong> Never run two SEO plugins, two caching plugins, or two security plugins simultaneously.</li>
+            <li><strong>Ignoring updates:</strong> Outdated plugins are one of the most common causes of WordPress hacks.</li>
+            <li><strong>Installing from untrusted sources:</strong> Only download plugins from the official WordPress directory or reputable premium marketplaces.</li>
+            <li><strong>Not testing after installation:</strong> Always check your site after activating a new plugin — front page, key pages, and forms.</li>
+            <li><strong>Keeping deactivated plugins:</strong> Inactive plugins still pose a security risk. Delete plugins you no longer use.</li>
+          </ul>
+        </section>
+
+        <section class="compare-section">
+          <h2>Free vs. Premium Plugins</h2>
+          <p>
+            Many excellent WordPress plugins offer free versions with optional paid upgrades.
+            Free tiers often cover basic needs, while premium plans unlock advanced features,
+            priority support, and regular updates.
+          </p>
+
+          <div class="compare-table-wrap">
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th>Factor</th>
+                  <th>Free Plugin</th>
+                  <th>Premium Plugin</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Cost</td>
+                  <td>$0</td>
+                  <td>$30–$200+/year typically</td>
+                </tr>
+                <tr>
+                  <td>Features</td>
+                  <td>Core functionality</td>
+                  <td>Advanced features and integrations</td>
+                </tr>
+                <tr>
+                  <td>Support</td>
+                  <td>Community forums</td>
+                  <td>Direct email or live chat support</td>
+                </tr>
+                <tr>
+                  <td>Updates</td>
+                  <td>Regular for popular plugins</td>
+                  <td>Guaranteed ongoing development</td>
+                </tr>
+                <tr>
+                  <td>Best for</td>
+                  <td>Beginners, simple sites</td>
+                  <td>Business sites, advanced needs</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            Start with free versions when available. Upgrade to premium when you hit a
+            feature limit or need reliable support for a business-critical function.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>Building a Lean Plugin Stack</h2>
+          <p>
+            Here is a practical approach for a typical WordPress site:
+          </p>
+          <ol class="compare-list">
+            <li><strong>Start with the essentials:</strong> One SEO plugin, one cache plugin, one security plugin.</li>
+            <li><strong>Add purpose-specific tools:</strong> Contact forms, page builders, or e-commerce only if needed.</li>
+            <li><strong>Audit quarterly:</strong> Deactivate and delete plugins you have not used in 90 days.</li>
+            <li><strong>Monitor performance:</strong> If your site slows down after adding a plugin, test by deactivating it.</li>
+            <li><strong>Keep a backup:</strong> Always back up before installing or updating plugins on a live site.</li>
+          </ol>
+          <p>
+            Browse our category guides for curated recommendations:
+            <a href="/wordpress-tools/best-seo-plugins/">SEO</a>,
+            <a href="/wordpress-tools/best-cache-plugins/">caching</a>,
+            <a href="/wordpress-tools/best-security-plugins/">security</a>, and
+            <a href="/wordpress-tools/best-elementor-addons/">Elementor addons</a>.
+          </p>
+        </section>
+
+        <section class="compare-section">
+          <h2>Final Recommendation</h2>
+          <p>
+            Choosing WordPress plugins comes down to need, quality, and restraint. Install
+            fewer plugins from trusted developers rather than piling on every free tool you
+            find. One good plugin per category beats three mediocre ones competing for
+            resources.
+          </p>
+          <p>
+            Start with our curated guides to find proven plugins in each category, test
+            on a staging site when possible, and keep everything updated.
+          </p>
+
+          <div class="compare-bottom-cta compare-cta-row">
+            <a href="/wordpress-tools/best-wordpress-plugins/" class="btn btn-primary">See Best WordPress Plugins →</a>
+            <a href="/wordpress-tools/best-seo-plugins/" class="btn btn-secondary">See Best SEO Plugins →</a>
+            <a href="/wordpress-tools/best-cache-plugins/" class="btn btn-secondary">See Best Cache Plugins →</a>
+          </div>
+        </section>
+
+        <section class="compare-section compare-faq-section">
+          <h2>WordPress FAQ</h2>
+          <div class="compare-faq-list">
+            {faqItems.map((item) => (
+              <details class="compare-faq-item">
+                <summary>{item.q}</summary>
+                <p>{item.a}</p>
+              </details>
+            ))}
+          </div>
+        </section>
+
+      </article>
+
+      <aside class="compare-sidebar">
+        <div class="compare-sidebar-box">
+          <h3>Quick Summary</h3>
+          <ul>
+            <li>Install only plugins you actually need</li>
+            <li>One plugin per category (SEO, cache, security)</li>
+            <li>Check installs, reviews, and update history</li>
+            <li>Delete inactive plugins you no longer use</li>
+          </ul>
+        </div>
+
+        <div class="compare-sidebar-box">
+          <h3>Read Next</h3>
+          {currentGuides.length > 0 && (
+            <ul class="compare-sidebar-links">
+              {currentGuides.slice(0, 4).map((item) => (
+                <li>
+                  <a href={`/${currentCategory}/${item.slug}/`}>{item.title}</a>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        <div class="compare-sidebar-box">
+          <h3>Plugin Guides</h3>
+          <p>
+            Browse our curated WordPress plugin recommendations.
+          </p>
+          <a href="/wordpress-tools/" class="btn btn-primary compare-sidebar-btn">
+            Browse WordPress Tools →
+          </a>
+        </div>
+      </aside>
+
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .compare-table-wrap {
+    overflow-x: auto;
+    margin: 20px 0;
+  }
+  .compare-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+  }
+  .compare-table th,
+  .compare-table td {
+    border: 1px solid #e5e7eb;
+    padding: 12px 14px;
+    text-align: left;
+  }
+  .compare-table th {
+    background: #f9fafb;
+    font-weight: 700;
+    color: #1f2937;
+  }
+  .compare-table tr:nth-child(even) td {
+    background: #fafbfc;
+  }
+  .compare-section a:not(.btn) {
+    color: #1e3a8a;
+    text-decoration: none;
+  }
+  .compare-section a:not(.btn):hover {
+    text-decoration: underline;
+  }
+</style>

@@ -3,6 +3,7 @@
 
 import Layout from "../../layouts/Layout.astro";
 import reviews from "../../data/reviews.json";
+import { guides as wpGuides } from "../../data/guides.js";
 
 const wpReviews = reviews
   .filter((review) => review.category === "wordpress-tools")
@@ -36,14 +37,7 @@ const faqItems = [
   }
 ];
 
-// GUIDES (самое важное)
-const guides = [
-  { slug: "best-wordpress-plugins", title: "Best WordPress Plugins" },
-  { slug: "best-elementor-addons", title: "Best Elementor Addons" },
-  { slug: "best-seo-plugins", title: "Best SEO Plugins" },
-  { slug: "best-cache-plugins", title: "Best Cache Plugins" },
-  { slug: "best-security-plugins", title: "Best Security Plugins" }
-];
+const guides = wpGuides["wordpress-tools"] ?? [];
 
 const faqJsonLd = {
   "@context": "https://schema.org",
@@ -168,7 +162,7 @@ const faqJsonLd = {
 
     <div class="guides-grid">
       {guides.map((item) => (
-        <a href={`/wordpress-tools/${item.slug}`} class="guide-card">
+        <a href={`/wordpress-tools/${item.slug}/`} class="guide-card">
           <h3>{item.title}</h3>
           <span>Read Guide →</span>
         </a>

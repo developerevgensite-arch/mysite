@@ -3,6 +3,9 @@
 
 import Layout from "../../layouts/Layout.astro";
 import reviews from "../../data/reviews.json";
+import { guides as securityGuides } from "../../data/guides.js";
+
+const guides = securityGuides.security ?? [];
 
 const securityReviews = reviews
   .filter((review) => review.category === "security")
@@ -137,6 +140,23 @@ Protect your passwords, accounts and devices with modern security software.
             <p>{item.a}</p>
           </div>
         </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="guides-section-box">
+
+  <div class="faq-inner">
+
+    <h2>Security Guides</h2>
+
+    <div class="guides-grid">
+      {guides.map((item) => (
+        <a href={`/security/${item.slug}/`} class="guide-card">
+          <h3>{item.title}</h3>
+          <span>Read Guide →</span>
+        </a>
       ))}
     </div>
   </div>
@@ -318,6 +338,52 @@ color:#4b5563;
 
 .faq-answer p{
 margin:0;
+}
+
+.guides-section-box{
+  max-width:1000px;
+  margin:80px auto 0px;
+  padding:20px 20px;
+  border-radius:12px;
+}
+
+.guides-section-box h2{
+  margin-top:0;
+}
+
+.guides-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:16px;
+  margin-top:20px;
+}
+
+.guide-card{
+  background:#f9fafb;
+  padding:18px;
+  border-radius:10px;
+  text-decoration:none;
+  color:#111;
+  border:1px solid #eef1f5;
+  transition:0.2s;
+  display:block;
+}
+
+.guide-card:hover{
+  background:#fff;
+  transform:translateY(-3px);
+  box-shadow:0 8px 20px rgba(0,0,0,0.06);
+}
+
+.guide-card h3{
+  margin:0 0 8px;
+  font-size:16px;
+}
+
+.guide-card span{
+  color:#ff8a00;
+  font-weight:600;
+  font-size:14px;
 }
 
 </style>

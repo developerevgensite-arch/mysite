@@ -5,6 +5,7 @@
 
 import Layout from "../../layouts/Layout.astro";
 import reviews from "../../data/reviews.json";
+import { guides as hostingGuides } from "../../data/guides.js";
 
 const hostingReviews = reviews
   .filter((review) => review.category === "hosting")
@@ -37,13 +38,7 @@ const faqItems = [
   }
 ];
 
-// ссылки внизу страницы
-const guides = [
-  { slug: "best-hosting", title: "Best Hosting" },
-  { slug: "best-cheap-hosting", title: "Best Cheap Hosting" },
-  { slug: "best-vps-hosting", title: "Best VPS Hosting" },
-  { slug: "hostinger-vs-bluehost", title: "Hostinger vs Bluehost" }
-];
+const guides = hostingGuides.hosting ?? [];
 
 const faqJsonLd = {
   "@context": "https://schema.org",
@@ -172,7 +167,7 @@ const faqJsonLd = {
 
     <div class="guides-grid">
       {guides.map((item) => (
-        <a href={`/hosting/${item.slug}`} class="guide-card">
+        <a href={`/hosting/${item.slug}/`} class="guide-card">
           <h3>{item.title}</h3>
           <span>Read Guide →</span>
         </a>
