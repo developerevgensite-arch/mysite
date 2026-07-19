@@ -1,0 +1,386 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const faqItems = [
+  {
+    q: "What does a VPN protect?",
+    a: "A VPN encrypts traffic between your device and the VPN server and replaces the public IP address normally visible to websites."
+  },
+  {
+    q: "Can a VPN hide my IP address?",
+    a: "A VPN replaces the public IP address normally visible to websites with the IP address of the selected VPN server. This helps reduce the connection information exposed during everyday browsing."
+  },
+  {
+    q: "Can a VPN help on public Wi-Fi?",
+    a: "Yes. A VPN encrypts traffic between your device and the VPN server, adding an extra layer of protection when you use shared networks in cafés, hotels, airports, and other public locations."
+  },
+  {
+    q: "Is a VPN difficult to use?",
+    a: "Most modern VPN applications are designed for everyday users. After installing the app, you can usually protect your connection by selecting a server and pressing the connect button"
+  }
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map((item) => ({
+    "@type": "Question",
+    "name": item.q,
+    "acceptedAnswer": {
+      "@type": "Answer",
+      "text": item.a
+    }
+  }))
+};
+---
+
+<Layout
+  title="Secure Your Internet Connection | TechToolReviews"
+  description="Learn how a VPN can help encrypt your internet traffic, protect your connection on public Wi-Fi, and reduce the information exposed while browsing."
+>
+  <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)}></script>
+
+  <div class="landing">
+
+    <section class="landing-hero">
+      <p class="landing-eyebrow">YOUR CONNECTION MAY REVEAL MORE THAN YOU EXPECT</p>
+      <h1>Your Internet Connection May Expose Your IP Address</h1>
+      <p class="landing-intro">
+        Websites, advertising networks, and internet providers may be able to see your IP address
+        and information about your online connection. A trusted VPN can encrypt your traffic and
+        reduce the amount of information exposed while you browse.
+      </p>
+      <!-- Replace /go/nordvpn with the BeMob Click URL only after the BeMob campaign is configured. -->
+      <a
+        href="/go/nordvpn"
+        class="btn btn-primary landing-cta"
+        target="_blank"
+        rel="nofollow sponsored noopener"
+      >
+        Protect Your Connection →
+      </a>
+      <p class="landing-cta-note">
+        You will be redirected to the official NordVPN website to review current plans.
+      </p>
+    </section>
+
+    <section class="landing-section">
+      <h2>What Can Your Connection Reveal?</h2>
+      <div class="landing-cards">
+        <div class="landing-card">
+          <h3>Your IP address</h3>
+          <p>
+            Websites can normally see the public IP address used by your connection. An IP address
+            may reveal your approximate region and internet provider.
+          </p>
+        </div>
+        <div class="landing-card">
+          <h3>Network activity</h3>
+          <p>
+            Internet providers and network administrators may be able to observe connection
+            information and the services your device communicates with.
+          </p>
+        </div>
+        <div class="landing-card">
+          <h3>Public Wi-Fi exposure</h3>
+          <p>
+            Shared or unsecured networks may create additional privacy and security risks,
+            especially when they are not properly configured.
+          </p>
+        </div>
+        <div class="landing-card">
+          <h3>Advertising profiles</h3>
+          <p>
+            Websites and advertising platforms may combine cookies, device information, and browsing
+            activity to build advertising profiles.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="landing-section">
+      <h2>How a VPN Can Help</h2>
+      <p>
+        A VPN creates an encrypted connection between your device and a VPN server. This can help
+        protect traffic while it travels across the network and replace the public IP address
+        normally visible to websites.
+      </p>
+      <ul class="landing-list">
+        <li>Encrypts internet traffic between the device and VPN server</li>
+        <li>Adds protection when using public or shared Wi-Fi</li>
+        <li>Replaces the public IP address visible to websites</li>
+        <li>Provides applications for common desktop and mobile devices</li>
+      </ul>
+      <p class="landing-note">
+        A VPN adds an important layer of privacy to your internet connection. 
+        For stronger online protection, it works best alongside secure passwords, 
+        updated software, and careful browsing habits.
+      </p>
+    </section>
+
+    <section class="landing-section landing-product">
+      <h2>Our Recommended VPN Option</h2>
+      <div class="landing-product-box">
+        <h3>NordVPN</h3>
+        <p>
+          NordVPN is a well-known VPN service designed for everyday online privacy and secure
+          browsing. It provides applications for popular devices, encrypted VPN connections,
+          and access to servers in multiple locations.
+        </p>
+        <ul class="landing-list">
+          <li>Applications for major desktop and mobile platforms</li>
+          <li>Encrypted VPN connection</li>
+          <li>Beginner-friendly applications</li>
+          <li>Multiple VPN server locations</li>
+        </ul>
+        <!-- Replace /go/nordvpn with the BeMob Click URL only after the BeMob campaign is configured. -->
+        <a
+          href="/go/nordvpn"
+          class="btn btn-primary landing-cta"
+          target="_blank"
+          rel="nofollow sponsored noopener"
+        >
+          View NordVPN Plans →
+        </a>
+        <p class="landing-cta-note">
+          Plans, prices, features, and device limits may change. Check the official NordVPN
+          website for the latest information.
+        </p>
+      </div>
+    </section>
+
+    <section class="landing-section">
+      <h2>Be More Careful on Public Wi-Fi</h2>
+      <p>
+        Public networks in cafés, hotels, airports, and other shared locations may not provide
+        the same level of protection as a trusted home network. Using a VPN can add an encrypted
+        layer between your device and the VPN server.
+      </p>
+    </section>
+
+    <section class="landing-section landing-faq">
+      <h2>FAQ</h2>
+      <div class="landing-faq-list">
+        {faqItems.map((item) => (
+          <details class="landing-faq-item">
+            <summary>{item.q}</summary>
+            <p>{item.a}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <section class="landing-section landing-final">
+      <h2>Take a Step Toward a More Private Connection</h2>
+      <p>
+        Review the current NordVPN plans and decide whether the service is suitable for your
+        devices and privacy needs.
+      </p>
+      <!-- Replace /go/nordvpn with the BeMob Click URL only after the BeMob campaign is configured. -->
+      <a
+        href="/go/nordvpn"
+        class="btn btn-primary landing-cta"
+        target="_blank"
+        rel="nofollow sponsored noopener"
+      >
+        Review NordVPN Plans →
+      </a>
+      <p class="landing-cta-note">
+        Official plans, pricing, and terms are provided on the NordVPN website.
+      </p>
+    </section>
+
+  </div>
+</Layout>
+
+<style>
+  .landing {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .landing-hero {
+    background: linear-gradient(180deg, #f5f7fb 0%, #ffffff 100%);
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    padding: 40px 32px;
+    margin-bottom: 28px;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+  }
+
+  .landing-eyebrow {
+    color: #ff8a00;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 14px;
+  }
+
+  .landing-hero h1 {
+    font-size: 36px;
+    line-height: 1.2;
+    color: #1f2937;
+    margin: 0 0 18px;
+  }
+
+  .landing-intro {
+    font-size: 18px;
+    line-height: 1.75;
+    color: #4b5563;
+    margin: 0 0 26px;
+    max-width: 720px;
+  }
+
+  .landing-section {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
+    padding: 32px;
+    margin-bottom: 24px;
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.04);
+  }
+
+  .landing-section h2 {
+    margin-top: 0;
+    color: #1f2937;
+    font-size: 26px;
+  }
+
+  .landing-section p {
+    color: #4b5563;
+    line-height: 1.75;
+  }
+
+  .landing-cards {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 20px;
+  }
+
+  .landing-card {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 20px;
+  }
+
+  .landing-card h3 {
+    margin: 0 0 10px;
+    font-size: 17px;
+    color: #1f2937;
+  }
+
+  .landing-card p {
+    margin: 0;
+    font-size: 15px;
+  }
+
+  .landing-list {
+    padding-left: 20px;
+    color: #4b5563;
+    line-height: 1.8;
+  }
+
+  .landing-note {
+    background: #f9fafb;
+    border-left: 4px solid #1e3a8a;
+    padding: 14px 18px;
+    border-radius: 0 10px 10px 0;
+    margin-top: 20px;
+    font-size: 15px;
+  }
+
+  .landing-product-box {
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 24px;
+    margin-top: 16px;
+  }
+
+  .landing-product-box h3 {
+    margin: 0 0 12px;
+    font-size: 22px;
+    color: #1f2937;
+  }
+
+  .landing-cta {
+    margin-top: 8px;
+    text-decoration: none;
+  }
+
+  .landing-cta:hover {
+    text-decoration: none;
+  }
+
+  .landing-cta-note {
+    font-size: 14px;
+    color: #6b7280;
+    margin: 14px 0 0;
+    line-height: 1.6;
+  }
+
+  .landing-faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .landing-faq-item {
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 14px 16px;
+    background: #f9fafb;
+  }
+
+  .landing-faq-item summary {
+    cursor: pointer;
+    font-weight: 700;
+    color: #1f2937;
+  }
+
+  .landing-faq-item p {
+    margin: 12px 0 0;
+    font-size: 15px;
+  }
+
+  .landing-final {
+    text-align: center;
+  }
+
+  .landing-final p {
+    max-width: 560px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media (max-width: 640px) {
+    .landing-hero {
+      padding: 28px 20px;
+    }
+
+    .landing-hero h1 {
+      font-size: 28px;
+    }
+
+    .landing-intro {
+      font-size: 16px;
+    }
+
+    .landing-section {
+      padding: 22px 18px;
+    }
+
+    .landing-cards {
+      grid-template-columns: 1fr;
+    }
+
+    .landing-cta {
+      display: block;
+      width: 100%;
+      box-sizing: border-box;
+    }
+  }
+</style>
