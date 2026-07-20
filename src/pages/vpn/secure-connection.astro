@@ -1,0 +1,189 @@
+---
+const clickUrl = "/go/secure-offer";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Protect Your Internet Connection</title>
+    <meta
+      name="description"
+      content="Review NordVPN plans for a more private and secure internet connection."
+    />
+
+    <meta name="robots" content="noindex, nofollow" />
+  </head>
+
+  <body>
+    <main class="prelander">
+      <div class="card">
+        <div class="logo">NordVPN</div>
+
+        <p class="eyebrow">PRIVATE AND SECURE CONNECTION</p>
+
+        <h1>Protect Your Internet Connection</h1>
+
+        <p class="description">
+          NordVPN helps encrypt your internet traffic and adds protection when
+          using public or shared Wi-Fi.
+        </p>
+
+        <ul>
+          <li>Encrypted VPN connection</li>
+          <li>Apps for phone and computer</li>
+          <li>Easy to connect and use</li>
+        </ul>
+
+        <a
+          href={clickUrl}
+          class="cta"
+          rel="nofollow sponsored"
+        >
+          View NordVPN Plans
+        </a>
+
+        <p class="redirect-note">
+          You will continue to the official NordVPN website.
+        </p>
+
+        <p class="disclosure">
+          This page contains an affiliate link. Plans and prices may change.
+        </p>
+      </div>
+    </main>
+  </body>
+</html>
+
+<style>
+  :global(*) {
+    box-sizing: border-box;
+  }
+
+  :global(html),
+  :global(body) {
+    margin: 0;
+    min-height: 100%;
+  }
+
+  :global(body) {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f3f6fb;
+    color: #172033;
+  }
+
+  .prelander {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 560px;
+    padding: 38px 32px;
+    text-align: center;
+    background: #ffffff;
+    border: 1px solid #e1e7f0;
+    border-radius: 20px;
+    box-shadow: 0 18px 50px rgba(15, 23, 42, 0.1);
+  }
+
+  .logo {
+    display: inline-block;
+    margin-bottom: 24px;
+    color: #1e3a8a;
+    font-size: 30px;
+    font-weight: 800;
+  }
+
+  .eyebrow {
+    margin: 0 0 12px;
+    color: #ff8a00;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+  }
+
+  h1 {
+    margin: 0 0 16px;
+    font-size: 38px;
+    line-height: 1.15;
+  }
+
+  .description {
+    margin: 0 auto 20px;
+    max-width: 470px;
+    color: #526071;
+    font-size: 17px;
+    line-height: 1.6;
+  }
+
+  ul {
+    display: inline-block;
+    margin: 0 0 26px;
+    padding-left: 22px;
+    text-align: left;
+    color: #354052;
+    line-height: 1.9;
+  }
+
+  .cta {
+    display: block;
+    width: 100%;
+    padding: 17px 22px;
+    color: #ffffff;
+    background: #1e3a8a;
+    border-radius: 12px;
+    font-size: 19px;
+    font-weight: 800;
+    text-decoration: none;
+    transition:
+      transform 0.2s ease,
+      opacity 0.2s ease;
+  }
+
+  .cta:hover {
+    opacity: 0.92;
+    transform: translateY(-1px);
+  }
+
+  .redirect-note {
+    margin: 14px 0 0;
+    color: #657184;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .disclosure {
+    margin: 22px 0 0;
+    color: #8a94a3;
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 600px) {
+    .prelander {
+      align-items: flex-start;
+      padding: 14px;
+    }
+
+    .card {
+      margin-top: 20px;
+      padding: 30px 20px;
+      border-radius: 16px;
+    }
+
+    h1 {
+      font-size: 30px;
+    }
+
+    .description {
+      font-size: 16px;
+    }
+  }
+</style>
