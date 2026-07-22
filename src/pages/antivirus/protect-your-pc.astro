@@ -36,7 +36,7 @@ const CTA_URL = "/go/avast-bemob";
 
     <meta name="theme-color" content="#ff7800" />
 
-    <link rel="icon" href="/favicon.svg" />
+    <link rel="icon" href="/avast-icon.png" />
   </head>
 
   <body>
@@ -49,17 +49,15 @@ const CTA_URL = "/go/avast-bemob";
 
         <div class="hero-content">
           <div class="brand">
-            <!--
-              После получения материалов от Марии положи логотип сюда:
-              public/images/avast/avast-logo.png
-            -->
+          
             <img
-              src="/images/avast/avast-logo.png"
-              alt="Avast"
-              class="brand-logo"
-              width="180"
+              src="/images/avast/avast-icon.png"
+              alt=""
+              class="brand-icon"
+              width="54"
               height="54"
             />
+            <span class="brand-name">Avast</span>
           </div>
 
           <p class="eyebrow">ANTIVIRUS PROTECTION FOR WINDOWS</p>
@@ -378,18 +376,27 @@ const CTA_URL = "/go/avast-bemob";
   }
 
   .brand {
-    min-height: 54px;
-    display: flex;
-    align-items: center;
-    margin-bottom: 38px;
-  }
+  min-height: 54px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 38px;
+}
 
-  .brand-logo {
-    width: auto;
-    max-width: 150px;
-    max-height: 44px;
-    object-fit: contain;
-  }
+.brand-icon {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
+.brand-name {
+  color: #ffffff;
+  font-size: 34px;
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+}
 
   .eyebrow,
   .section-eyebrow {
