@@ -5,11 +5,18 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   output: 'server',
   adapter: cloudflare(),
-  trailingSlash: "always",
+  trailingSlash: 'always',
 
   site: 'https://techtoolreviews.com',
 
   integrations: [
-    sitemap()
+    sitemap({
+      filter: (page) => {
+        const pathname = new URL(page).pathname;
+
+        return pathname !== '/antivirus/protect-your-pc/' &&
+               pathname !== '/antivirus/protect-your-pc';
+      }
+    })
   ]
 });
