@@ -15,7 +15,9 @@ export default defineConfig({
         const pathname = new URL(page).pathname;
 
         return pathname !== '/antivirus/protect-your-pc/' &&
-               pathname !== '/antivirus/protect-your-pc';
+               pathname !== '/antivirus/protect-your-pc' &&
+               pathname !== '/vpn/secure-internet-connection/' &&
+               pathname !== '/vpn/secure-internet-connection';
       }
     })
   ]
