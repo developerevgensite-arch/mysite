@@ -16,6 +16,8 @@ export default defineConfig({
 
         return pathname !== '/antivirus/protect-your-pc/' &&
                pathname !== '/antivirus/protect-your-pc' &&
+               pathname !== '/antivirus/pobierz-avast/' &&
+               pathname !== '/antivirus/pobierz-avast' &&
                pathname !== '/vpn/secure-internet-connection/' &&
                pathname !== '/vpn/secure-internet-connection';
       }
