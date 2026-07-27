@@ -74,11 +74,11 @@ const CTA_URL = "/go/avast-bemob";
           <div class="hero-actions">
             <a
               href={CTA_URL}
-              class="primary-button"
+              class="primary-button download-cta"
               rel="nofollow sponsored"
             >
               <span class="download-icon" aria-hidden="true">↓</span>
-              Download Avast Free
+              <span class="download-label">Download Avast Free</span>
             </a>
 
             <p class="download-note">
@@ -229,11 +229,11 @@ const CTA_URL = "/go/avast-bemob";
 
           <a
             href={CTA_URL}
-            class="primary-button primary-button-full"
+            class="primary-button primary-button-full download-cta"
             rel="nofollow sponsored"
           >
             <span class="download-icon" aria-hidden="true">↓</span>
-            Download Avast Free
+            <span class="download-label">Download Avast Free</span>
           </a>
 
           <p class="download-note centered">
@@ -261,11 +261,11 @@ const CTA_URL = "/go/avast-bemob";
 
         <a
           href={CTA_URL}
-          class="primary-button final-button"
+          class="primary-button final-button download-cta"
           rel="nofollow sponsored"
         >
           <span class="download-icon" aria-hidden="true">↓</span>
-          Download Free
+          <span class="download-label">Download Free</span>
         </a>
       </section>
 
@@ -276,7 +276,136 @@ const CTA_URL = "/go/avast-bemob";
         </p>
       </section>
 
+
+      <div
+        id="download-status"
+        class="download-status"
+        role="status"
+        aria-live="polite"
+        aria-hidden="true"
+      >
+        <span
+          id="download-status-icon"
+          class="download-spinner"
+          aria-hidden="true"
+        ></span>
+
+        <div>
+          <strong id="download-status-title">
+            Preparing your download…
+          </strong>
+
+          <span id="download-status-text">
+            The file save window may appear in a few seconds.
+          </span>
+        </div>
+      </div>
+
     </main>
+
+    <script is:inline>
+      const downloadButtons = document.querySelectorAll('.download-cta');
+      const downloadStatus = document.getElementById('download-status');
+      const downloadStatusIcon = document.getElementById('download-status-icon');
+      const downloadStatusTitle = document.getElementById('download-status-title');
+      const downloadStatusText = document.getElementById('download-status-text');
+
+      let statusTimer;
+      let hideTimer;
+
+      function resetDownloadUi() {
+        window.clearTimeout(statusTimer);
+        window.clearTimeout(hideTimer);
+
+        downloadButtons.forEach((button) => {
+          button.classList.remove('is-loading');
+          button.removeAttribute('aria-busy');
+
+          const label = button.querySelector('.download-label');
+
+          if (label) {
+            label.textContent = button.classList.contains('final-button')
+              ? 'Download Free'
+              : 'Download Avast Free';
+          }
+        });
+
+        if (downloadStatus) {
+          downloadStatus.classList.remove('is-visible', 'is-ready');
+          downloadStatus.setAttribute('aria-hidden', 'true');
+        }
+
+        if (downloadStatusIcon) {
+          downloadStatusIcon.className = 'download-spinner';
+          downloadStatusIcon.textContent = '';
+        }
+
+        if (downloadStatusTitle) {
+          downloadStatusTitle.textContent = 'Preparing your download…';
+        }
+
+        if (downloadStatusText) {
+          downloadStatusText.textContent =
+            'The file save window may appear in a few seconds.';
+        }
+      }
+
+      downloadButtons.forEach((button) => {
+        button.addEventListener('click', () => {
+          resetDownloadUi();
+
+          button.classList.add('is-loading');
+          button.setAttribute('aria-busy', 'true');
+
+          const label = button.querySelector('.download-label');
+
+          if (label) {
+            label.textContent = 'Preparing download…';
+          }
+
+          if (downloadStatus) {
+            downloadStatus.setAttribute('aria-hidden', 'false');
+            downloadStatus.classList.add('is-visible');
+          }
+
+          statusTimer = window.setTimeout(() => {
+            if (downloadStatus) {
+              downloadStatus.classList.add('is-ready');
+            }
+
+            if (downloadStatusIcon) {
+              downloadStatusIcon.className = 'download-ready-icon';
+              downloadStatusIcon.textContent = '✓';
+            }
+
+            if (downloadStatusTitle) {
+              downloadStatusTitle.textContent =
+                'Your download should have started';
+            }
+
+            if (downloadStatusText) {
+              downloadStatusText.textContent =
+                'Check the file save window or your browser downloads list.';
+            }
+
+            button.classList.remove('is-loading');
+            button.removeAttribute('aria-busy');
+
+            if (label) {
+              label.textContent = button.classList.contains('final-button')
+                ? 'Download Free'
+                : 'Download Avast Free';
+            }
+          }, 4500);
+
+          hideTimer = window.setTimeout(() => {
+            resetDownloadUi();
+          }, 12000);
+        });
+      });
+
+      window.addEventListener('pageshow', resetDownloadUi);
+    </script>
   </body>
 </html>
 
@@ -833,6 +962,112 @@ const CTA_URL = "/go/avast-bemob";
     color: #7f8998;
     font-size: 12px;
     line-height: 1.7;
+  }
+
+
+  .download-cta.is-loading {
+    pointer-events: none;
+    opacity: 0.94;
+  }
+
+  .download-status {
+    position: fixed;
+    z-index: 9999;
+    right: 22px;
+    bottom: 22px;
+    width: min(410px, calc(100vw - 32px));
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 17px 19px;
+    border: 2px solid rgba(255, 157, 61, 0.92);
+    border-radius: 15px;
+    background:
+      linear-gradient(
+        135deg,
+        rgba(52, 29, 12, 0.98),
+        rgba(18, 23, 36, 0.98)
+      );
+    box-shadow:
+      0 22px 60px rgba(0, 0, 0, 0.5),
+      0 0 0 4px rgba(255, 120, 0, 0.1),
+      0 0 32px rgba(255, 120, 0, 0.28);
+    opacity: 0;
+    transform: translateY(18px) scale(0.98);
+    pointer-events: none;
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease,
+      border-color 0.2s ease,
+      background 0.2s ease;
+  }
+
+  .download-status.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .download-status.is-ready {
+    border-color: rgba(98, 216, 78, 0.85);
+    background:
+      linear-gradient(
+        135deg,
+        rgba(22, 49, 25, 0.98),
+        rgba(18, 23, 36, 0.98)
+      );
+    box-shadow:
+      0 22px 60px rgba(0, 0, 0, 0.5),
+      0 0 0 4px rgba(98, 216, 78, 0.08),
+      0 0 28px rgba(98, 216, 78, 0.18);
+  }
+
+  .download-status strong,
+  .download-status span {
+    display: block;
+  }
+
+  .download-status strong {
+    margin-bottom: 4px;
+    color: #ffffff;
+    font-size: 16px;
+    line-height: 1.3;
+  }
+
+  .download-status div > span {
+    color: #d7dce5;
+    font-size: 13px;
+    line-height: 1.5;
+  }
+
+  .download-spinner,
+  .download-ready-icon {
+    width: 32px;
+    height: 32px;
+    flex: 0 0 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+
+  .download-spinner {
+    border: 3px solid rgba(255, 255, 255, 0.24);
+    border-top-color: var(--avast-orange-light);
+    animation: download-spin 0.8s linear infinite;
+  }
+
+  .download-ready-icon {
+    border: 2px solid rgba(98, 216, 78, 0.8);
+    background: rgba(98, 216, 78, 0.14);
+    color: #8bea78;
+    font-size: 20px;
+    font-weight: 900;
+  }
+
+  @keyframes download-spin {
+    to {
+      transform: rotate(360deg);
+    }
   }
 
   @media (max-width: 980px) {
