@@ -1,25 +1,37 @@
 import { defineConfig } from 'astro/config';
 import cloudflare from '@astrojs/cloudflare';
 import sitemap from '@astrojs/sitemap';
+import reviews from './src/data/reviews.json';
+
+const site = 'https://techtoolreviews.com';
+
+const reviewPages = reviews.map(
+  ({ category, slug }) => `${site}/${category}/${slug}/`
+);
+
+const noindexPages = new Set([
+  '/antivirus/protect-your-pc/',
+  '/antivirus/pobierz-avast/',
+  '/vpn/secure-connection/',
+  '/vpn/secure-internet-connection/'
+]);
 
 export default defineConfig({
   output: 'server',
   adapter: cloudflare(),
   trailingSlash: 'always',
 
-  site: 'https://techtoolreviews.com',
+  site,
 
   integrations: [
     sitemap({
+      customPages: reviewPages,
       filter: (page) => {
         const pathname = new URL(page).pathname;
+        const canonicalPathname = pathname.endsWith('/') ? pathname : `${pathname}/`;
 
-        return pathname !== '/antivirus/protect-your-pc/' &&
-               pathname !== '/antivirus/protect-your-pc' &&
-               pathname !== '/antivirus/pobierz-avast/' &&
-               pathname !== '/antivirus/pobierz-avast' &&
-               pathname !== '/vpn/secure-internet-connection/' &&
-               pathname !== '/vpn/secure-internet-connection';
+        return !canonicalPathname.startsWith('/go/') &&
+               !noindexPages.has(canonicalPathname);
       }
     })
   ]

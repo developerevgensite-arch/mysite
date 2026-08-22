@@ -126,14 +126,18 @@ const faqJsonLd = {
                 <a href={`/${item.category}/${item.slug}`} class="btn btn-secondary">
                   Read {item.name} Review →
                 </a>
-                <a
-                  href={item.affiliate}
-                  class="btn btn-primary"
-                  target="_blank"
-                  rel="nofollow sponsored noopener"
-                >
-                  Get Plugin →
-                </a>
+                {item.affiliate ? (
+                  <a
+                    href={item.affiliate}
+                    class="btn btn-primary"
+                    target="_blank"
+                    rel="nofollow sponsored noopener"
+                  >
+                    Get Plugin →
+                  </a>
+                ) : (
+                  <span class="btn btn-primary disabled" aria-disabled="true">Link coming soon</span>
+                )}
               </div>
             </div>
           ))}

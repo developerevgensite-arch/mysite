@@ -129,14 +129,18 @@ const faqJsonLd = {
                 <a href={`/${item.category}/${item.slug}`} class="btn btn-secondary">
                   Read {item.name} Review →
                 </a>
-                <a
-                  href={item.affiliate}
-                  class="btn btn-primary"
-                  target="_blank"
-                  rel="nofollow sponsored noopener"
-                >
-                  Try Plugin →
-                </a>
+                {item.affiliate ? (
+                  <a
+                    href={item.affiliate}
+                    class="btn btn-primary"
+                    target="_blank"
+                    rel="nofollow sponsored noopener"
+                  >
+                    Try Plugin →
+                  </a>
+                ) : (
+                  <span class="btn btn-primary disabled" aria-disabled="true">Link coming soon</span>
+                )}
               </div>
             </div>
           ))}
@@ -162,14 +166,7 @@ const faqJsonLd = {
         </p>
 
         <div class="compare-bottom-cta">
-          <a
-            href="/go/wordfence"
-            class="btn btn-primary"
-            target="_blank"
-            rel="nofollow sponsored noopener"
-          >
-            Secure Your Site →
-          </a>
+          <span class="btn btn-primary disabled" aria-disabled="true">Link coming soon</span>
         </div>
       </section>
 
@@ -217,14 +214,7 @@ const faqJsonLd = {
       <div class="compare-sidebar-box">
         <h3>Best Starting Point</h3>
         <p>Start with a basic security plugin and upgrade later.</p>
-        <a
-          href="/go/wordfence"
-          class="btn btn-primary compare-sidebar-btn"
-          target="_blank"
-          rel="nofollow sponsored noopener"
-        >
-          Start Protection →
-        </a>
+        <span class="btn btn-primary compare-sidebar-btn disabled" aria-disabled="true">Link coming soon</span>
       </div>
 
     </aside>

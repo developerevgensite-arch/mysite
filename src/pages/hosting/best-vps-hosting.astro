@@ -120,14 +120,18 @@ const faqJsonLd = {
                   <a href={`/${item.category}/${item.slug}`} class="btn btn-secondary">
                     Read {item.name} Review →
                   </a>
-                  <a
-                    href={item.affiliate}
-                    class="btn btn-primary"
-                    target="_blank"
-                    rel="nofollow sponsored noopener"
-                  >
-                    Check Price →
-                  </a>
+                  {item.affiliate ? (
+                    <a
+                      href={item.affiliate}
+                      class="btn btn-primary"
+                      target="_blank"
+                      rel="nofollow sponsored noopener"
+                    >
+                      Check Price →
+                    </a>
+                  ) : (
+                    <span class="btn btn-primary disabled" aria-disabled="true">Link coming soon</span>
+                  )}
                 </div>
               </div>
             ))}
@@ -159,14 +163,7 @@ const faqJsonLd = {
           </p>
 
           <div class="compare-bottom-cta">
-            <a
-              href="/go/cloudways"
-              class="btn btn-primary"
-              target="_blank"
-              rel="nofollow sponsored noopener"
-            >
-              Try VPS Hosting →
-            </a>
+            <span class="btn btn-primary disabled" aria-disabled="true">Link coming soon</span>
           </div>
         </section>
 
@@ -214,14 +211,7 @@ const faqJsonLd = {
           <p>
             Upgrade to VPS hosting when your site needs more speed and stability.
           </p>
-          <a
-            href="/go/cloudways"
-            class="btn btn-primary compare-sidebar-btn"
-            target="_blank"
-            rel="nofollow sponsored noopener"
-          >
-            Start VPS →
-          </a>
+          <span class="btn btn-primary compare-sidebar-btn disabled" aria-disabled="true">Link coming soon</span>
         </div>
       </aside>
     </div>

@@ -133,7 +133,7 @@
     "category": "hosting",
     "rating": 4.8,
     "affiliate_old": "/go/cloudways",
-    "affiliate": "https://www.cloudways.com",
+    "affiliate": "",
     "faq": [
       {
         "q": "What is Cloudways best for?",
@@ -393,7 +393,7 @@
   "rating": 4.8,
   
   "affiliate_old": "/go/wordfence",
-"affiliate": "https://www.wordfence.com/",
+"affiliate": "",
 
   "faq": [
     {
@@ -428,7 +428,7 @@
   "rating": 4.9,
   
   "affiliate_old": "/go/wp-rocket",
-"affiliate": "https://wp-rocket.me/",
+"affiliate": "",
 
   "faq": [
     {
@@ -530,7 +530,7 @@
   "rating": 4.9,
   
   "affiliate_old": "/go/rank-math",
-"affiliate": "https://rankmath.com/",
+"affiliate": "",
   "faq": [
   {
     "q": "Is Rank Math good for beginners?",

@@ -36,6 +36,13 @@ const links = {
 
 const url = links[slug];
 
+if (!Object.prototype.hasOwnProperty.call(links, slug)) {
+  return new Response("Not found", {
+    status: 404,
+    headers: { "Content-Type": "text/plain; charset=utf-8" }
+  });
+}
+
 if (url && url !== "...") {
   console.log("Affiliate click:", slug);
   return Astro.redirect(url, 302);
